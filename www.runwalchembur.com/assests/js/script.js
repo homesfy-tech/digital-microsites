@@ -1,0 +1,893 @@
+let globalCachedWidth = 0,
+    globalCachedHeight = 0;
+function updateGlobalDimensions() {
+    globalCachedWidth = window.innerWidth;
+    globalCachedHeight = window.innerHeight;
+}
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateGlobalDimensions, { once: true });
+} else {
+    requestAnimationFrame(updateGlobalDimensions);
+}
+window.addEventListener(
+    "resize",
+    () => {
+        requestAnimationFrame(updateGlobalDimensions);
+    },
+    { passive: true }
+);
+document.addEventListener("DOMContentLoaded", function () {
+    globalCachedWidth = window.innerWidth;
+    let e = null;
+    function t() {
+        // Initialize carousel for both mobile and desktop
+        let t = document.getElementById("floorPlanContainer");
+        if (globalCachedWidth > 768) {
+            // Desktop: show all items in a grid, no carousel needed
+            if (t) {
+                requestAnimationFrame(() => {
+                    t.style.transform = "none";
+                    t.style.display = "flex";
+                });
+            }
+            clearInterval(e);
+            return;
+        }
+        let i = document.getElementById("floorPlanContainer"),
+            s = document.getElementById("floorPlanPrev"),
+            l = document.getElementById("floorPlanNext"),
+            a = document.getElementById("floorPlanDots"),
+            n = i ? i.querySelectorAll(".floorPlan-box") : [];
+        if (!i || 0 === n.length) return;
+        let r = 0,
+            o = n.length;
+        (a.innerHTML = ""),
+            n.forEach((e, t) => {
+                let i = document.createElement("button");
+                i.classList.add("floorPlan-dot"),
+                    i.setAttribute("aria-label", `Go to floor plan ${t + 1}`),
+                    i.addEventListener("click", () => {
+                        (r = t), d(), m();
+                    }),
+                    a.appendChild(i);
+            });
+        let h = a.querySelectorAll(".floorPlan-dot");
+        function d() {
+            requestAnimationFrame(() => {
+                (i.style.transform = `translateX(-${100 * r}%)`),
+                    h.forEach((e, t) => {
+                        e.classList.toggle("active", t === r);
+                    }),
+                    (s.disabled = 0 === r),
+                    (l.disabled = r === o - 1);
+            });
+        }
+        function g() {
+            (r = (r + 1) % o), d();
+        }
+        function c() {
+            clearInterval(e), (e = setInterval(g, 4e3));
+        }
+        function m() {
+            clearInterval(e), c();
+        }
+        l.addEventListener("click", () => {
+            g(), m();
+        }),
+            s.addEventListener("click", () => {
+                (r = (r - 1 + o) % o), d(), m();
+            });
+        
+        // Add touch events for mobile
+        let startX = 0;
+        i.addEventListener("touchstart", (e) => {
+            startX = e.touches[0].clientX;
+            clearInterval(e);
+        }, { passive: true });
+        
+        i.addEventListener("touchend", (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    g();
+                } else {
+                    r = (r - 1 + o) % o;
+                    d();
+                }
+            }
+            m();
+        }, { passive: true });
+        
+        // Add hover events for desktop
+        i.addEventListener("mouseenter", () => clearInterval(e));
+        i.addEventListener("mouseleave", c);
+        
+        let y = i.querySelectorAll("img"),
+            u = 0;
+        y.forEach((e) => {
+            e.addEventListener("load", () => {
+                ++u === y.length && (d(), c());
+            }),
+                e.complete && u++;
+        }),
+            u === y.length && (d(), c());
+    }
+    t();
+    let resizeTimer;
+    window.addEventListener(
+        "resize",
+        () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(t, 150);
+            t();
+        },
+        { passive: true }
+    );
+});
+const debounce = (e, t) => {
+        let i;
+        return function s(...l) {
+            let a = () => {
+                clearTimeout(i), e(...l);
+            };
+            clearTimeout(i), (i = setTimeout(a, t));
+        };
+    },
+    rafThrottle = (e) => {
+        let t = null;
+        return (...i) => {
+            t ||
+                (t = requestAnimationFrame(() => {
+                    e(...i), (t = null);
+                }));
+        };
+    };
+function initBannerCarousel() {
+    let e = document.querySelector(".carouselBannerTrack"),
+        t = document.querySelector(".carouselBannerContainer"),
+        i = document.querySelector(".prev"),
+        s = document.querySelector(".next");
+    if (!e || !t || !i || !s) return;
+    let l = Array.from(e.children),
+        a = 0,
+        n,
+        r = () => {
+            e.style.transform = `translateX(-${100 * a}%)`;
+        },
+        o = () => {
+            (a = (a + 1) % l.length), r();
+        },
+        h = () => {
+            (a = (a - 1 + l.length) % l.length), r();
+        },
+        d = () => {
+            g(), (n = setInterval(o, 3e3));
+        },
+        g = () => {
+            n && (clearInterval(n), (n = null));
+        };
+    s.addEventListener("click", () => {
+        o(), d();
+    }),
+        i.addEventListener("click", () => {
+            h(), d();
+        }),
+        document.addEventListener("keydown", (e) => {
+            "ArrowRight" === e.key ? (o(), d()) : "ArrowLeft" === e.key && (h(), d());
+        }),
+        t.addEventListener("mouseenter", g),
+        t.addEventListener("mouseleave", d),
+        d();
+}
+function initNavigation() {
+    let e = document.getElementById("hamburger"),
+        t = document.getElementById("nav-menu");
+    if (!e || !t) return;
+    let i = () => {
+        t.classList.toggle("active");
+        let i = e.querySelector("i");
+        i &&
+            (t.classList.contains("active")
+                ? (i.classList.remove("fa-bars"), i.classList.add("fa-xmark"))
+                : (i.classList.remove("fa-xmark"), i.classList.add("fa-bars")));
+    };
+    e.addEventListener("click", i),
+        document.addEventListener("click", (e) => {
+            !e.target.closest("#nav-menu") && !e.target.closest("#hamburger") && t.classList.contains("active") && i();
+        });
+    let s = document.querySelectorAll(".nav-link");
+    s.forEach((e) => {
+        e.addEventListener("click", () => {
+            s.forEach((e) => e.classList.remove("active")), e.classList.add("active"), globalCachedWidth <= 768 && i();
+        });
+    });
+}
+function initOverview() {
+    let e = document.getElementById("overviewContent"),
+        t = document.getElementById("seeMoreBtn");
+    e &&
+        t &&
+        t.addEventListener("click", () => {
+            e.classList.contains("expanded")
+                ? (e.classList.remove("expanded"), (t.innerText = "Read More"))
+                : (e.classList.add("expanded"), (t.innerText = "Read Less"));
+        });
+}
+class AmenitiesCarousel {
+    constructor() {
+        if (
+            ((this.originalSlides = Array.from(document.querySelectorAll(".amenities-slide"))),
+            0 === this.originalSlides.length)
+        )
+            return;
+        (this.amenitiesTotalSlides = this.originalSlides.length),
+            (this.amenitiesImages = []),
+            (this.amenitiesTexts = []),
+            this.originalSlides.forEach((e) => {
+                let t = e.querySelector(".amenities-image"),
+                    i = e.querySelector(".amenities-text-overlay");
+                t &&
+                    i &&
+                    (this.amenitiesImages.push(t.src),
+                    this.amenitiesTexts.push(i.textContent),
+                    (t.onerror = () => {
+                        t.src =
+                            "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiNGM0Y0RjYiLz48L3N2Zz4=";
+                    }));
+            }),
+            (this.amenitiesCurrentIndex = 0),
+            (this.amenitiesTrack = document.getElementById("amenitiesTrack")),
+            (this.amenitiesDotsContainer = document.getElementById("amenitiesDots")),
+            (this.amenitiesPrevBtn = document.getElementById("amenitiesPrev")),
+            (this.amenitiesNextBtn = document.getElementById("amenitiesNext")),
+            (this.amenitiesAutoPlayInterval = null),
+            (this.amenitiesIsTransitioning = !1),
+            (this.amenitiesPosition = this.amenitiesTotalSlides),
+            (this.amenitiesLightbox = document.getElementById("amenitiesLightbox")),
+            (this.amenitiesLightboxImage = document.getElementById("amenitiesLightboxImage")),
+            (this.amenitiesLightboxClose = document.getElementById("amenitiesLightboxClose")),
+            (this.amenitiesLightboxPrev = document.getElementById("amenitiesLightboxPrev")),
+            (this.amenitiesLightboxNext = document.getElementById("amenitiesLightboxNext")),
+            (this.amenitiesLightboxCounter = document.getElementById("amenitiesLightboxCounter")),
+            (this.amenitiesLightboxTitle = document.getElementById("amenitiesLightboxTitle")),
+            (this.amenitiesLightboxCurrentIndex = 0),
+            this.amenitiesTrack && this.amenitiesInit();
+        
+        // Store instance globally for external access
+        window.amenitiesCarousel = this;
+    }
+    amenitiesInit() {
+        this.amenitiesCloneSlides(),
+        this.amenitiesCreateDots(),
+        this.amenitiesBindEvents(),
+        this.amenitiesBindLightboxEvents(),
+        this.amenitiesUpdateCarousel();
+        
+        // Start auto-play immediately
+        this.amenitiesStartAutoPlay();
+        
+        // Fallback: ensure auto-play starts after a short delay
+        setTimeout(() => {
+            if (!this.amenitiesAutoPlayInterval) {
+                this.amenitiesStartAutoPlay();
+            }
+        }, 1000);
+        
+        // Also use IntersectionObserver for better performance
+        if ("IntersectionObserver" in window) {
+            new IntersectionObserver(
+                (e) => {
+                    e.forEach((e) => {
+                        e.isIntersecting ? this.amenitiesStartAutoPlay() : this.amenitiesStopAutoPlay();
+                    });
+                },
+                { threshold: 0.1 }
+            ).observe(this.amenitiesTrack);
+        }
+    }
+    amenitiesCloneSlides() {
+        let e = document.createDocumentFragment(),
+            t = document.createDocumentFragment();
+        for (let i = 0; i < 3; i++) t.appendChild(this.originalSlides[i].cloneNode(!0));
+        for (let s = this.amenitiesTotalSlides - 3; s < this.amenitiesTotalSlides; s++)
+            e.appendChild(this.originalSlides[s].cloneNode(!0));
+        this.amenitiesTrack.prepend(e), this.amenitiesTrack.appendChild(t), this.amenitiesSetupImageClickEvents();
+    }
+    amenitiesSetupImageClickEvents() {
+        let e = this.amenitiesTrack.querySelectorAll(".amenities-slide");
+        e.forEach((t, i) => {
+            let s = t.querySelector(".amenities-image");
+            s &&
+                s.addEventListener("click", () => {
+                    let t = (i - 3 + e.length) % this.amenitiesTotalSlides;
+                    this.openAmenitiesLightbox(t);
+                });
+        });
+    }
+    amenitiesCreateDots() {
+        for (let e = 0; e < this.amenitiesTotalSlides; e++) {
+            let t = document.createElement("button");
+            (t.className = "amenities-dot"),
+                t.setAttribute("aria-label", `Go to ${e + 1} Amenities Preview`),
+                t.addEventListener("click", () => this.amenitiesGoToSlide(e)),
+                this.amenitiesDotsContainer.appendChild(t);
+        }
+    }
+    amenitiesBindEvents() {
+        this.amenitiesPrevBtn.addEventListener("click", () => this.amenitiesPrevSlide()),
+            this.amenitiesNextBtn.addEventListener("click", () => this.amenitiesNextSlide());
+        let e = 0,
+            t = 0;
+        this.amenitiesTrack.addEventListener(
+            "touchstart",
+            (t) => {
+                e = t.touches[0].clientX;
+            },
+            { passive: !0 }
+        ),
+            this.amenitiesTrack.addEventListener(
+                "touchend",
+                (i) => {
+                    let s = e - (t = i.changedTouches[0].clientX);
+                    Math.abs(s) > 50 && (s > 0 ? this.amenitiesNextSlide() : this.amenitiesPrevSlide());
+                },
+                { passive: !0 }
+            ),
+            this.amenitiesTrack.addEventListener("mouseenter", () => this.amenitiesStopAutoPlay()),
+            this.amenitiesTrack.addEventListener("mouseleave", () => this.amenitiesStartAutoPlay());
+    }
+    amenitiesBindLightboxEvents() {
+        this.amenitiesLightboxClose.addEventListener("click", () => this.closeAmenitiesLightbox()),
+            this.amenitiesLightbox.addEventListener("click", (e) => {
+                e.target === this.amenitiesLightbox && this.closeAmenitiesLightbox();
+            }),
+            this.amenitiesLightboxPrev.addEventListener("click", () => this.amenitiesLightboxPrevImage()),
+            this.amenitiesLightboxNext.addEventListener("click", () => this.amenitiesLightboxNextImage()),
+            document.addEventListener("keydown", (e) => {
+                "Escape" === e.key &&
+                    this.amenitiesLightbox.classList.contains("active") &&
+                    this.closeAmenitiesLightbox();
+            });
+    }
+    openAmenitiesLightbox(e) {
+        (this.amenitiesLightboxCurrentIndex = e),
+            (this.amenitiesLightboxImage.src = this.amenitiesImages[e]),
+            (this.amenitiesLightboxTitle.textContent = this.amenitiesTexts[e]),
+            this.updateAmenitiesLightboxCounter(),
+            this.amenitiesLightbox.classList.add("active"),
+            this.amenitiesStopAutoPlay();
+    }
+    closeAmenitiesLightbox() {
+        this.amenitiesLightbox.classList.remove("active"),
+            this.amenitiesStartAutoPlay(),
+            (document.body.style.overflow = "auto");
+    }
+    amenitiesLightboxPrevImage() {
+        (this.amenitiesLightboxCurrentIndex =
+            (this.amenitiesLightboxCurrentIndex - 1 + this.amenitiesTotalSlides) % this.amenitiesTotalSlides),
+            (this.amenitiesLightboxImage.src = this.amenitiesImages[this.amenitiesLightboxCurrentIndex]),
+            (this.amenitiesLightboxTitle.textContent = this.amenitiesTexts[this.amenitiesLightboxCurrentIndex]),
+            this.updateAmenitiesLightboxCounter();
+    }
+    amenitiesLightboxNextImage() {
+        (this.amenitiesLightboxCurrentIndex = (this.amenitiesLightboxCurrentIndex + 1) % this.amenitiesTotalSlides),
+            (this.amenitiesLightboxImage.src = this.amenitiesImages[this.amenitiesLightboxCurrentIndex]),
+            (this.amenitiesLightboxTitle.textContent = this.amenitiesTexts[this.amenitiesLightboxCurrentIndex]),
+            this.updateAmenitiesLightboxCounter();
+    }
+    updateAmenitiesLightboxCounter() {
+        this.amenitiesLightboxCounter.textContent = `${this.amenitiesLightboxCurrentIndex + 1} / ${this.amenitiesTotalSlides}`;
+    }
+    amenitiesUpdateCarousel() {
+        requestAnimationFrame(() => {
+            let e = this.amenitiesTrack.querySelectorAll(".amenities-slide"),
+                t = this.amenitiesDotsContainer.querySelectorAll(".amenities-dot"),
+                i = globalCachedWidth <= 768,
+                s = this.amenitiesPosition + 1;
+            e.forEach((e, t) => {
+                e.classList.toggle("amenities-center", t === s);
+            }),
+                t.forEach((e, t) => {
+                    e.classList.toggle("amenities-active", t === this.amenitiesCurrentIndex);
+                });
+            let l = -(this.amenitiesPosition * (i ? 100 : 33.333));
+            this.amenitiesTrack.style.transform = `translateX(${l}%)`;
+        });
+    }
+    amenitiesNextSlide() {
+        this.amenitiesIsTransitioning ||
+            ((this.amenitiesIsTransitioning = !0),
+            this.amenitiesPosition++,
+            (this.amenitiesCurrentIndex = (this.amenitiesCurrentIndex + 1) % this.amenitiesTotalSlides),
+            this.amenitiesUpdateCarousel(),
+            setTimeout(() => {
+                let e = this.amenitiesTrack.querySelectorAll(".amenities-slide").length;
+                if (this.amenitiesPosition >= e - 3) {
+                    (this.amenitiesTrack.style.transition = "none"), (this.amenitiesPosition = 3);
+                    let t = globalCachedWidth <= 768;
+                    (this.amenitiesTrack.style.transform = `translateX(-${this.amenitiesPosition * (t ? 100 : 33.333)}%)`),
+                        setTimeout(() => {
+                            this.amenitiesTrack.style.transition = "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
+                        }, 50);
+                }
+                this.amenitiesIsTransitioning = !1;
+            }, 800));
+    }
+    amenitiesPrevSlide() {
+        this.amenitiesIsTransitioning ||
+            ((this.amenitiesIsTransitioning = !0),
+            this.amenitiesPosition--,
+            (this.amenitiesCurrentIndex =
+                (this.amenitiesCurrentIndex - 1 + this.amenitiesTotalSlides) % this.amenitiesTotalSlides),
+            this.amenitiesUpdateCarousel(),
+            setTimeout(() => {
+                if (this.amenitiesPosition <= 0) {
+                    this.amenitiesTrack.style.transition = "none";
+                    let e = this.amenitiesTrack.querySelectorAll(".amenities-slide").length;
+                    this.amenitiesPosition = e - 6;
+                    let t = globalCachedWidth <= 768;
+                    (this.amenitiesTrack.style.transform = `translateX(-${this.amenitiesPosition * (t ? 100 : 33.333)}%)`),
+                        setTimeout(() => {
+                            this.amenitiesTrack.style.transition = "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
+                        }, 50);
+                }
+                this.amenitiesIsTransitioning = !1;
+            }, 800));
+    }
+    amenitiesGoToSlide(e) {
+        if (this.amenitiesIsTransitioning || e === this.amenitiesCurrentIndex) return;
+        this.amenitiesIsTransitioning = !0;
+        let t = e - this.amenitiesCurrentIndex;
+        (this.amenitiesPosition += t),
+            (this.amenitiesCurrentIndex = e),
+            this.amenitiesUpdateCarousel(),
+            setTimeout(() => {
+                this.amenitiesIsTransitioning = !1;
+            }, 800);
+    }
+    amenitiesStartAutoPlay() {
+        this.amenitiesStopAutoPlay();
+        this.amenitiesAutoPlayInterval = setInterval(() => {
+            this.amenitiesNextSlide();
+        }, 4e3);
+    }
+    amenitiesStopAutoPlay() {
+        this.amenitiesAutoPlayInterval &&
+            (clearInterval(this.amenitiesAutoPlayInterval), (this.amenitiesAutoPlayInterval = null));
+    }
+}
+class GalleryCarousel {
+    constructor() {
+        if (
+            ((this.originalSlides = Array.from(document.querySelectorAll(".gallery-carousel-slide"))),
+            0 === this.originalSlides.length)
+        )
+            return;
+        (this.galleryTotalSlides = this.originalSlides.length),
+            (this.galleryImages = []),
+            this.originalSlides.forEach((e) => {
+                let t = e.querySelector(".gallery-carousel-image");
+                t &&
+                    (this.galleryImages.push(t.src),
+                    (t.onerror = () => {
+                        t.src =
+                            "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiNGM0Y0RjYiLz48L3N2Zz4=";
+                    }));
+            }),
+            (this.galleryCurrentIndex = 0),
+            (this.galleryTrack = document.getElementById("galleryCarouselTrack")),
+            (this.galleryDotsContainer = document.getElementById("galleryCarouselDots")),
+            (this.galleryPrevBtn = document.getElementById("galleryCarouselPrev")),
+            (this.galleryNextBtn = document.getElementById("galleryCarouselNext")),
+            (this.galleryAutoPlayInterval = null),
+            (this.galleryIsTransitioning = !1),
+            (this.galleryPosition = this.galleryTotalSlides),
+            (this.galleryLightbox = document.getElementById("galleryCarouselLightbox")),
+            (this.galleryLightboxImage = document.getElementById("galleryCarouselLightboxImage")),
+            (this.galleryLightboxClose = document.getElementById("galleryCarouselLightboxClose")),
+            (this.galleryLightboxPrev = document.getElementById("galleryCarouselLightboxPrev")),
+            (this.galleryLightboxNext = document.getElementById("galleryCarouselLightboxNext")),
+            (this.galleryLightboxCounter = document.getElementById("galleryCarouselLightboxCounter")),
+            (this.galleryLightboxCurrentIndex = 0),
+            this.galleryTrack && this.galleryInit();
+        
+        // Store instance globally for external access
+        window.galleryCarousel = this;
+    }
+    galleryInit() {
+        this.galleryCloneSlides(),
+        this.galleryCreateDots(),
+        this.galleryBindEvents(),
+        this.galleryBindLightboxEvents(),
+        this.galleryUpdateCarousel();
+        
+        // Start auto-play immediately
+        this.galleryStartAutoPlay();
+        
+        // Fallback: ensure auto-play starts after a short delay
+        setTimeout(() => {
+            if (!this.galleryAutoPlayInterval) {
+                this.galleryStartAutoPlay();
+            }
+        }, 1000);
+        
+        // Also use IntersectionObserver for better performance
+        if ("IntersectionObserver" in window) {
+            new IntersectionObserver(
+                (e) => {
+                    e.forEach((e) => {
+                        e.isIntersecting ? this.galleryStartAutoPlay() : this.galleryStopAutoPlay();
+                    });
+                },
+                { threshold: 0.1 }
+            ).observe(this.galleryTrack);
+        }
+    }
+    galleryCloneSlides() {
+        let e = document.createDocumentFragment(),
+            t = document.createDocumentFragment();
+        for (let i = 0; i < 3; i++) t.appendChild(this.originalSlides[i].cloneNode(!0));
+        for (let s = this.galleryTotalSlides - 3; s < this.galleryTotalSlides; s++)
+            e.appendChild(this.originalSlides[s].cloneNode(!0));
+        this.galleryTrack.prepend(e), this.galleryTrack.appendChild(t), this.gallerySetupImageClickEvents();
+    }
+    gallerySetupImageClickEvents() {
+        let e = this.galleryTrack.querySelectorAll(".gallery-carousel-slide");
+        e.forEach((t, i) => {
+            let s = t.querySelector(".gallery-carousel-image");
+            s &&
+                s.addEventListener("click", () => {
+                    let t = (i - 3 + e.length) % this.galleryTotalSlides;
+                    this.openGalleryLightbox(t);
+                });
+        });
+    }
+    galleryCreateDots() {
+        for (let e = 0; e < this.galleryTotalSlides; e++) {
+            let t = document.createElement("button");
+            (t.className = "gallery-carousel-dot"),
+                t.setAttribute("aria-label", `Go to ${e + 1} Gallery Image`),
+                t.addEventListener("click", () => this.galleryGoToSlide(e)),
+                this.galleryDotsContainer.appendChild(t);
+        }
+    }
+    galleryBindEvents() {
+        this.galleryPrevBtn.addEventListener("click", () => this.galleryPrevSlide()),
+            this.galleryNextBtn.addEventListener("click", () => this.galleryNextSlide());
+        let e = 0,
+            t = 0;
+        this.galleryTrack.addEventListener(
+            "touchstart",
+            (t) => {
+                e = t.touches[0].clientX;
+            },
+            { passive: !0 }
+        ),
+            this.galleryTrack.addEventListener(
+                "touchend",
+                (i) => {
+                    let s = e - (t = i.changedTouches[0].clientX);
+                    Math.abs(s) > 50 && (s > 0 ? this.galleryNextSlide() : this.galleryPrevSlide());
+                },
+                { passive: !0 }
+            ),
+            this.galleryTrack.addEventListener("mouseenter", () => this.galleryStopAutoPlay()),
+            this.galleryTrack.addEventListener("mouseleave", () => this.galleryStartAutoPlay());
+    }
+    galleryBindLightboxEvents() {
+        this.galleryLightboxClose.addEventListener("click", () => this.closeGalleryLightbox()),
+            this.galleryLightbox.addEventListener("click", (e) => {
+                e.target === this.galleryLightbox && this.closeGalleryLightbox();
+            }),
+            this.galleryLightboxPrev.addEventListener("click", () => this.galleryLightboxPrevImage()),
+            this.galleryLightboxNext.addEventListener("click", () => this.galleryLightboxNextImage());
+    }
+    openGalleryLightbox(e) {
+        (this.galleryLightboxCurrentIndex = e),
+            (this.galleryLightboxImage.src = this.galleryImages[e]),
+            this.updateGalleryLightboxCounter(),
+            this.galleryLightbox.classList.add("active"),
+            this.galleryStopAutoPlay();
+    }
+    closeGalleryLightbox() {
+        this.galleryLightbox.classList.remove("active"),
+            this.galleryStartAutoPlay(),
+            (document.body.style.overflow = "auto");
+    }
+    galleryLightboxPrevImage() {
+        (this.galleryLightboxCurrentIndex =
+            (this.galleryLightboxCurrentIndex - 1 + this.galleryTotalSlides) % this.galleryTotalSlides),
+            (this.galleryLightboxImage.src = this.galleryImages[this.galleryLightboxCurrentIndex]),
+            this.updateGalleryLightboxCounter();
+    }
+    galleryLightboxNextImage() {
+        (this.galleryLightboxCurrentIndex = (this.galleryLightboxCurrentIndex + 1) % this.galleryTotalSlides),
+            (this.galleryLightboxImage.src = this.galleryImages[this.galleryLightboxCurrentIndex]),
+            this.updateGalleryLightboxCounter();
+    }
+    updateGalleryLightboxCounter() {
+        this.galleryLightboxCounter.textContent = `${this.galleryLightboxCurrentIndex + 1} / ${this.galleryTotalSlides}`;
+    }
+    galleryUpdateCarousel() {
+        requestAnimationFrame(() => {
+            let e = this.galleryTrack.querySelectorAll(".gallery-carousel-slide"),
+                t = this.galleryDotsContainer.querySelectorAll(".gallery-carousel-dot"),
+                i = globalCachedWidth <= 768,
+                s = this.galleryPosition + 1;
+            e.forEach((e, t) => {
+                e.classList.toggle("gallery-carousel-center", t === s);
+            }),
+                t.forEach((e, t) => {
+                    e.classList.toggle("gallery-carousel-active", t === this.galleryCurrentIndex);
+                });
+            let l = -(this.galleryPosition * (i ? 100 : 33.333));
+            this.galleryTrack.style.transform = `translateX(${l}%)`;
+        });
+    }
+    galleryNextSlide() {
+        this.galleryIsTransitioning ||
+            ((this.galleryIsTransitioning = !0),
+            this.galleryPosition++,
+            (this.galleryCurrentIndex = (this.galleryCurrentIndex + 1) % this.galleryTotalSlides),
+            this.galleryUpdateCarousel(),
+            setTimeout(() => {
+                let e = this.galleryTrack.querySelectorAll(".gallery-carousel-slide").length;
+                if (this.galleryPosition >= e - 3) {
+                    (this.galleryTrack.style.transition = "none"), (this.galleryPosition = 3);
+                    let t = globalCachedWidth <= 768;
+                    (this.galleryTrack.style.transform = `translateX(-${this.galleryPosition * (t ? 100 : 33.333)}%)`),
+                        setTimeout(() => {
+                            this.galleryTrack.style.transition = "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
+                        }, 50);
+                }
+                this.galleryIsTransitioning = !1;
+            }, 800));
+    }
+    galleryPrevSlide() {
+        this.galleryIsTransitioning ||
+            ((this.galleryIsTransitioning = !0),
+            this.galleryPosition--,
+            (this.galleryCurrentIndex =
+                (this.galleryCurrentIndex - 1 + this.galleryTotalSlides) % this.galleryTotalSlides),
+            this.galleryUpdateCarousel(),
+            setTimeout(() => {
+                if (this.galleryPosition <= 0) {
+                    this.galleryTrack.style.transition = "none";
+                    let e = this.galleryTrack.querySelectorAll(".gallery-carousel-slide").length;
+                    this.galleryPosition = e - 6;
+                    let t = globalCachedWidth <= 768;
+                    (this.galleryTrack.style.transform = `translateX(-${this.galleryPosition * (t ? 100 : 33.333)}%)`),
+                        setTimeout(() => {
+                            this.galleryTrack.style.transition = "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
+                        }, 50);
+                }
+                this.galleryIsTransitioning = !1;
+            }, 800));
+    }
+    galleryGoToSlide(e) {
+        if (this.galleryIsTransitioning || e === this.galleryCurrentIndex) return;
+        this.galleryIsTransitioning = !0;
+        let t = e - this.galleryCurrentIndex;
+        (this.galleryPosition += t),
+            (this.galleryCurrentIndex = e),
+            this.galleryUpdateCarousel(),
+            setTimeout(() => {
+                this.galleryIsTransitioning = !1;
+            }, 800);
+    }
+    galleryStartAutoPlay() {
+        this.galleryStopAutoPlay();
+        this.galleryAutoPlayInterval = setInterval(() => {
+            this.galleryNextSlide();
+        }, 4e3);
+    }
+    galleryStopAutoPlay() {
+        this.galleryAutoPlayInterval &&
+            (clearInterval(this.galleryAutoPlayInterval), (this.galleryAutoPlayInterval = null));
+    }
+}
+function initPopupModal() {
+    let e = document.getElementById("popupModal"),
+        t = document.getElementById("blurOverlay"),
+        i = document.getElementById("closeModal"),
+        s = document.querySelector(".popupModal-right");
+    if (!e || !t || !i) return;
+    let l = document.createElement("h2");
+    (l.id = "modalHeader"),(l.classList.add("animatedBox")), (l.style.display = "none"), s && s.prepend(l);
+    let a = (i, s = "Enquiry Form") => {
+            i && i.preventDefault();
+            let a = i ? i.target.closest("button, a, #virtual1, #priceBreakupBtn") : null;
+            a &&
+                (a.classList.contains("offerBoxEnquireButton") || a.classList.contains("aboutEnquireBtn")
+                    ? (s = "Enquire Now")
+                    : a.classList.contains("nav-link") || "overviewRequestBtn" === a.id
+                      ? (s = "Request Brochure")
+                      : "priceBreakupBtn" === a.id
+                        ? (s = "Send Me Costing Details")
+                        : a.classList.contains("floorPlan-button")
+                          ? (s = "Send Me Plan Details")
+                          : a.classList.contains("amenitiesDownloadBtn")
+                            ? (s = "Download Amenities")
+                            : a.classList.contains("galleryDownloadButton")
+                              ? (s = "Download Gallery")
+                              : "virtual1" === a.id
+                                ? (s = "Virtual Tour Request")
+                                : "freesitevisitbtn" === a.id
+                                  ? (s = "schedule Site visit")
+                                  : a.classList.contains("firstFormCallBack") && (s = "Instant Call Back")),
+                (l.textContent = s),
+                (l.style.display = "block"),
+                t.classList.add("active"),
+                setTimeout(() => {
+                    e.classList.add("active");
+                    // showClosePopup();
+                }, 100);
+        },
+        n = () => {
+            e.classList.remove("active"),
+                setTimeout(() => {
+                    t.classList.remove("active"),
+                        (l.style.display = "none");
+                        // (i.style.display = "none"),
+                        // t.removeEventListener("click", n);
+                }, 300);
+        };
+    // function showClosePopup() {
+    //     setTimeout(() => {
+    //         requestAnimationFrame(() => {
+    //             i.style.display = "block";
+    //         });
+    //         t.addEventListener("click", n);
+    //     }, 4000);
+    // }
+    document
+        .querySelectorAll(
+            ".offerBoxEnquireButton, .aboutEnquireBtn, #overviewRequestBtn, #priceBreakupBtn, .floorPlan-button, .amenitiesDownloadBtn, .galleryDownloadButton, .firstFormCallBack, #freesitevisitbtn"
+        )
+        .forEach((e) => {
+            e.addEventListener("click", a);
+        });
+    let r = document.getElementById("virtual1");
+    r && r.addEventListener("click", a),
+        i.addEventListener("click", n),
+        t.addEventListener("click", n),
+        setTimeout(() => {
+            a(null, "Limited Time Offer!");
+        }, 3e3);
+}
+function initFormValidation() {
+    let e = document.getElementById("desktopSubmitBtn"),
+        t = document.getElementById("desktopConsentCheckbox");
+    e &&
+        t &&
+        e.addEventListener("click", function () {
+            if (!t.checked) return alert("Please accept the privacy policy to continue"), !1;
+        });
+    let i = document.getElementById("mobileSubmitBtn"),
+        s = document.getElementById("mobileConsentCheckbox");
+    i &&
+        s &&
+        i.addEventListener("click", function () {
+            if (!s.checked) return alert("Please accept the privacy policy to continue"), !1;
+        });
+}
+function toggleTab(e) {
+    document.querySelectorAll('.tab input[type="checkbox"]').forEach((t) => {
+        t.id !== e && (t.checked = !1);
+    });
+}
+// function loadDeferredScripts(){"requestIdleCallback"in window?requestIdleCallback(()=>{setTimeout(()=>{let e=document.createElement("script");e.id="ze-snippet",e.src="https://static.zdassets.com/ekr/snippet.js?key=94b386d0-0e8f-40fe-b5ff-a939cb332fbc",e.defer=!0,document.head.appendChild(e)},4e3)}):setTimeout(()=>{let e=document.createElement("script");e.id="ze-snippet",e.src="https://static.zdassets.com/ekr/snippet.js?key=94b386d0-0e8f-40fe-b5ff-a939cb332fbc",e.defer=!0,document.head.appendChild(e)},4e3)}
+function init() {
+    initBannerCarousel(),
+        initNavigation(),
+        requestAnimationFrame(() => {
+            initOverview(), new AmenitiesCarousel(), new GalleryCarousel(), initPopupModal(), initFormValidation();
+        });
+    
+    // Ensure carousels start auto-play after initialization
+    setTimeout(() => {
+        ensureCarouselAutoPlay();
+    }, 2000);
+    // "requestIdleCallback"in window?requestIdleCallback(loadDeferredScripts):setTimeout(loadDeferredScripts,1e3)
+}
+
+function ensureCarouselAutoPlay() {
+    // Force start auto-play for all carousels
+    const amenitiesCarousel = window.amenitiesCarousel;
+    const galleryCarousel = window.galleryCarousel;
+    
+    if (amenitiesCarousel && !amenitiesCarousel.amenitiesAutoPlayInterval) {
+        amenitiesCarousel.amenitiesStartAutoPlay();
+    }
+    
+    if (galleryCarousel && !galleryCarousel.galleryAutoPlayInterval) {
+        galleryCarousel.galleryStartAutoPlay();
+    }
+}
+function addClickEffect(e) {
+    e.addEventListener("click", function (e) {
+        e.preventDefault();
+        let t = this.getBoundingClientRect(),
+            i = document.createElement("span"),
+            s = Math.max(t.width, t.height),
+            l = e.clientX - t.left - s / 2,
+            a = e.clientY - t.top - s / 2;
+        (i.className = "click-ripple"),
+            (i.style.width = i.style.height = s + "px"),
+            (i.style.left = l + "px"),
+            (i.style.top = a + "px"),
+            this.appendChild(i),
+            (this.style.transform = this.classList.contains("pdf-download-btn-desktop")
+                ? "translateY(-2px) scale(0.95) rotate(2deg)"
+                : "translateY(-50%) scale(0.9) rotate(-5deg)"),
+            setTimeout(() => {
+                this.style.transform = this.classList.contains("pdf-download-btn-desktop")
+                    ? "translateY(-5px) scale(1.05)"
+                    : "translateY(-50%) scale(1.08) rotate(-2deg)";
+            }, 100),
+            setTimeout(() => {
+                (this.style.transform = ""), i.remove();
+            }, 300);
+        for (let n = 0; n < 8; n++)
+            setTimeout(() => {
+                createBurstParticle(this, e.clientX, e.clientY);
+            }, 30 * n);
+        setTimeout(() => {
+            alert("PDF Brochure download would start here!\n\nReplace this with your actual download logic.");
+        }, 400);
+    });
+}
+function createBurstParticle(e, t, i) {
+    let s = document.createElement("div");
+    (s.style.cssText = `
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background: linear-gradient(45deg, #ff4444, #ff6666);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1001;
+        box-shadow: 0 0 6px rgba(255, 68, 68, 0.6);
+    `),
+        (s.style.left = t + "px"),
+        (s.style.top = i + "px"),
+        document.body.appendChild(s);
+    let l = Math.random() * Math.PI * 2,
+        a = 60 + 80 * Math.random(),
+        n = t + Math.cos(l) * a,
+        r = i + Math.sin(l) * a;
+    s.animate(
+        [
+            { transform: "translate(-50%, -50%) scale(1) rotate(0deg)", opacity: 1 },
+            { transform: `translate(${n - t}px, ${r - i}px) scale(0) rotate(360deg)`, opacity: 0 },
+        ],
+        { duration: 1e3, easing: "cubic-bezier(0.25, 0.46, 0.45, 0.94)" }
+    ).onfinish = () => {
+        document.body.removeChild(s);
+    };
+}
+(window.toggleTab = toggleTab),
+    "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", init) : init(),
+    window.addEventListener("load", function () {
+        let e = document.getElementById("desktopBtn"),
+            t = document.getElementById("mobileBtn");
+        e &&
+            (addClickEffect(e),
+            (e.style.transform = "translateX(200px)"),
+            (e.style.opacity = "0"),
+            setTimeout(() => {
+                (e.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"),
+                    (e.style.transform = "translateX(0)"),
+                    (e.style.opacity = "1");
+            }, 500)),
+            t &&
+                (addClickEffect(t),
+                (t.style.transform = "translateY(-50%) translateX(-200px)"),
+                (t.style.opacity = "0"),
+                setTimeout(() => {
+                    (t.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"),
+                        (t.style.transform = "translateY(-50%) translateX(0)"),
+                        (t.style.opacity = "1");
+                }, 500));
+    });
