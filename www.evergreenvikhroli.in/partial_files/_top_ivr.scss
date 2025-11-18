@@ -1,0 +1,34 @@
+.ivr-header {
+  .container{
+    .ivr-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .contact-details {
+        background-color: #f0564d;
+        width: 100%;
+        color: #fff;
+        padding: 9px 32px;
+        a{
+          color: #fff;
+          text-decoration: none;
+        }
+        a:first-child{
+          margin-right: 32px;
+        }
+    }
+    .social-details{
+      background-color: #1c1611;
+      width: 100%;
+      color: #fff;
+      padding: 9px 32px;
+      display: flex;
+      justify-content: center;
+      a{
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+  }
+  }
+}

@@ -1,0 +1,32 @@
+// Gallery section
+@mixin sliderarrow {
+    padding: 1rem 2rem;
+    border: none;
+    position: absolute;
+    bottom: 3rem;
+
+}
+.gallery-section {
+    position: relative;
+    .gallery-img {
+        margin-bottom: -3rem;
+        img {
+            display: none;
+            width: 100%;
+        }
+        img.active {
+            display: block;
+        }
+    }
+    .left-arrow {
+        float: right;
+        right: 14rem;
+        z-index: 2;
+        @include sliderarrow;
+    }
+    .right-arrow {
+        right: 6rem;
+        z-index: 2;
+        @include sliderarrow;
+    }
+}

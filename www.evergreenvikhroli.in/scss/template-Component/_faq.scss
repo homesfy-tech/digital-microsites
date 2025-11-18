@@ -1,0 +1,13 @@
+.accordion__item{
+    background: rgba(185, 175, 169, 0.8588235294);
+    h3{
+        opacity: 0.9;
+        font-weight: normal;
+    }
+    p{
+        background-color: #f3f3f3;
+    }
+}
+.accordion__item::after{
+    top: 1.5rem;
+}

@@ -1,0 +1,41 @@
+
+/* cta video section css end */
+$open-sans: 'Open Sans', sans-serif;
+.cta-section {
+    font-family:$open-sans; 
+    background: $primary-color;
+    margin-top: 160px;
+    .container{
+        .row{
+            padding-left: 0px;
+            .cta-image {
+                margin-top: -100px;
+                display: flex;
+                justify-content: center;
+            }
+           
+            .cta-content {
+                display: inline-block;
+                vertical-align: middle;
+                padding: 20px 0;
+                margin-top: 20px;
+                position: relative;
+                z-index: 1;
+                width: 100%;
+                text-align: center;
+                h3 {
+                    font-size: 20px;
+                    display: inline-block;
+                    // margin: 0 0 20px;
+                    vertical-align: middle;
+                    color: #ffff;
+                    margin-bottom: 20px;
+                }
+                p{
+                    color: #ffff;
+                }
+               
+            }
+        }
+    }
+}

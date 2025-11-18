@@ -1,0 +1,47 @@
+@include md {
+    .deskBlock{
+        display: block;
+    }
+    .mobBlock{
+        display: none;
+    }
+    section{
+        margin-bottom: $section-margin-sm;
+    }
+    .banner-section{
+        margin-bottom: $section-margin-sm;
+        .banner-form-part{
+            max-width: 25vw;
+            position: absolute;
+            top: 0 ;
+            right: 0 ;
+            margin: 4rem;
+        }
+        .banner-offer-part{
+            max-width: 25vw;
+            position: absolute;
+            top: 0 ;
+            left: 0 ;
+            margin: 4rem;
+        }
+    }
+    .modal-content-form-icon{
+        flex-direction: column-reverse;
+        .modal-icon-part{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+    }
+  }
+
+  @include xs{
+    th,td{
+        padding: $base-padding / 3;
+    }
+  }
+
+
+
+
+  

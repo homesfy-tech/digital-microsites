@@ -1,0 +1,142 @@
+.thankyou {
+    .top-bar {
+        padding: 10px 0;
+        background: #fff;
+        /* background: #fff; */
+        border-bottom: 2px solid #333;
+        text-align: center;
+
+        .th-Logo {
+            display: inline-block;
+            padding: 5px;
+            text-transform: uppercase;
+            color: #000;
+            letter-spacing: 1px;
+            font-style: italic;
+            text-shadow: 1px 0px 2px #767676;
+            position: relative;
+
+            img {
+                width: 190px;
+            }
+        }
+    }
+
+    .body-content {
+        height: 100%;
+        background-image: linear-gradient(rgba(7, 101, 133, 0.1), rgba(255, 255, 255, 0.62)), url('../img/banner/banner.webp');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        .thankyou-container {
+            background: rgba(51, 51, 51, 0.4);
+            padding: 59px 0;
+            height: calc(100vh - 86px);
+
+            .ty-cont {
+                background: #fff;
+                border-radius: 5px 5px 0 0;
+                padding: 0 5px;
+
+                h2 {
+                    margin-bottom: 5px;
+                    color: #f36f21;
+                    padding: 10px 0;
+                }
+
+                strong {
+                    display: block;
+                    margin: 0 auto;
+                    padding-bottom: 15px;
+                    color: #222;
+                }
+            }
+
+            .helpful-content {
+                margin: 0 auto;
+                background: rgba(0, 0, 0, 0.6);
+                padding: 30px 5px;
+
+                .helping {
+                    margin-bottom: 20px;
+
+                    .social-items {
+                        display: flex;
+                        justify-content: center;
+
+                        .help-item {
+                            margin: 20px 0;
+                            display: flex;
+
+                            .btn-primary {
+                                padding: 6px;
+                                color: #fff;
+                                border-color: #007bff;
+                                // width: 170px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                margin-right: 8px;
+
+                                img {
+                                    margin-right: 10px;
+                                    width: 30px;
+                                }
+                            }
+
+                            .btn-success {
+                                padding: 6px;
+                                background: #42ea5f;
+                                // width: 170px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+
+                                img {
+                                    margin-left: 10px;
+                                    width: 30px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .back_link {
+                    h3 {
+                        a {
+                            padding: 10px 20px;
+                            text-align: center;
+                            display: table;
+                            text-decoration: none;
+                            color: #fff;
+                            margin: 0 auto;
+                        }
+                    }
+                }
+
+                .loan-img {
+                    text-align: center;
+
+                    img {
+                        display: inline-block;
+                        width: 100px;
+                        margin: 20px 0;
+                        color: #fff;
+                    }
+
+                    a {
+                        font-size: 14px;
+                        max-width: 100%;
+                        vertical-align: middle;
+                        margin: 20px 0;
+                        border: 1px solid #fff;
+                        color: #ffff;
+                        padding: 10px;
+                        text-decoration: none
+                    }
+                }
+            }
+        }
+    }
+}

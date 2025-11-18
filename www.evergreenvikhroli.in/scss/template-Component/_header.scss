@@ -1,0 +1,230 @@
+.navbar-collapsable {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    background-color: #f8f5f3;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+    right: 0;
+    text-align: center;
+
+    .navbar-nav {
+        .nav-item {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            margin-left: 40px;
+            margin-bottom: 20px;
+
+            img {
+                width: 30px;
+            }
+
+            .nav-link {
+                display: block;
+                padding: 0.5rem 1rem;
+                text-decoration: none;
+                font-size: 1.4rem;
+                transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            }
+        }
+    }
+
+    a {
+        color: #000;
+    }
+
+    .closebtn {
+        text-decoration: none;
+        position: absolute;
+        top: 0;
+        right: 2rem;
+        font-size: 3rem;
+        margin-left: 5rem;
+        border-bottom: none;
+        color: #000;
+        margin-top: 1rem;
+    }
+}
+
+.navbar-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    z-index: 9999;
+    background-color: transparent;
+    transition: 0.5s;
+    padding: 1rem 2rem;
+}
+
+.is-sticky {
+    z-index: 98;
+
+    .navbar-toggler {
+        color: #000;
+    }
+}
+
+.navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.navbar-toggler {
+    color: #fff;
+    border: none;
+    background: none;
+    line-height: 2rem;
+    cursor: pointer;
+
+    span {
+        font-size: 16px;
+    }
+
+    i {
+        display: block;
+        border: none;
+        transform: rotateZ(90deg);
+        font-size: 2rem;
+    }
+}
+
+.navbar-area.navbar-style-two {
+    .zash-nav {
+        background-color: transparent;
+
+        .navbar {
+            background-color: transparent;
+            box-shadow: unset;
+            padding: 0;
+
+            .navbar-brand-sec {
+                display: flex;
+                float: right;
+                right: 2rem;
+                gap: 2rem;
+                justify-content: center;
+                align-items: center;
+
+                .call-us {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    i {
+                        text-decoration: none;
+                        font-size: 3rem;
+                        color: #fff;
+                    }
+
+                    .tel-no {
+                        // background: #000000b5;
+                        background: $theme-color;
+                        padding: 0.8rem 2rem;
+                        margin-left: 5px;
+
+                        a {
+                            font-weight: 600;
+                            font-size: 1.2rem;
+                            text-decoration: none;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+
+            .navbar-brand {
+                display: flex;
+                background-color: #fff;
+                padding: 6px 10px;
+
+                .logo-img {
+                    width: 16rem;
+                    height: 4rem;
+                    z-index: 2;
+                    opacity: 0.85;
+                }
+                .logo-2{
+                    width: 14rem;
+                    height: auto;
+                }
+            }
+        }
+
+        .navbar.navbar-light {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+.navbar-area.navbar-style-two.is-sticky {
+    box-shadow: 0 2px 28px #0003;
+}
+
+.navbar-area.is-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 28px #00000017;
+    background-color: #fff;
+    -webkit-animation: 0.5s ease-in-out 0s normal none 1 running fadeInDown;
+    animation: 0.5s ease-in-out 0s normal none 1 running fadeInDown;
+
+    .zash-nav {
+        .navbar {
+            .navbar-brand-sec {
+                .call-us {
+
+                    i {
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-area.navbar-style-two {
+        .zash-nav {
+            .navbar {
+                // .navbar-brand {
+                //     .logo-img {
+                //         width: 10rem;
+                //         height: 3rem;
+                //     }
+                //     .logo-2 {
+                //         width: 10rem;
+                //         height: auto;
+                //     }
+                // }
+
+                .navbar-brand-sec {
+                    .call-us {
+                        i{
+                            color: #000;
+                        }
+                        .tel-no {
+                            display: none;
+                        }
+                    }
+                    .navbar-toggler{
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+

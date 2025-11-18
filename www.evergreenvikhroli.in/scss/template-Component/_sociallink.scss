@@ -1,0 +1,110 @@
+.social-icon-desk {
+    position: fixed;
+    top: 80%;
+    right: 2%;
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    .ivr-call {
+        background: #0d6efd;
+        padding: 12px;
+        img {
+            width: 100%;
+        }
+    }
+    .whatsapp {
+        background: #1bd741;
+        padding: 10px;
+        img {
+            width: 100%;
+        }
+    }
+}
+.social-icon-mob {
+    display: none;
+}
+
+@media (max-width: 768px) {
+        .social-icon-desk {
+            display: none;
+        }
+        .social-icon-mob {
+            display: block;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            z-index: 99;
+            .whatsapp-div {
+                background-color: #1bd741;
+                width: 50%;
+            }
+            .ivr-div {
+                background-color: #0d6efd;
+                width: 50%;
+                display: inline-flex;
+                margin-bottom: -20px;
+                text-align: center;
+                color: #fff;
+                height: 70px;
+
+                .ivr-call {
+                    background: #0d6efd;
+                    width: 30%;
+                    margin-top: 0px;
+                    img {
+                        margin-top: 12px;
+                    }
+                }
+                .ivr-text {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 70%;
+                    margin-bottom: 2rem;
+                    a {
+                        text-decoration: none;
+                        color: #fff;
+                    }
+                    p {
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+                }
+            }
+            .whatsapp-div {
+                background-color: #1bd741;
+                width: 50%;
+                display: inline-flex;
+                margin-bottom: -20px;
+                text-align: center;
+                color: #fff;
+                height: 70px;
+                .whatsapp-text {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 70%;
+                    margin-bottom: 2rem;
+                    a {
+                        text-decoration: none;
+                        color: #fff;
+                    }
+                    p {
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+                }
+                .whatsapp-img {
+                    background: #1bd741;
+                    width: 30%;
+                    margin-top: 0px;
+                    img {
+                        margin-top: 12px;
+                    }
+                }
+            }
+        }
+    }

@@ -1,0 +1,98 @@
+// positions start
+.fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.sticky{
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+// positions end
+
+//text aligns start
+.text-center{
+    text-align: center;
+}
+.text-left{
+    text-align: left;
+}
+.text-right{
+    text-align: right;
+}
+.text-justify{
+    text-align: justify;
+}
+//text aligns end
+
+// section spacings start
+// section{
+//     margin-bottom: $section-margin-xs; 
+// }
+// section spacings end
+
+// device visibility start
+.deskBlock{
+    display: none;
+}
+.mobBlock{
+    display: block;
+}
+// device visibility end
+
+// font-weight start
+.font-bold{
+    font-weight: bold;
+}
+
+
+//  text properties
+
+
+.uppercase
+{
+    text-transform: uppercase;
+}
+.lowercase{
+    text-transform: lowercase;
+}
+.capitalize{
+    text-transform: capitalize;
+}
+.font-300{
+    font-weight: 300;
+}
+.font-300{
+    font-weight: 300;
+}
+.font-400{
+    font-weight: 300;
+}
+.font-500{
+    font-weight: 300;
+}
+.font-600{
+    font-weight: 300;
+}
+// font-weight end
+
+.table-boder{
+    border: 1px solid #ccc;
+    padding: 2rem 2rem;
+    i{
+        display: flex;
+        justify-content: end;
+    }
+}
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
