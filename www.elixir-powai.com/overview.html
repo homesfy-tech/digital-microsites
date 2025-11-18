@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lodha Signet - Project Overview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .overview-container {
+            /* max-width: 800px; */
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .overview-header {
+            padding: 30px 40px 20px;
+            background: 
+                linear-gradient(135deg, rgba(248, 249, 250, 0.95) 0%, rgba(233, 236, 239, 0.7) 100%),
+                url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .overview-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background: rgba(248, 249, 250, 0.3);
+            z-index: 1;
+        }
+
+        .overview-header > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .overview-status {
+            color: #c67832;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .overview-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .overview-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, #ddd, transparent);
+            margin: 20px 0;
+        }
+
+        .overview-section-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .overview-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: #c67832;
+        }
+
+        .overview-content {
+            padding: 10px 40px 40px;
+        }
+
+        .overview-description {
+            color: #4a5568;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .overview-description:last-of-type {
+            margin-bottom: 35px;
+        }
+
+        .overview-button {
+            background: linear-gradient(135deg, #c67832 0%, #a85d1f 100%);
+            color: white;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(198, 120, 50, 0.3);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .overview-button:hover {
+            background: linear-gradient(135deg, #a85d1f 0%, #8b4d1a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(198, 120, 50, 0.4);
+        }
+
+        .overview-button:active {
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .overview-container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+
+            .overview-header {
+                padding: 25px 25px 15px;
+                background-attachment: scroll;
+            }
+
+            .overview-header::before {
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+            }
+
+            .overview-content {
+                padding: 0 25px 30px;
+            }
+
+            .overview-status {
+                font-size: 14px;
+            }
+
+            .overview-title {
+                font-size: 32px;
+                letter-spacing: 1px;
+                margin-bottom: 15px;
+            }
+
+            .overview-section-title {
+                font-size: 24px;
+                letter-spacing: 1px;
+                margin-bottom: 12px;
+            }
+
+            .overview-section-title::after {
+                width: 60px;
+                height: 3px;
+            }
+
+            .overview-description {
+                font-size: 16px;
+                line-height: 1.7;
+                margin-bottom: 20px;
+            }
+
+            .overview-button {
+                padding: 15px 35px;
+                font-size: 16px;
+                letter-spacing: 1.5px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overview-header {
+                padding: 20px 20px 12px;
+                background-attachment: scroll;
+            }
+
+            .overview-header::before {
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+            }
+
+            .overview-content {
+                padding: 10px 20px 25px;
+            }
+
+            .overview-title {
+                font-size: 26px;
+                letter-spacing: 0.5px;
+            }
+
+            .overview-section-title {
+                font-size: 20px;
+                letter-spacing: 0.5px;
+            }
+
+            .overview-description {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            .overview-button {
+                padding: 14px 30px;
+                font-size: 15px;
+                letter-spacing: 1px;
+            }
+        }
+
+        /* Animation effects */
+        .overview-container {
+            animation: overviewFadeIn 0.8s ease-out;
+        }
+
+        @keyframes overviewFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .overview-section-title::after {
+            animation: overviewLineGrow 1s ease-out 0.5s both;
+        }
+
+        @keyframes overviewLineGrow {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            @keyframes overviewLineGrow {
+                from {
+                    width: 0;
+                }
+                to {
+                    width: 60px;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overview-container">
+        <div class="overview-header">
+            <div class="overview-status">Project Status</div>
+            <h1 class="overview-title">Under Construction</h1>
+            <div class="overview-divider"></div>
+            <h2 class="overview-section-title">Overview</h2>
+        </div>
+        
+        <div class="overview-content">
+            <p class="overview-description">
+                Lodha Signet in Matunga redefines commercial spaces with unmatched elegance and prestige. As the premier commercial development in Matunga, it offers businesses a unique opportunity to thrive in a world-class environment. Located just off the Eastern Express Highway, it ensures seamless connectivity across Mumbai, making commutes effortless.
+            </p>
+            
+            <p class="overview-description">
+                Designed for discerning professionals, Lodha Signet's boutique offices range from 300 to 650 sq. ft., each Vaastu-compliant and featuring dedicated washrooms and pantries. With breathtaking sea and garden views, these offices provide an inspiring backdrop for productivity.
+            </p>
+            
+            <p class="overview-description">
+                With meticulous design, top-tier facilities, and a strategic location, Lodha Signet in Matunga is a beacon of opportunity and success for growing businesses. Secure your place and elevate your business to new heights.
+            </p>
+            
+            <button class="overview-button" onclick="overviewViewDetails()">View Details</button>
+        </div>
+    </div>
+
+    <script>
+        function overviewViewDetails() {
+            // Add your view details functionality here
+            alert('View Details clicked! Add your custom functionality here.');
+        }
+
+        // Add smooth scroll animation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const overviewContainer = document.querySelector('.overview-container');
+            overviewContainer.style.opacity = '0';
+            overviewContainer.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                overviewContainer.style.transition = 'all 0.8s ease-out';
+                overviewContainer.style.opacity = '1';
+                overviewContainer.style.transform = 'translateY(0)';
+            }, 100);
+        });
+
+        // Add button click animation
+        document.querySelector('.overview-button').addEventListener('click', function(e) {
+            let ripple = document.createElement('span');
+            let rect = this.getBoundingClientRect();
+            let size = Math.max(rect.width, rect.height);
+            let x = e.clientX - rect.left - size / 2;
+            let y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.3);
+                transform: scale(0);
+                animation: overviewRipple 0.6s linear;
+                left: ${x}px;
+                top: ${y}px;
+                width: ${size}px;
+                height: ${size}px;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        // Add ripple animation styles
+        const overviewRippleStyles = document.createElement('style');
+        overviewRippleStyles.textContent = `
+            @keyframes overviewRipple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(overviewRippleStyles);
+    </script>
+</body>
+</html>

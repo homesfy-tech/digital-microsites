@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Popup Form</title>
+    <style>
+        /* Modal Overlay */
+        .modalFromOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modalFromOverlay.modalFromActive,
+        .modalFromOverlay.modalActive {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal Container */
+        .modalFromContainer {
+            background: linear-gradient(180deg, #cd853f 0%, #d4926a 31%, #f8f9fa 25%, #ffffff 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.7) translateY(-50px);
+            transition: all 0.3s ease;
+        }
+
+        .modalFromActive .modalFromContainer,
+        .modalActive .modalFromContainer {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Close Button */
+        .modalFromCloseBtn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modalFromCloseBtn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        /* Modal Content */
+        .modalFromContent {
+            padding: 50px 40px;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .modalFromTitle {
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .modalFromSubtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .modalFromDivider {
+            width: 60px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        /* Form Styles */
+        .modalFromForm {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modalFromInputGroup {
+            position: relative;
+        }
+
+        .modalFromInput {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 16px;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .modalFromInput::placeholder {
+            color: #999;
+            font-weight: 400;
+        }
+
+        .modalFromInput:focus {
+            border-color: #cd853f;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(205, 133, 63, 0.1);
+        }
+
+        .modalFromSelect {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 16px;
+            color: #2c3e50;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: calc(100% - 15px) center;
+            background-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .modalFromSelect:focus {
+            border-color: #cd853f;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(205, 133, 63, 0.1);
+        }
+
+        .modalFromSubmitBtn {
+            background: linear-gradient(135deg, #cd853f, #d4926a);
+            color: white;
+            padding: 18px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modalFromSubmitBtn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .modalFromSubmitBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(205, 133, 63, 0.4);
+        }
+
+        .modalFromSubmitBtn:hover::before {
+            left: 100%;
+        }
+
+        .modalFromSubmitBtn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading State */
+        .modalFromLoading {
+            position: relative;
+        }
+
+        .modalFromLoading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: modalFromSpin 1s linear infinite;
+        }
+
+        @keyframes modalFromSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success Message */
+        .modalFromSuccess {
+            text-align: center;
+            padding: 30px;
+            color: white;
+        }
+
+        .modalFromSuccessIcon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .modalFromSuccessTitle {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .modalFromSuccessText {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Background Decoration */
+        .modalFromContainer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .modalFromContainer {
+                width: 95%;
+                margin: 20px;
+            }
+
+            .modalFromContent {
+                padding: 40px 30px;
+            }
+
+            .modalFromTitle {
+                font-size: 28px;
+            }
+
+            .modalFromSubtitle {
+                font-size: 16px;
+            }
+
+            .modalFromInput,
+            .modalFromSelect {
+                padding: 15px 18px;
+                font-size: 15px;
+            }
+
+            .modalFromSubmitBtn {
+                padding: 15px 25px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modalFromContainer {
+                width: 98%;
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .modalFromContent {
+                padding: 30px 25px;
+            }
+
+            .modalFromTitle {
+                font-size: 24px;
+            }
+
+            .modalFromSubtitle {
+                font-size: 15px;
+            }
+
+            .modalFromInput,
+            .modalFromSelect {
+                padding: 14px 16px;
+                font-size: 14px;
+            }
+
+            .modalFromSubmitBtn {
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+
+            .modalFromCloseBtn {
+                top: 15px;
+                right: 15px;
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+        }
+
+        /* Hide scrollbar for small modals */
+        @media (max-height: 600px) {
+            .modalFromContainer {
+                max-height: 95vh;
+                overflow-y: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal HTML -->
+    <section>
+        <div class="modalFromOverlay" id="modalFromOverlay">
+            <div class="modalFromContainer">
+                <button class="modalFromCloseBtn" onclick="modalFromClose()">×</button>
+                
+                <div class="modalFromContent" id="modalFromContent">
+                    <h1 class="modalFromTitle">GOT QUESTIONS?</h1>
+                    <p class="modalFromSubtitle">Ready to Book or Need Details?</p>
+                    <div class="modalFromDivider"></div>
+                    
+                    <form class="modalFromForm" id="modalFromForm">
+                        <div class="modalFromInputGroup">
+                            <input 
+                                type="text" 
+                                class="modalFromInput" 
+                                placeholder="Your Name*" 
+                                required 
+                                id="modalFromName"
+                            >
+                        </div>
+                        
+                        <div class="modalFromInputGroup">
+                            <select class="modalFromSelect" required id="modalFromCountry">
+                                <option value="">Select Country</option>
+                                <option value="+91" selected>India (+91)</option>
+                                <option value="+1">United States (+1)</option>
+                                <option value="+44">United Kingdom (+44)</option>
+                                <option value="+61">Australia (+61)</option>
+                                <option value="+971">UAE (+971)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="modalFromInputGroup">
+                            <input 
+                                type="tel" 
+                                class="modalFromInput" 
+                                placeholder="Mobile No*" 
+                                required 
+                                id="modalFromMobile"
+                            >
+                        </div>
+                        
+                        <button type="submit" class="modalFromSubmitBtn" id="modalFromSubmitBtn">
+                            Register Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let modalFromOverlay = document.getElementById("modalFromOverlay"),
+                modalFromContainer = document.querySelector(".modalFromContainer"),
+                modalFromCloseBtn = document.querySelector(".modalFromCloseBtn"),
+                modalFromTitle = document.querySelector(".modalFromTitle"),
+                modalFromForm = document.getElementById("modalFromForm"),
+                modalFromTriggerButtons = document.querySelectorAll(".offerBoxEnquireButton, .aboutEnquireBtn, #overviewRequestBtn, #priceBreakupBtn, #floorPlan, .floorPlan-button, .amenitiesDownloadBtn, .galleryDownloadButton, .firstFormCallBack, .floorPlan-card");
+
+            function modalFromOpen(event, title = "GOT QUESTIONS?") {
+                if (event) {
+                    event.preventDefault();
+                }
+
+                let modalCurrentTitle = title,
+                    modalTargetElement = event ? event.target.closest("button, a, #virtual1, #priceBreakupBtn, #floorPlan") : null;
+
+                // Remove all modal type classes
+                modalFromContainer.className = "modalFromContainer";
+
+                if (modalTargetElement) {
+                    if (modalTargetElement.classList.contains("offerBoxEnquireButton") || modalTargetElement.classList.contains("aboutEnquireBtn")) {
+                        modalCurrentTitle = "ENQUIRE NOW";
+                        modalFromContainer.classList.add("modalEnquire");
+                    } else if (modalTargetElement.classList.contains("nav-link") || "overviewRequestBtn" === modalTargetElement.id) {
+                        modalCurrentTitle = "REQUEST BROCHURE";
+                        modalFromContainer.classList.add("modalBrochure");
+                    } else if ("priceBreakupBtn" === modalTargetElement.id) {
+                        modalCurrentTitle = "SEND ME COSTING DETAILS";
+                        modalFromContainer.classList.add("modalCosting");
+                    } else if ("floorPlan" === modalTargetElement.id) {
+                        modalCurrentTitle = "SEND ME PLAN DETAILS";
+                        modalFromContainer.classList.add("modalCosting");
+                    } else if (modalTargetElement.classList.contains("amenitiesDownloadBtn")) {
+                        modalCurrentTitle = "DOWNLOAD AMENITIES";
+                        modalFromContainer.classList.add("modalDownload");
+                    } else if (modalTargetElement.classList.contains("galleryDownloadButton")) {
+                        modalCurrentTitle = "DOWNLOAD GALLERY";
+                        modalFromContainer.classList.add("modalDownload");
+                    } else if ("virtual1" === modalTargetElement.id) {
+                        modalCurrentTitle = "VIRTUAL TOUR REQUEST";
+                        modalFromContainer.classList.add("modalVirtual");
+                    } else if (modalTargetElement.classList.contains("firstFormCallBack")) {
+                        modalCurrentTitle = "INSTANT CALL BACK";
+                        modalFromContainer.classList.add("modalCall");
+                    }
+                }
+
+                modalFromTitle.textContent = modalCurrentTitle;
+                modalFromOverlay.classList.add("modalActive");
+                document.body.style.overflow = "hidden"; // Prevent body scroll when modal is open
+            }
+
+            function modalFromClose() {
+                modalFromOverlay.classList.remove("modalActive");
+                modalFromContainer.className = "modalFromContainer"; // Reset classes
+                document.body.style.overflow = ""; // Restore body scroll
+            }
+
+            // Make modalFromClose function global so it can be called from onclick attribute
+            window.modalFromClose = modalFromClose;
+
+            // Add event listeners to all trigger buttons
+            if (modalFromTriggerButtons.length > 0) {
+                modalFromTriggerButtons.forEach((button) => {
+                    button.addEventListener("click", modalFromOpen);
+                });
+            }
+
+            // Close modal when clicking on overlay (outside the modal content)
+            if (modalFromOverlay) {
+                modalFromOverlay.addEventListener("click", function (e) {
+                    if (e.target === modalFromOverlay) {
+                        modalFromClose();
+                    }
+                });
+            }
+
+            // Form submission
+            if (modalFromForm) {
+                modalFromForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const name = document.getElementById("modalFromName").value;
+                    const country = document.getElementById("modalFromCountry").value;
+                    const mobile = document.getElementById("modalFromMobile").value;
+                    
+                    // Here you can add your form submission logic
+                    console.log("Form submitted:", { name, country, mobile });
+                    
+                    // Show success message or handle form data as needed
+                    alert("Thank you! We'll get back to you soon.");
+                    
+                    // Reset form and close modal
+                    modalFromForm.reset();
+                    modalFromClose();
+                });
+            }
+
+            // Auto popup after 4 seconds
+            setTimeout(() => {
+                modalFromOpen(null, "LIMITED TIME OFFER!");
+            }, 4000);
+
+            // ESC key to close modal
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && modalFromOverlay.classList.contains("modalActive")) {
+                    modalFromClose();
+                }
+            });
+
+            // Phone number validation (optional)
+            const mobileInput = document.getElementById("modalFromMobile");
+            if (mobileInput) {
+                mobileInput.addEventListener("input", function(e) {
+                    // Remove any non-digit characters
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    
+                    // Limit to 10 digits
+                    if (this.value.length > 10) {
+                        this.value = this.value.slice(0, 10);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+.overview {
+    .highlight {
+        .hl-card {
+            background-image: none;
+            height: auto;
+            text-align: left;
+            justify-content: initial;
+            align-items: initial;
+            padding-left: 32px;
+
+            ul {
+                padding-left: 0;
+
+                li {
+                    list-style-type: disclosure-closed;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:768px) {
+    .overview {
+        .highlight {
+            .hl-card {
+                ul {
+                    padding-left: 20px;
+
+                    li {
+                        line-height: 30px;
+                    }
+                }
+            }
+        }
+    }
+
+    .banner-box {
+        .offer-banner {
+            margin-top: 20px;
+        }
+    }
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Builder - Lodha Group</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            background-color: #f8f8f8;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .about-left {
+            padding-right: 40px;
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c2c2c;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .about-divider {
+            width: 60px;
+            height: 4px;
+            background-color: #c7956b;
+            margin-bottom: 30px;
+        }
+
+        .about-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
+        .about-right {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-form-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #2c2c2c;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .about-form-subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .about-form-divider {
+            width: 50px;
+            height: 3px;
+            background-color: #c7956b;
+            margin-bottom: 30px;
+        }
+
+        .about-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-input {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            color: #666;
+        }
+
+        .about-input:focus {
+            outline: none;
+            border-color: #c7956b;
+            background-color: white;
+        }
+
+        .about-select {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .about-select:focus {
+            outline: none;
+            border-color: #c7956b;
+            background-color: white;
+        }
+
+        .about-submit-btn {
+            background-color: #c7956b;
+            color: white;
+            padding: 18px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .about-submit-btn:hover {
+            background-color: #b8865f;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .about-left {
+                padding-right: 0;
+            }
+
+            .about-title {
+                font-size: 2.2rem;
+            }
+
+            .about-form-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                padding: 40px 15px;
+            }
+
+            .about-title {
+                font-size: 1.8rem;
+            }
+
+            .about-form-title {
+                font-size: 1.6rem;
+            }
+
+            .about-right {
+                padding: 30px 25px;
+            }
+
+            .about-text {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-container {
+                padding: 30px 10px;
+            }
+
+            .about-title {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+
+            .about-form-title {
+                font-size: 1.4rem;
+            }
+
+            .about-right {
+                padding: 25px 20px;
+            }
+
+            .about-input,
+            .about-select {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            .about-submit-btn {
+                padding: 15px 25px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <div class="about-content">
+            <div class="about-left">
+                <h2 class="about-title">ABOUT BUILDER</h2>
+                <div class="about-divider"></div>
+                <p class="about-text">
+                    Lodha Group is one of India's most reputed and trusted real estate developers. Since 1980, the company has established itself as a reliable builder in the Indian real estate market. The developer is committed to quality, innovation, and professionalism. Lodha Group has earned many awards and accolades over the years. India Realty Awards has recognized them four times as "Builder of the Year." In 2016, the Economic Times awarded the group the "Most Trusted Real Estate Brand" award, recognizing the group as one of the country's most trusted real estate developers. Lodha Group is known for creating luxurious, high-end commercial and residential spaces. Lodha Bellissimo, Lodha The Park, and Lodha Fiorenza are some of their most prestigious projects in Mumbai. Additionally, they have developed projects in Pune, Hyderabad, and Bengaluru.
+                </p>
+            </div>
+            <div class="about-right">
+                <h3 class="about-form-title">GOT QUESTIONS?</h3>
+                <p class="about-form-subtitle">Don't be afraid, we're happy to aid!</p>
+                <div class="about-form-divider"></div>
+                <form class="about-form">
+                    <input type="text" class="about-input" placeholder="Your Name*" required>
+                    <select class="about-select" required>
+                        <option value="">India (+91)</option>
+                        <option value="+91">India (+91)</option>
+                        <option value="+1">USA (+1)</option>
+                        <option value="+44">UK (+44)</option>
+                        <option value="+61">Australia (+61)</option>
+                    </select>
+                    <input type="tel" class="about-input" placeholder="Mobile No*" required>
+                    <button type="submit" class="about-submit-btn">REGISTER NOW</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

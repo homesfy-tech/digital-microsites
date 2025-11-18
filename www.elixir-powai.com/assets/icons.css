@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'icomoon';
+    /* src: url('/fonts/icomoon.eot?kl3krq'); */
+    src:url('../fonts/icomoon.eot?kl3krq');
+    /* src: url('/fonts/icomoon.eot?kl3krq#iefix') format('embedded-opentype'), */
+    src: url('../fonts/icomoon.eot?kl3krq#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon.ttf?kl3krq') format('truetype'),
+        url('../fonts/icomoon.ttf?kl3krq') format('truetype'),
+        url('../fonts/icomoon.woff?kl3krq') format('woff'),
+        url('../fonts/icomoon.svg?kl3krq#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-icons8-palm-tree-50:before {
+    content: "\e908";
+}
+
+.icon-pictures:before {
+    content: "\e901";
+}
+
+.icon-images:before {
+    content: "\e901";
+}
+
+.icon-photos:before {
+    content: "\e901";
+}
+
+.icon-download:before {
+    content: "\e900";
+}
+
+.icon-wallet:before {
+    content: "\e907";
+}
+
+.icon-phone:before {
+    content: "\e942";
+}
+
+.icon-home3:before {
+    content: "\e905";
+}
+
+.icon-office:before {
+    content: "\e906";
+}
+
+.icon-envelop:before {
+    content: "\e945";
+}
+
+.icon-location2:before {
+    content: "\e948";
+}
+
+.icon-airplane:before {
+    content: "\e9af";
+}
+
+.icon-play2:before {
+    content: "\ea15";
+}
+
+.icon-youtube:before {
+    content: "\ea9d";
+}
+
+.icon-wifi:before {
+    content: "\e902";
+}
+
+.icon-graduation-cap:before {
+    content: "\e903";
+}
+
+.icon-mortar-board:before {
+    content: "\e903";
+}
+
+.icon-ambulance:before {
+    content: "\e904";
+}
