@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lodha Preferred Partner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .header-sidebar {
+            width: 280px;
+            background-color: #f0f0f0;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-logo {
+            margin-bottom: 60px;
+        }
+
+        .header-logo-icon {
+            width: 20px;
+            height: 20px;
+            background-color: #b8860b;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .header-logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #b8860b;
+            top: 4px;
+        }
+
+        .header-logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #b8860b;
+            top: 8px;
+        }
+
+        .header-brand-name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #b8860b;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .header-tagline {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.1;
+        }
+
+        .header-divider {
+            width: 60px;
+            height: 4px;
+            background-color: #b8860b;
+            margin: 80px 0 60px 0;
+        }
+
+        .header-nav {
+            list-style: none;
+        }
+
+        .header-nav-item {
+            margin-bottom: 40px;
+        }
+
+        .header-nav-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .header-nav-link:hover {
+            color: #b8860b;
+        }
+
+        .header-nav-link.active {
+            color: #b8860b;
+        }
+
+        .header-content-area {
+            margin-left: 280px;
+            flex: 1;
+            /* padding: 40px; */
+            background-color: white;
+        }
+
+        .header-mobile-toggle {
+            display: none;
+            position: fixed;
+            top: 5px;
+            right: 6px;
+            z-index: 1001;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .header-hamburger {
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .header-sidebar.header-open {
+                transform: translateX(0);
+            }
+
+            .header-content-area {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .header-mobile-toggle {
+                display: block;
+            }
+
+            .header-brand-name {
+                font-size: 28px;
+            }
+
+            .header-tagline {
+                font-size: 28px;
+            }
+
+            .header-nav-link {
+                font-size: 18px;
+            }
+
+            .header-divider {
+                margin: 60px 0 40px 0;
+            }
+
+            .header-nav-item {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-sidebar {
+                padding: 30px 20px;
+            }
+
+            .header-brand-name {
+                font-size: 24px;
+            }
+
+            .header-tagline {
+                font-size: 24px;
+            }
+
+            .header-nav-link {
+                font-size: 16px;
+            }
+
+            .header-content-area {
+                padding: 1px;
+            }
+        }
+
+        /* Content styling */
+        .header-main-content {
+            max-width: 800px;
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .header-section.active {
+            display: block;
+        }
+
+        .header-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .header-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+
+        /* Banner */
+             .bannerContainer {
+            /* max-width: 1400px; */
+            margin: 0 auto;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Carousel Container */
+        .bannerCarouselContainer {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bannerCarouselSlide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .bannerCarouselSlide.active {
+            opacity: 1;
+        }
+
+        .bannerCarouselSlide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Content Overlay */
+        .bannerContentOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%);
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .bannerLocationTag {
+            background: #D2691E;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        .bannerMainTitle {
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .bannerSubtitle {
+            color: #D2691E;
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .bannerPriceCircle {
+            background: #D2691E;
+            border-radius: 50%;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
+        }
+
+        .bannerPriceText {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .bannerPriceAmount {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .bannerPriceSuffix {
+            font-size: 18px;
+            margin-top: -5px;
+        }
+
+        .bannerFeaturesList {
+            list-style: none;
+            background: rgba(255,255,255,0.95);
+            padding: 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+        }
+
+        .bannerFeatureItem {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 10px 0;
+        }
+
+        .bannerFeatureItem:last-child {
+            margin-bottom: 0;
+        }
+
+        .bannerFeatureIcon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #333;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .bannerFeatureIcon::after {
+            content: "✓";
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Right Form Section */
+        .bannerRightSection {
+            position: absolute;
+            bottom: 82px;
+            right: 40px;
+            width: 380px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 4;
+        }
+
+        .bannerFormTitle {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .bannerFormSubtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .bannerFormGroup {
+            margin-bottom: 20px;
+        }
+
+        .bannerFormInput {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .bannerFormInput:focus {
+            outline: none;
+            border-color: #D2691E;
+        }
+
+        .bannerFormSelect {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .bannerSubmitBtn {
+            width: 100%;
+            padding: 18px;
+            background: #D2691E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .bannerSubmitBtn:hover {
+            background: #B8621A;
+        }
+
+        /* Carousel Navigation */
+        .bannerCarouselNav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .bannerNavDot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .bannerNavDot.active {
+            background: #D2691E;
+        }
+
+        .bannerCarouselArrows {
+            position: absolute;
+            bottom: 30px;
+            right: 60px;
+            display: flex;
+            gap: 0;
+            z-index: 3;
+        }
+
+        .bannerArrowBtn {
+            width: 50px;
+            height: 50px;
+            background: rgba(51, 51, 51, 0.8);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+
+        .bannerArrowBtn:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .bannerArrowBtn:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .bannerArrowBtn:hover {
+            background: rgba(210, 105, 30, 0.9);
+        }
+
+        /* Mobile Content Section */
+        .bannerMobileContent {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .bannerRightSection {
+                width: 320px;
+                right: 30px;
+                bottom: 30px;
+            }
+            
+            .bannerCarouselArrows {
+                right: 30px;
+            }
+        }
+
+        .bannerMobileCarouselSection {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .bannerCarouselContainer {
+                height: 50vh;
+                position: relative;
+            }
+
+            .bannerContentOverlay {
+                display: none;
+            }
+
+            .bannerCarouselNav {
+                display: none;
+            }
+
+            .bannerCarouselArrows {
+                display: none;
+            }
+
+            .bannerMobileCarouselSection {
+                display: block;
+                background: #f5f5f5;
+                padding: 20px;
+            }
+
+            .bannerMobileCarouselNav {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+
+            .bannerMobileNavDot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: rgba(51, 51, 51, 0.3);
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+
+            .bannerMobileNavDot.active {
+                background: #D2691E;
+            }
+
+            .bannerMobileCarouselArrows {
+                display: none;
+                justify-content: center;
+                gap: 0;
+            }
+
+            .bannerMobileArrowBtn {
+                width: 50px;
+                height: 50px;
+                background: rgba(51, 51, 51, 0.8);
+                color: white;
+                border: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                transition: background 0.3s;
+            }
+
+            .bannerMobileArrowBtn:first-child {
+                border-radius: 8px 0 0 8px;
+            }
+
+            .bannerMobileArrowBtn:last-child {
+                border-radius: 0 8px 8px 0;
+            }
+
+            .bannerMobileArrowBtn:hover {
+                background: rgba(210, 105, 30, 0.9);
+            }
+
+            .bannerMobileContent {
+                display: block;
+                padding: 25px 20px;
+                background: #f5f5f5;
+            }
+
+            .bannerMobileLocationTag {
+                background: #D2691E;
+                color: white;
+                padding: 8px 20px;
+                border-radius: 25px;
+                font-size: 14px;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 20px;
+                width: fit-content;
+            }
+
+            .bannerMobileMainTitle {
+                font-size: 28px;
+                font-weight: 900;
+                color: #333;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                line-height: 1.2;
+            }
+
+            .bannerMobileSubtitle {
+                color: #D2691E;
+                font-size: 16px;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 25px;
+            }
+
+            .bannerMobilePriceSection {
+                background: #D2691E;
+                border-radius: 15px;
+                padding: 25px;
+                text-align: center;
+                color: white;
+                margin-bottom: 25px;
+                box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
+            }
+
+            .bannerMobilePriceText {
+                font-size: 14px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 5px;
+            }
+
+            .bannerMobilePriceAmount {
+                font-size: 32px;
+                font-weight: bold;
+            }
+
+            .bannerMobilePriceSuffix {
+                font-size: 18px;
+            }
+
+            .bannerMobileFeaturesList {
+                list-style: none;
+                background: white;
+                padding: 25px;
+                border-radius: 15px;
+                margin-bottom: 25px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .bannerMobileFeatureItem {
+                display: flex;
+                align-items: center;
+                margin-bottom: 15px;
+                color: #333;
+                font-size: 14px;
+                font-weight: bold;
+                text-transform: uppercase;
+                padding: 10px 0;
+            }
+
+            .bannerMobileFeatureItem:last-child {
+                margin-bottom: 0;
+            }
+
+            .bannerMobileFeatureIcon {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background: #333;
+                margin-right: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                flex-shrink: 0;
+            }
+
+            .bannerMobileFeatureIcon::after {
+                content: "✓";
+                color: white;
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .bannerRightSection {
+                position: static;
+                width: 100%;
+                margin: 0 20px 20px 20px;
+                padding: 25px;
+                border-radius: 15px;
+            }
+
+            .bannerFormTitle {
+                font-size: 24px;
+            }
+
+            .bannerFormSubtitle {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bannerCarouselContainer {
+                height: 40vh;
+            }
+
+            .bannerMobileCarouselSection {
+                padding: 15px;
+            }
+
+            .bannerMobileNavDot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .bannerMobileArrowBtn {
+                width: 45px;
+                height: 45px;
+                font-size: 16px;
+            }
+
+            .bannerMobileContent {
+                padding: 20px 15px;
+            }
+
+            .bannerMobileMainTitle {
+                font-size: 24px;
+                line-height: 1.2;
+            }
+
+            .bannerMobileSubtitle {
+                font-size: 14px;
+            }
+
+            .bannerMobilePriceSection {
+                padding: 20px;
+            }
+
+            .bannerMobilePriceAmount {
+                font-size: 28px;
+            }
+
+            .bannerMobilePriceText {
+                font-size: 12px;
+            }
+
+            .bannerMobilePriceSuffix {
+                font-size: 16px;
+            }
+
+            .bannerMobileFeaturesList {
+                padding: 20px;
+            }
+
+            .bannerMobileFeatureItem {
+                font-size: 12px;
+                padding: 8px 0;
+                margin-bottom: 12px;
+            }
+
+            .bannerMobileFeatureIcon {
+                width: 20px;
+                height: 20px;
+                margin-right: 12px;
+            }
+
+            .bannerRightSection {
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .bannerFormTitle {
+                font-size: 20px;
+            }
+
+            .bannerMobileLocationTag {
+                font-size: 12px;
+                padding: 6px 15px;
+            }
+        }
+
+        /* Overview */
+          .overview-container {
+            /* max-width: 800px; */
+            margin: 0px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .overview-header {
+            padding: 30px 40px 20px;
+            background: 
+                linear-gradient(135deg, rgba(248, 249, 250, 0.95) 0%, rgba(233, 236, 239, 0.7) 100%),
+                url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .overview-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            background: rgba(248, 249, 250, 0.3);
+            z-index: 1;
+        }
+
+        .overview-header > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .overview-status {
+            color: #c67832;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .overview-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .overview-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, #ddd, transparent);
+            margin: 20px 0;
+        }
+
+        .overview-section-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .overview-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: #c67832;
+        }
+
+        .overview-content {
+            padding: 10px 40px 40px;
+        }
+
+        .overview-description {
+            color: #4a5568;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .overview-description:last-of-type {
+            margin-bottom: 35px;
+        }
+
+        .overview-button {
+            background: linear-gradient(135deg, #c67832 0%, #a85d1f 100%);
+            color: white;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(198, 120, 50, 0.3);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .overview-button:hover {
+            background: linear-gradient(135deg, #a85d1f 0%, #8b4d1a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(198, 120, 50, 0.4);
+        }
+
+        .overview-button:active {
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .overview-container {
+                /* margin: 10px; */
+                border-radius: 8px;
+            }
+
+            .overview-header {
+                padding: 25px 25px 15px;
+                background-attachment: scroll;
+            }
+
+            .overview-header::before {
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+            }
+
+            .overview-content {
+                padding: 0 25px 30px;
+            }
+
+            .overview-status {
+                font-size: 14px;
+            }
+
+            .overview-title {
+                font-size: 32px;
+                letter-spacing: 1px;
+                margin-bottom: 15px;
+            }
+
+            .overview-section-title {
+                font-size: 24px;
+                letter-spacing: 1px;
+                margin-bottom: 12px;
+            }
+
+            .overview-section-title::after {
+                width: 60px;
+                height: 3px;
+            }
+
+            .overview-description {
+                font-size: 16px;
+                line-height: 1.7;
+                margin-bottom: 20px;
+            }
+
+            .overview-button {
+                padding: 15px 35px;
+                font-size: 16px;
+                letter-spacing: 1.5px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overview-header {
+                padding: 20px 20px 12px;
+                background-attachment: scroll;
+            }
+
+            .overview-header::before {
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+            }
+
+            .overview-content {
+                padding: 10px 20px 25px;
+            }
+
+            .overview-title {
+                font-size: 26px;
+                letter-spacing: 0.5px;
+            }
+
+            .overview-section-title {
+                font-size: 20px;
+                letter-spacing: 0.5px;
+            }
+
+            .overview-description {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            .overview-button {
+                padding: 14px 30px;
+                font-size: 15px;
+                letter-spacing: 1px;
+            }
+        }
+
+        /* Animation effects */
+        .overview-container {
+            animation: overviewFadeIn 0.8s ease-out;
+        }
+
+        @keyframes overviewFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .overview-section-title::after {
+            animation: overviewLineGrow 1s ease-out 0.5s both;
+        }
+
+        @keyframes overviewLineGrow {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            @keyframes overviewLineGrow {
+                from {
+                    width: 0;
+                }
+                to {
+                    width: 60px;
+                }
+            }
+        }
+
+        /* Highlight */
+          .overviewHighlightContainer {
+            /* max-width: 1200px; */
+            margin: 0 auto;
+            /* padding: 40px 20px; */
+        }
+
+        .overviewHighlightSection {
+            background: white;
+            /* border-radius: 20px; */
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overviewHighlightSection::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            z-index: -1;
+        }
+
+        .overviewHighlightHeader {
+            margin-bottom: 60px;
+        }
+
+        .overviewHighlightSubtitle {
+            color: #d4773a;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .overviewHighlightTitle {
+            color: #2c3e50;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .overviewHighlightGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            align-items: start;
+        }
+
+        .overviewHighlightItem {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .overviewHighlightNumber {
+            background: white;
+            color: #2c3e50;
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .overviewHighlightNumber::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: white;
+            border-radius: 18px;
+            z-index: -1;
+        }
+
+        .overviewHighlightText {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.5;
+            flex: 1;
+            padding-top: 15px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .overviewHighlightContainer {
+                padding: 0px 0px;
+            }
+
+            .overviewHighlightSection {
+                padding: 30px 25px;
+                margin-bottom: 30px;
+                /* border-radius: 15px; */
+            }
+
+            .overviewHighlightTitle {
+                font-size: 2.2rem;
+            }
+
+            .overviewHighlightGrid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .overviewHighlightItem {
+                gap: 20px;
+                padding: 15px 0;
+            }
+
+            .overviewHighlightNumber {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+                border-radius: 18px;
+            }
+
+            .overviewHighlightText {
+                font-size: 1rem;
+                padding-top: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overviewHighlightSection {
+                padding: 25px 20px;
+            }
+
+            .overviewHighlightTitle {
+                font-size: 1.8rem;
+            }
+
+            .overviewHighlightSubtitle {
+                font-size: 16px;
+            }
+
+            .overviewHighlightNumber {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+                border-radius: 15px;
+            }
+
+            .overviewHighlightItem {
+                gap: 15px;
+            }
+        }
+
+        /* Tablet specific adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .overviewHighlightGrid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+
+        /* Large screen adjustments */
+        @media (min-width: 1400px) {
+            /* .overviewHighlightContainer {
+                max-width: 1400px;
+            } */
+
+            .overviewHighlightSection {
+                padding: 60px;
+            }
+
+            .overviewHighlightTitle {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <!-- Mobile Toggle Button -->
+        <button class="header-mobile-toggle" onclick="toggleSidebar()">
+            <div class="header-hamburger"></div>
+            <div class="header-hamburger"></div>
+            <div class="header-hamburger"></div>
+        </button>
+
+        <!-- Left Sidebar -->
+        <div class="header-sidebar" id="headerSidebar">
+            <div class="header-logo">
+                <div class="header-logo-icon"></div>
+                <div class="header-brand-name">LODHA</div>
+                <div class="header-tagline">PREFERRED<br>PARTNER</div>
+            </div>
+
+            <div class="header-divider"></div>
+
+            <nav>
+                <ul class="header-nav">
+                    <li class="header-nav-item">
+                        <a href="#overview" class="header-nav-link active" onclick="showSection('overview', this)">OVERVIEW</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="#highlights" class="header-nav-link" onclick="showSection('highlights', this)">HIGHLIGHTS</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="#pricelist" class="header-nav-link" onclick="showSection('pricelist', this)">PRICELIST</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="#location" class="header-nav-link" onclick="showSection('location', this)">LOCATION</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="#gallery" class="header-nav-link" onclick="showSection('gallery', this)">GALLERY</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        
+        <!-- Right Content Area -->
+        <div class="header-content-area">
+            <!-- <div class="header-main-content">
+                <div id="overview" class="header-section active">
+                    <h2>Overview</h2>
+                    <p>Welcome to Lodha Preferred Partner program. This section provides a comprehensive overview of our partnership opportunities and benefits.</p>
+                    <p>Our preferred partner program is designed to create mutually beneficial relationships with industry leaders and professionals.</p>
+                </div>
+
+                <div id="highlights" class="header-section">
+                    <h2>Highlights</h2>
+                    <p>Discover the key highlights and features of our preferred partner program.</p>
+                    <p>We offer exclusive benefits, priority access to new projects, and comprehensive support for our partners.</p>
+                </div>
+
+                <div id="pricelist" class="header-section">
+                    <h2>Pricelist</h2>
+                    <p>Access detailed pricing information and commission structures for our preferred partners.</p>
+                    <p>Transparent pricing with competitive rates and flexible payment terms.</p>
+                </div>
+
+                <div id="location" class="header-section">
+                    <h2>Location</h2>
+                    <p>Find information about our project locations and regional presence.</p>
+                    <p>Strategic locations across prime areas with excellent connectivity and infrastructure.</p>
+                </div>
+
+                <div id="gallery" class="header-section">
+                    <h2>Gallery</h2>
+                    <p>Explore our project gallery showcasing completed and upcoming developments.</p>
+                    <p>High-quality images and virtual tours of our premium properties.</p>
+                </div>
+            </div> -->
+    <div class="bannerContainer">
+        <div class="bannerCarouselContainer">
+            <!-- Carousel Slides -->
+            <div class="bannerCarouselSlide active">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Modern Office Building">
+            </div>
+            <div class="bannerCarouselSlide">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="Office Interior">
+            </div>
+            <div class="bannerCarouselSlide">
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="Business District">
+            </div>
+            <div class="bannerCarouselSlide">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Commercial Space">
+            </div>
+        </div>
+
+        <div class="bannerContentOverlay">
+            <div class="bannerLocationTag">Matunga, Mumbai, Maharashtra</div>
+            <h1 class="bannerMainTitle">Lodha Signet<br>Matunga</h1>
+            <div class="bannerSubtitle">Premier Commercial Spaces</div>
+            
+            <div class="bannerPriceCircle">
+                <div class="bannerPriceText">Starting At</div>
+                <div class="bannerPriceAmount">₹1.4</div>
+                <div class="bannerPriceSuffix">CR*</div>
+            </div>
+
+            <ul class="bannerFeaturesList">
+                <li class="bannerFeatureItem">
+                    <div class="bannerFeatureIcon"></div>
+                    Vaastu Compliant Offices
+                </li>
+                <li class="bannerFeatureItem">
+                    <div class="bannerFeatureIcon"></div>
+                    Only Commercial in the Locality
+                </li>
+                <li class="bannerFeatureItem">
+                    <div class="bannerFeatureIcon"></div>
+                    Located Just Off Eastern Express Highway
+                </li>
+            </ul>
+        </div>
+
+        <div class="bannerCarouselNav">
+            <div class="bannerNavDot active"></div>
+            <div class="bannerNavDot"></div>
+            <div class="bannerNavDot"></div>
+            <div class="bannerNavDot"></div>
+        </div>
+
+        <div class="bannerCarouselArrows">
+            <button class="bannerArrowBtn" onclick="bannerPreviousSlide()">‹</button>
+            <button class="bannerArrowBtn" onclick="bannerNextSlide()">›</button>
+        </div>
+
+        <!-- Mobile Carousel Navigation Section -->
+        <div class="bannerMobileCarouselSection">
+            <div class="bannerMobileCarouselNav">
+                <div class="bannerMobileNavDot active"></div>
+                <div class="bannerMobileNavDot"></div>
+                <div class="bannerMobileNavDot"></div>
+                <div class="bannerMobileNavDot"></div>
+            </div>
+
+            <div class="bannerMobileCarouselArrows">
+                <button class="bannerMobileArrowBtn" onclick="bannerPreviousSlide()">‹</button>
+                <button class="bannerMobileArrowBtn" onclick="bannerNextSlide()">›</button>
+            </div>
+        </div>
+
+        <!-- Mobile Content Section -->
+        <div class="bannerMobileContent">
+            <div class="bannerMobileLocationTag">Matunga, Mumbai, Maharashtra</div>
+            <h1 class="bannerMobileMainTitle">Lodha Signet Matunga</h1>
+            <div class="bannerMobileSubtitle">Premier Commercial Spaces</div>
+            
+            <div class="bannerMobilePriceSection">
+                <div class="bannerMobilePriceText">Starting At</div>
+                <div class="bannerMobilePriceAmount">₹1.4 <span class="bannerMobilePriceSuffix">CR*</span></div>
+            </div>
+
+            <ul class="bannerMobileFeaturesList">
+                <li class="bannerMobileFeatureItem">
+                    <div class="bannerMobileFeatureIcon"></div>
+                    Vaastu Compliant Offices
+                </li>
+                <li class="bannerMobileFeatureItem">
+                    <div class="bannerMobileFeatureIcon"></div>
+                    Only Commercial in the Locality
+                </li>
+                <li class="bannerMobileFeatureItem">
+                    <div class="bannerMobileFeatureIcon"></div>
+                    Located Just Off Eastern Express Highway
+                </li>
+            </ul>
+        </div>
+
+        <div class="bannerRightSection">
+            <h2 class="bannerFormTitle">Got<br>Questions?</h2>
+            <p class="bannerFormSubtitle">Don't be afraid, we're happy to aid!</p>
+            
+            <form onsubmit="bannerHandleSubmit(event)">
+                <div class="bannerFormGroup">
+                    <input type="text" class="bannerFormInput" placeholder="Your Name*" required>
+                </div>
+                <div class="bannerFormGroup">
+                    <select class="bannerFormSelect" required>
+                        <option value="">Select Country Code</option>
+                        <option value="+91">India (+91)</option>
+                        <option value="+1">USA (+1)</option>
+                        <option value="+44">UK (+44)</option>
+                        <option value="+971">UAE (+971)</option>
+                    </select>
+                </div>
+                <div class="bannerFormGroup">
+                    <input type="tel" class="bannerFormInput" placeholder="Mobile No*" required>
+                </div>
+                <button type="submit" class="bannerSubmitBtn">Register Now</button>
+            </form>
+        </div>
+    </div>
+
+       <div class="overview-container">
+        <div class="overview-header">
+            <div class="overview-status">Project Status</div>
+            <h1 class="overview-title">Under Construction</h1>
+            <div class="overview-divider"></div>
+            <h2 class="overview-section-title">Overview</h2>
+        </div>
+        
+        <div class="overview-content">
+            <p class="overview-description">
+                Lodha Signet in Matunga redefines commercial spaces with unmatched elegance and prestige. As the premier commercial development in Matunga, it offers businesses a unique opportunity to thrive in a world-class environment. Located just off the Eastern Express Highway, it ensures seamless connectivity across Mumbai, making commutes effortless.
+            </p>
+            
+            <p class="overview-description">
+                Designed for discerning professionals, Lodha Signet's boutique offices range from 300 to 650 sq. ft., each Vaastu-compliant and featuring dedicated washrooms and pantries. With breathtaking sea and garden views, these offices provide an inspiring backdrop for productivity.
+            </p>
+            
+            <p class="overview-description">
+                With meticulous design, top-tier facilities, and a strategic location, Lodha Signet in Matunga is a beacon of opportunity and success for growing businesses. Secure your place and elevate your business to new heights.
+            </p>
+            
+            <button class="overview-button" onclick="overviewViewDetails()">View Details</button>
+        </div>
+    </div>
+
+        <div class="overviewHighlightContainer">
+        <!-- Highlights Section -->
+        <div class="overviewHighlightSection">
+            <div class="overviewHighlightHeader">
+                <div class="overviewHighlightSubtitle">Highlights</div>
+                <h2 class="overviewHighlightTitle">
+                    Exceptional Properties.<br>
+                    Exceptional Clients.
+                </h2>
+            </div>
+            
+            <div class="overviewHighlightGrid">
+                <div class="overviewHighlightItem">
+                    <div class="overviewHighlightNumber">01</div>
+                    <div class="overviewHighlightText">
+                        Exclusive Doctors' Enclave units available
+                    </div>
+                </div>
+                
+                <div class="overviewHighlightItem">
+                    <div class="overviewHighlightNumber">02</div>
+                    <div class="overviewHighlightText">
+                        Excellent connectivity to various parts of the city
+                    </div>
+                </div>
+                
+                <div class="overviewHighlightItem">
+                    <div class="overviewHighlightNumber">03</div>
+                    <div class="overviewHighlightText">
+                        Prime location in Matunga, near Eastern Express Highway
+                    </div>
+                </div>
+                
+                <div class="overviewHighlightItem">
+                    <div class="overviewHighlightNumber">04</div>
+                    <div class="overviewHighlightText">
+                        High-value appreciation & rental yield as the only premium commercial development in the area
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('headerSidebar');
+            sidebar.classList.toggle('header-open');
+        }
+
+        function showSection(sectionId, linkElement) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.header-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.header-nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked link
+            linkElement.classList.add('active');
+
+            // Close sidebar on mobile after selection
+            if (window.innerWidth <= 768) {
+                document.getElementById('headerSidebar').classList.remove('header-open');
+            }
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('headerSidebar');
+            const toggle = document.querySelector('.header-mobile-toggle');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target) && 
+                sidebar.classList.contains('header-open')) {
+                sidebar.classList.remove('header-open');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('headerSidebar');
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('header-open');
+            }
+        });
+    </script>
+    <!-- Banner -->
+         <script>
+        let bannerCurrentSlide = 0;
+        const bannerSlides = document.querySelectorAll('.bannerCarouselSlide');
+        const bannerDots = document.querySelectorAll('.bannerNavDot');
+        const bannerTotalSlides = bannerSlides.length;
+
+        function bannerShowSlide(index) {
+            // Hide all slides
+            bannerSlides.forEach(slide => slide.classList.remove('active'));
+            bannerDots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show current slide
+            bannerSlides[index].classList.add('active');
+            bannerDots[index].classList.add('active');
+            
+            // Update mobile dots
+            const bannerMobileDots = document.querySelectorAll('.bannerMobileNavDot');
+            bannerMobileDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        function bannerNextSlide() {
+            bannerCurrentSlide = (bannerCurrentSlide + 1) % bannerTotalSlides;
+            bannerShowSlide(bannerCurrentSlide);
+        }
+
+        function bannerPreviousSlide() {
+            bannerCurrentSlide = (bannerCurrentSlide - 1 + bannerTotalSlides) % bannerTotalSlides;
+            bannerShowSlide(bannerCurrentSlide);
+        }
+
+        // Dot navigation
+        bannerDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                bannerCurrentSlide = index;
+                bannerShowSlide(bannerCurrentSlide);
+            });
+        });
+
+        // Mobile dot navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const bannerMobileDots = document.querySelectorAll('.bannerMobileNavDot');
+            bannerMobileDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    bannerCurrentSlide = index;
+                    bannerShowSlide(bannerCurrentSlide);
+                });
+            });
+        });
+
+        // Auto-rotate carousel every 5 seconds
+        setInterval(() => {
+            bannerNextSlide();
+        }, 5000);
+
+        // Form submission
+        function bannerHandleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your interest! We will contact you soon.');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                bannerPreviousSlide();
+            } else if (e.key === 'ArrowRight') {
+                bannerNextSlide();
+            }
+        });
+    </script>
+
+    <!-- Overview -->
+         <script>
+        function overviewViewDetails() {
+            // Add your view details functionality here
+            alert('View Details clicked! Add your custom functionality here.');
+        }
+
+        // Add smooth scroll animation when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const overviewContainer = document.querySelector('.overview-container');
+            overviewContainer.style.opacity = '0';
+            overviewContainer.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                overviewContainer.style.transition = 'all 0.8s ease-out';
+                overviewContainer.style.opacity = '1';
+                overviewContainer.style.transform = 'translateY(0)';
+            }, 100);
+        });
+
+        // Add button click animation
+        document.querySelector('.overview-button').addEventListener('click', function(e) {
+            let ripple = document.createElement('span');
+            let rect = this.getBoundingClientRect();
+            let size = Math.max(rect.width, rect.height);
+            let x = e.clientX - rect.left - size / 2;
+            let y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.3);
+                transform: scale(0);
+                animation: overviewRipple 0.6s linear;
+                left: ${x}px;
+                top: ${y}px;
+                width: ${size}px;
+                height: ${size}px;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        // Add ripple animation styles
+        const overviewRippleStyles = document.createElement('style');
+        overviewRippleStyles.textContent = `
+            @keyframes overviewRipple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(overviewRippleStyles);
+    </script>
+</body>
+</html>

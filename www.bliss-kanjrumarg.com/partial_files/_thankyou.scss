@@ -1,0 +1,119 @@
+.th-top-bar {
+    text-align: center;
+
+    .th-Logo {
+        img {
+            // padding: 10px;
+            height: 70px;
+        }
+    }
+}
+
+.thanks-page {
+    background-image: linear-gradient(rgba(239, 239, 239, 0.1), rgba(251, 197, 24, 0.62)), url(../img/banner/Banner1.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: calc(100vh - 70px);
+
+    .thankyou-container {
+        background: rgba(51, 51, 51, 0.39);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .helpful-content,
+    .thankyou-container strong,
+    .video-play {
+        width: 100%;
+    }
+
+    .th-main-section {
+        max-width: 690px;
+        margin: auto;
+
+        .ty-cont {
+            background: #fff;
+            border-radius: 5px 5px 0 0;
+            padding: 10px;
+
+            h2 {
+                margin-bottom: 5px;
+                color: #0ebb2c;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            strong {
+                display: block;
+                margin: 0 auto;
+                padding-bottom: 15px;
+                color: #222;
+            }
+        }
+
+        .helpful-content {
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.61);
+            padding: 30px 10px;
+            text-align: center;
+
+            .helping,
+            .social-icons {
+                margin-bottom: 20px;
+            }
+        }
+
+        .help-item {
+            .btn-primary {
+                margin-bottom: 5px;
+                vertical-align: top;
+                background: #0d6efd;
+                border-color: #0d6efd;
+                padding: .375rem .75rem;
+            }
+
+            .btn-success {
+                background: #42ea5f;
+                border-color: #28a745;
+            }
+
+            img {
+                width: 25px;
+            }
+
+            .phone_no {
+                display: inline-block;
+                margin-left: 10px;
+                vertical-align: middle;
+            }
+        }
+
+        .back_link {
+            h3 {
+                a {
+                    padding: 10px 20px;
+                    text-align: center;
+                    display: table;
+                    text-decoration: none;
+                    color: #fff;
+                    margin: 0 auto;
+                    border: 1px solid #fff;
+                    font-size: 18px;
+                }
+            }
+        }
+        .loan-img{
+            text-align: center;
+            img{
+                display: inline-block;
+                width: 100px;
+                margin:20px 0;
+                color: #fff;
+            } 
+            a{font-size: 14px; max-width: 100%; vertical-align: middle; margin: 20px 0;border: 1px solid #fff;color: #ffff;padding: 10px;text-decoration: none }
+          }
+    }
+}
