@@ -1,0 +1,27 @@
+.footer-sec {
+    background-color: #f8f5f3;
+    text-align: center;
+    padding: 20px;
+    .footer-terms {
+        display: flex;
+        justify-content: space-around;
+    }
+    .footer-text {
+        color: #333333;
+        font-size: 14px;
+        a{
+            color: #333333;
+            font-size: 16px;
+        }
+      
+    }
+    .footer-content {
+        color: #666666;
+        font-size: 12px;
+        p{
+            padding: 0px 10px;
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+    }
+}

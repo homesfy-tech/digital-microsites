@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presidential Enclave Banner</title>
+    <style>
+        * {
+            font-family: serif !important;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: serif;
+        }
+
+        .headerContainer::after,
+        .headerContainer::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            top: 0
+        }
+
+        .aboutSectionTitle,
+        .bannerIntroText,
+        .bannerProjectName,
+        .bannerSubtitleText {
+            text-transform: uppercase
+        }
+
+        .modalFormContainer.active,
+        .modalFormOverlay.active {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        body {
+            font-family: Arial, sans-serif
+        }
+
+        .mainHeader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, .3);
+            backdrop-filter: blur(10px)
+        }
+
+        .headerContainer {
+            position: relative;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0.7rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1;
+            overflow: hidden
+        }
+
+        .headerContainer::before {
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            transform: scale(1.1);
+            z-index: -2;
+            background-color: #333;
+        }
+
+        .headerContainer::after {
+            background: rgba(0, 0, 0, .4);
+            z-index: -1
+        }
+
+        .headerLogo img {
+            height: 30px
+        }
+
+        .headerNav {
+            display: flex;
+            gap: 2rem;
+            align-items: center
+        }
+
+        .headerLink {
+            color: #fff;
+            text-decoration: none;
+            font-size: .9rem;
+            font-weight: 900;
+            transition: color .3s
+        }
+
+        .headerContact,
+        .headerWhatsapp {
+            padding: .5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background .3s;
+            text-decoration: none
+        }
+
+        .headerLink:hover {
+            color: #ddd
+        }
+
+        .headerContact {
+            background: #fff;
+            color: #000
+        }
+
+        .headerWhatsapp {
+            background: #25d366;
+            color: #fff
+        }
+
+        .headerMenuButton,
+        .mobileMenuClose {
+            border: none;
+            color: #fff;
+            cursor: pointer
+        }
+
+        .headerContact:hover {
+            background: #f0f0f0
+        }
+
+        .headerMenuButton {
+            display: none;
+            background: 0 0
+        }
+
+        .mobileMenu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(0, 0, 0, .95);
+            padding: 2rem;
+            transition: right .3s;
+            z-index: 2000
+        }
+
+        .mobileMenu.active {
+            right: 0
+        }
+
+        .mobileMenuClose {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: 0 0;
+            font-size: 1.5rem
+        }
+
+        .mobileMenuLinks {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 3rem
+        }
+
+        .mobileMenuLink {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: .5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+            font-weight: bolder
+        }
+
+        .bannerSectionMain {
+            margin-top: 4%
+        }
+
+        .bannerCarouselContainer {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto
+        }
+
+        .bannerCarouselWrapper {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            display: flex;
+        }
+
+        /* Image section with sliding functionality */
+        .bannerImageSection {
+            position: relative;
+            width: 100%;
+            overflow: hidden
+        }
+
+        .bannerSlidesContainer {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform .8s ease-in-out
+        }
+
+        .bannerCarouselSlide {
+            min-width: 100%;
+            height: 100%
+        }
+
+        .bannerPropertyImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        /* Static content section */
+        .bannerContentSection {
+            width: 40%;
+            padding: 0 40px 40px;
+            background-color: #171e26;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .bannerLocationLogo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-family: serif;
+            font-size: 18px;
+            color: #333;
+            z-index: 2;
+            letter-spacing: 3px
+        }
+
+        .bannerProjectHeader {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 60px
+        }
+
+        .bannerProjectNumber {
+            font-size: 80px;
+            line-height: 1;
+            font-weight: 300;
+            margin: 0 15px 0 0
+        }
+
+        .bannerProjectNameWrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center
+        }
+
+        .bannerProjectName {
+            font-size: 16px;
+            margin: 0;
+            line-height: 1.3;
+            letter-spacing: 2px
+        }
+
+        .bannerDescriptionSection,
+        .bannerIntroSection {
+            margin-bottom: 20px;
+            text-align: center
+        }
+
+        .bannerIntroText {
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            color: #aaa
+        }
+
+        .bannerMainTitle {
+            font-size: 48px;
+            font-weight: 300;
+            margin: 0;
+            line-height: 1.2;
+            font-family: serif
+        }
+
+        .bannerSubtitleText {
+            font-size: 14px;
+            letter-spacing: 5px;
+            margin-top: 5px;
+            position: relative;
+            display: inline-block;
+            padding: 0 10px
+        }
+
+        .bannerSubtitleText:after,
+        .bannerSubtitleText:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 1px;
+            background-color: #fff
+        }
+
+        .bannerSubtitleText:before {
+            left: -30px
+        }
+
+        .bannerSubtitleText:after {
+            right: -30px
+        }
+
+        .bannerPropertyDescription {
+            font-size: 16px;
+            line-height: 1.6;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 20px
+        }
+
+        .bannerPropertyDescription:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, .3)
+        }
+
+        .bannerFeatureSection {
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .bannerFeatureDiamond {
+            font-size: 12px;
+            margin-right: 10px;
+            color: #ccc
+        }
+
+        .bannerFeatureText {
+            font-size: 16px;
+            text-align: center
+        }
+
+        .bannerCtaButton {
+            align-self: center;
+            padding: 12px 30px;
+            background: 0 0;
+            color: #fff;
+            border: 1px solid #fff;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: .3s
+        }
+
+        .quoteForm {
+            background: #161e26;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+            margin-top: 8%
+        }
+
+        .quoteTitle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #fff
+        }
+
+        .quoteTitle::after,
+        .quoteTitle::before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #ccc;
+            margin: 0 10px
+        }
+
+        .quoteInput,
+        .quotePhoneInput,
+        .quoteSelect {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            box-sizing: border-box
+        }
+
+        .quotePhoneWrapper {
+            display: flex;
+            gap: 8px
+        }
+
+        .quoteSelect {
+            flex: 0 0 40%
+        }
+
+        .quotePhoneInput {
+            flex: 1
+        }
+
+        .quoteCheckboxWrapper {
+            font-size: 12px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px
+        }
+
+        .quoteCheckboxWrapper input {
+            transform: scale(1.1)
+        }
+
+        .quoteSubmit {
+            width: 100%;
+            background: #161e26;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background .3s
+        }
+
+        .quoteSubmit:hover {
+            background: #314355
+        }
+
+        .quoteIcon {
+            font-size: 18px
+        }
+
+        .bannerNavButton {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border: none;
+            background-color: rgba(255, 255, 255, .4);
+            color: #333;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .bannerPrevButton {
+            left: 20px
+        }
+
+        .bannerNextButton {
+            right: 32%;
+        }
+
+        .bannerIndicatorContainer {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3
+        }
+
+        .bannerIndicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, .5);
+            cursor: pointer;
+            transition: background-color .3s
+        }
+
+        .bannerIndicator.active {
+            background-color: #fff
+        }
+
+        @media (max-width:768px) {
+            .bannerIndicator,
+            .headerNav {
+                /* display: none */
+                /* bottom: 31%; */
+            }
+            .bannerIndicatorContainer {
+                bottom: 62%;
+            }
+
+            .headerMenuButton {
+                display: block
+            }
+
+            .bannerIntroSectionMobile {
+                margin-top: 0;
+                padding-top: 0
+            }
+
+            .bannerPropertyImage {
+                padding-top: 9%
+            }
+
+            .bannerContentSection {
+                padding: 20px
+            }
+
+            .headerContainer {
+                position: relative;
+                background-color: #161e26;
+                background-size: cover;
+                background-position: center
+            }
+
+            .headerContainer::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, .5);
+                backdrop-filter: blur(10px);
+                z-index: 1
+            }
+
+            .headerContainer * {
+                position: relative;
+                z-index: 2
+            }
+
+            /* Mobile specific changes */
+            .bannerCarouselWrapper {
+                flex-direction: column;
+                height: auto
+            }
+
+            .bannerImageSection {
+                width: 100%;
+                height: 350px;
+                order: 1
+            }
+
+            .bannerContentSection {
+                width: 100%;
+                order: 2
+            }
+
+            .bannerNavButton {
+                display: none
+            }
+        }
+
+        @media (max-width:1200px) {
+            .bannerCarouselWrapper {
+                height: 500px
+            }
+
+            .bannerProjectNumber {
+                font-size: 60px
+            }
+
+            .bannerMainTitle {
+                font-size: 38px
+            }
+        }
+
+        @media (max-width:992px) {
+            .bannerCarouselWrapper {
+                flex-direction: column;
+                height: auto
+            }
+
+            .bannerContentSection,
+            .bannerImageSection {
+                width: 100%
+            }
+
+            .bannerImageSection {
+                height: 400px
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="bannerSectionMain">
+        <div class="bannerCarouselContainer">
+            <div class="bannerCarouselWrapper">
+                <!-- Image section with sliding functionality -->
+                <div class="bannerImageSection">
+                    <div class="bannerSlidesContainer">
+                        <div class="bannerCarouselSlide">
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop" alt="Property in MAHALAXMI" class="bannerPropertyImage">
+                        </div>
+                        <div class="bannerCarouselSlide">
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop" alt="Property View 2" class="bannerPropertyImage">
+                        </div>
+                        <div class="bannerCarouselSlide">
+                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" alt="Property View 3" class="bannerPropertyImage">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Static content section -->
+                <div class="bannerContentSection">
+                    <div class="bannerProjectHeader"></div>
+                    <div class="bannerIntroSectionMobile">
+                        <div class="bannerIntroSection">
+                            <p class="bannerIntroText">INTRODUCING</p>
+                            <h2 class="bannerMainTitle">Cliff Tower </h2>
+                            <p class="bannerSubtitleText">By Rustomjee</p>
+                            <br><br>
+                             <p class=bannerIntroText>At  Mount Merry, Bandra West</p>
+                        </div>
+                        <div class="bannerDescriptionSection">
+                            <p class="bannerPropertyDescription">Premium  4, 5 & 6 BHK Starting At
+                               <br> <span
+                      style="font-size: 32px;">₹ 40.77 Cr* </span>
+                            </p>
+                        </div>
+                        <!-- <div class="bannerFeatureSection">
+                            <span class="bannerFeatureDiamond">◆</span>
+                            <p class="bannerFeatureText">Avail New Launch Offers</p>
+                        </div>
+                        <br>
+                        <div class="bannerFeatureSection">
+                            <span class="bannerFeatureDiamond">◆</span>
+                            <p class="bannerFeatureText">Full-length Olympic Size Swimming Pool</p>
+                        </div> -->
+                    </div>
+                    <form class="quoteForm" id="ModalFormSlug4" onsubmit="event.preventDefault()">
+                        <h3 class="quoteTitle">Get The Best Quote</h3>
+                        <input id="dropEnquiry_Name1" placeholder="Name" class="quoteInput form-name" name="fname" pattern="[a-zA-Z ]{4,35}" required>
+                        <div class="quotePhoneWrapper">
+                            <select id="dropEnquiry_CountryCode1" class="quoteSelect form-country" name="country_code" required>
+                                <option selected>India (+91)</option>
+                                <option value="1">United States (+1)</option>
+                                <option value="44">United Kingdom (+44)</option>
+                                <option value="61">Australia (+61)</option>
+                                <option value="971">UAE (+971)</option>
+                            </select>
+                            <input id="dropEnquiry_Number1" type="tel" name="number" placeholder="Mobile Number" class="quotePhoneInput form-number" pattern="\d{7,15}" required>
+                        </div>
+                        <label class=quoteCheckboxWrapper for=consent_checkbox>
+                  <input type=checkbox id=consent_checkbox required checked>
+                  <span style=color:#fff>I consent to the use of provided data in accordance with the <a
+                      href=https://www.homesfy.co.in/privacy.html style=color:#1e50f5>privacy policy</a></span>
+                </label>
+                        <button type="submit" class="quoteSubmit" id="submitBtn">
+                            <span class="quoteIcon"></span> Get It Now
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Navigation buttons -->
+                <button class="bannerNavButton bannerPrevButton">&#10094;</button>
+                <button class="bannerNavButton bannerNextButton">&#10095;</button>
+                
+                <!-- Indicators -->
+                <div class="bannerIndicatorContainer">
+                    <span class="bannerIndicator active" data-index="0"></span>
+                    <span class="bannerIndicator" data-index="1"></span>
+                    <span class="bannerIndicator" data-index="2"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        class BannerSlider {
+            constructor() {
+                this.currentSlide = 0;
+                this.slides = document.querySelectorAll('.bannerCarouselSlide');
+                this.indicators = document.querySelectorAll('.bannerIndicator');
+                this.slidesContainer = document.querySelector('.bannerSlidesContainer');
+                this.totalSlides = this.slides.length;
+                
+                this.init();
+            }
+
+            init() {
+                // Navigation buttons
+                document.querySelector('.bannerPrevButton').addEventListener('click', () => this.prevSlide());
+                document.querySelector('.bannerNextButton').addEventListener('click', () => this.nextSlide());
+                
+                // Indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // Auto-slide every 5 seconds
+                setInterval(() => this.nextSlide(), 5000);
+            }
+
+            updateSlide() {
+                const translateX = -this.currentSlide * 100;
+                this.slidesContainer.style.transform = `translateX(${translateX}%)`;
+                
+                // Update indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === this.currentSlide);
+                });
+            }
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                this.updateSlide();
+            }
+
+            prevSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.updateSlide();
+            }
+
+            goToSlide(index) {
+                this.currentSlide = index;
+                this.updateSlide();
+            }
+        }
+
+        // Initialize slider when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new BannerSlider();
+        });
+    </script>
+</body>
+</html>

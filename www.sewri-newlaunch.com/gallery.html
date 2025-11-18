@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        
+
+        .gallery-wrapper {
+            /* border: 1px solid black; */
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            margin-left: 1.5%;
+            /* box-shadow: 0 20px 40px rgba(0,0,0,0.1); */
+        }
+
+        .gallery-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+            gap: 3%;
+
+        }
+
+        .gallery-slide {
+            min-width: 30.333%;
+            /* height: 60vh; */
+            position: relative;
+            /* transition: all 0.6s ease; */
+            padding: 0px 0px;
+            overflow: hidden;
+            border-radius: 8px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, .1); */
+    background-color: #fff;
+    cursor: pointer;
+    transition: transform .3s;
+    border: 8px solid #fff;
+        }
+
+        .gallery-image {
+            /* border: 2px solid; */
+            display: block;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: all 3s ease-in-out;
+            /* filter: blur(2px) brightness(0.7) saturate(0.8); */
+            /* transform: scale(0.9); */
+            cursor: pointer;
+            /*box-shadow: 0 10px 20px rgba(0,0,0,0.1);*/
+        }
+
+        /* .gallery-image:hover {
+            transform: scale(1.1);
+            overflow: hidden;
+        } */
+
+        .gallery-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        /* .gallery-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .gallery-dot.gallery-active {
+            background: #2d3748;
+            transform: scale(1.2);
+        }
+
+        .gallery-dot:hover {
+            background: #555;
+            transform: scale(1.1);
+        } */
+
+        .gallery-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-100%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #000;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-imageContainer {
+            overflow: hidden;
+        }
+        /* .gallery-controls:hover {
+            background: rgba(255,255,255,1); 
+            transform: translateY(-50%) scale(1.1); 
+            text-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        } */
+
+        .gallery-prev {
+            left: 0px;
+        }
+
+        .gallery-next {
+            right: 3.333%;
+        }
+
+        /* Text overlay styles */
+        .gallery-text-overlay {
+            display: none;
+            background: transparent;
+            color: #FFF;
+
+            z-index: 5;
+            pointer-events: none;
+            /* box-shadow: 0 4px 12px rgba(0,0,0,0.2); */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, .8), rgba(0, 0, 0, .1), transparent);
+    padding: 40px 20px 20px;
+        }
+
+        .gallery-slide.gallery-center .gallery-text-overlay {
+            background: rgba(74, 85, 104, 0.9);
+            padding: 12px 24px;
+            font-size: 18px;
+            /* box-shadow: 0 6px 15px rgba(0,0,0,0.3); */
+        }
+
+        /* Lightbox Styles */
+        .gallery-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .gallery-lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gallery-lightbox-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+            /* box-shadow: 0 20px 60px rgba(0,0,0,0.5); */
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-lightbox-title {
+            color: white;
+            font-size: 1.8rem;
+            margin-top: 20px;
+            font-weight: 500;
+            text-align: center;
+            max-width: 800px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .gallery-lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-lightbox-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .gallery-lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-lightbox-nav:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-lightbox-prev {
+            left: 20px;
+        }
+
+        .gallery-lightbox-next {
+            right: 20px;
+        }
+
+        .gallery-lightbox-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+        .gallery-controlsContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+        .downloadGalleryBtn {
+            /* width: 100px; */
+            padding: 10px 20px;
+            border: 1px solid #9d7f19;
+            color: #9d7f19;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .gallery-title {
+                font-size: 2.3rem;
+            }
+            
+            /* .gallery-wrapper {
+                height: 350px;
+            } */
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-container {
+                padding: 2rem;
+            }
+            .gallery-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+            
+            .gallery-image {
+                height: 40vh;
+            }
+            /* .gallery-slide {
+                height: 45vh;
+            } */
+            
+            .gallery-controls {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .gallery-prev {
+                left: 10px;
+            }
+            
+            .gallery-next {
+                right: 10px;
+            }
+
+            .gallery-lightbox-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .gallery-lightbox-close {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .gallery-text-overlay {
+                display: none;
+                font-size: 14px;
+                padding: 8px 16px;
+                /* bottom: 20px; */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gallery-slide {
+                min-width: 100%;
+            }
+            
+            /* .gallery-slide.gallery-center .gallery-image {
+                filter: none;
+                transform: scale(1);
+            } */
+            
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+            
+            /* .gallery-wrapper {
+                height: 250px;
+            } */
+            
+            .gallery-text-overlay {
+                font-size: 13px;
+                padding: 6px 14px;
+                bottom: 15px;
+            }
+            
+            .gallery-lightbox-title {
+                font-size: 1.4rem;
+                margin-top: 15px;
+            }
+            .gallery-track {
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-lightbox-nav {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+
+            .gallery-lightbox-prev {
+                left: 10px;
+            }
+
+            .gallery-lightbox-next {
+                right: 10px;
+            }
+
+            .gallery-lightbox-counter {
+                top: 15px;
+                left: 15px;
+                font-size: 14px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <section class="newGallerySection" id="newGallerySection">
+    <div class="newGalleryContainer">
+        <h2 class="newGalleryTitle">Gallery</h2>
+        <!-- <p class="section-subheading">Preminum Facilities for your elevated Lifestyle</p> -->
+        
+        <div class="gallery-wrapper">
+            <div class="gallery-track" id="galleryTrack">
+                <!-- Only original images (no duplicates) -->
+                <div class="gallery-slide">
+                    <div class="gallery-imageContainer">
+                    <img class="gallery-image" src="assets/images/gallery/g1.webp" alt="Swimming Pool" loading="lazy">
+                    </div>
+                    <div class="gallery-text-overlay">Infinity Pool</div>
+                </div>
+                <div class="gallery-slide">
+                    <div class="gallery-imageContainer">
+                    <img class="gallery-image" src="assets/images/gallery/g2.webp" alt="Fitness Center" loading="lazy">
+                    </div>
+                    <div class="gallery-text-overlay">Fitness Center</div>
+                </div>
+                <div class="gallery-slide">
+                    <div class="gallery-imageContainer">
+                    <img class="gallery-image" src="assets/images/gallery/g3.webp" alt="Indoor Games Area" loading="lazy">
+                    </div>
+                    <div class="gallery-text-overlay">Indoor Games</div>
+                </div>
+                <div class="gallery-slide">
+                    <div class="gallery-imageContainer">
+                    <img class="gallery-image" src="assets/images/gallery/g4.webp" alt="Sunset View" loading="lazy">
+                    </div>
+                    <div class="gallery-text-overlay">Sunset View</div>
+                </div>
+                
+            </div>
+            <div class="gallery-controlsContainer">
+            <button class="gallery-controls gallery-prev" id="galleryPrev">
+                &lt;
+            </button>
+            <button class="gallery-controls gallery-next" id="galleryNext">
+                &gt;
+            </button>
+            </div>
+            <div style="text-align: center;margin: 1rem 0;">
+                <button class="newGalleryDownload floorPlanCta">Download Gallery</button>
+            </div>
+        </div>
+        
+        <!-- <div class="gallery-navigation" id="galleryDots">
+            
+        </div> -->
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="gallery-lightbox" id="galleryLightbox">
+        <div class="gallery-lightbox-content">
+            <button class="gallery-lightbox-close" id="galleryLightboxClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="gallery-lightbox-nav gallery-lightbox-prev" id="galleryLightboxPrev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <img class="gallery-lightbox-image" id="galleryLightboxImage" src="" alt="">
+            <button class="gallery-lightbox-nav gallery-lightbox-next" id="galleryLightboxNext">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <!-- <div class="gallery-lightbox-title" id="galleryLightboxTitle"></div> -->
+            <div class="gallery-lightbox-counter" id="galleryLightboxCounter">1 / 6</div>
+        </div>
+    </div>
+    </section>
+
+
+    <script>
+        class GalleryCarousel {
+            constructor() {
+                // Get the original slides
+                this.originalSlides = Array.from(document.querySelectorAll('.gallery-slide'));
+                this.galleryTotalSlides = this.originalSlides.length;
+                
+                // Store data for lightbox
+                this.galleryImages = [];
+                this.galleryTexts = [];
+                
+                // Extract data from original slides
+                this.originalSlides.forEach(slide => {
+                    const img = slide.querySelector('.gallery-image');
+                    const text = slide.querySelector('.gallery-text-overlay');
+                    this.galleryImages.push(img.src);
+                    this.galleryTexts.push(text.textContent);
+                    
+                    // Add error handling for images
+                    img.onerror = () => {
+                        img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik00MDAgMzAwQzQwMCAzNTUuMjI4IDM1NS4yMjggNDAwIDMwMCA0MDBDMjQ0Ljc3MiA0MDAgMjAwIDM1NS4yMjggMjAwIDMwMEMyMDAgMjQ0Ljc3MiAyNDQuNzcyIDIwMCAzMDAgMjAwQzM1NS4yMjggMjAwIDQwMCAyNDQuNzcyIDQwMCAzMDBaIiBmaWxsPSIjOUNBM0FGIi8+Cjx0ZXh0IHg9IjQwMCIgeT0iMzIwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjc3MjhEIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiPkltYWdlIG5vdCBmb3VuZDwvdGV4dD4KPC9zdmc+';
+                    };
+                });
+                
+                // Setup carousel variables
+                this.galleryCurrentIndex = 0;
+                this.galleryTrack = document.getElementById('galleryTrack');
+                // this.galleryDotsContainer = document.getElementById('galleryDots');
+                this.galleryPrevBtn = document.getElementById('galleryPrev');
+                this.galleryNextBtn = document.getElementById('galleryNext');
+                this.galleryAutoPlayInterval = null;
+                this.galleryIsTransitioning = false;
+                
+                // Calculate starting position for seamless infinite scroll
+                this.galleryPosition = this.galleryTotalSlides;
+                
+                // Lightbox elements
+                this.galleryLightbox = document.getElementById('galleryLightbox');
+                this.galleryLightboxImage = document.getElementById('galleryLightboxImage');
+                this.galleryLightboxClose = document.getElementById('galleryLightboxClose');
+                this.galleryLightboxPrev = document.getElementById('galleryLightboxPrev');
+                this.galleryLightboxNext = document.getElementById('galleryLightboxNext');
+                this.galleryLightboxCounter = document.getElementById('galleryLightboxCounter');
+                // this.galleryLightboxTitle = document.getElementById('galleryLightboxTitle');
+                this.galleryLightboxCurrentIndex = 0;
+                
+                // Initialize the carousel
+                this.galleryInit();
+            }
+            
+            galleryInit() {
+                // Clone slides for infinite effect
+                this.galleryCloneSlides();
+                
+                // Create dots
+                // this.galleryCreateDots();
+                
+                // Bind events
+                this.galleryBindEvents();
+                this.galleryBindLightboxEvents();
+                
+                // Position the carousel
+                this.galleryUpdateCarousel();
+                
+                // Start autoplay
+                this.galleryStartAutoPlay();
+            }
+            
+            galleryCloneSlides() {
+                // Create clones for infinite scrolling effect
+                const fragmentStart = document.createDocumentFragment();
+                const fragmentEnd = document.createDocumentFragment();
+                
+                // Clone first 3 slides to the end
+                for (let i = 0; i < 3; i++) {
+                    const clone = this.originalSlides[i].cloneNode(true);
+                    fragmentEnd.appendChild(clone);
+                }
+                
+                // Clone last 3 slides to the beginning
+                for (let i = this.galleryTotalSlides - 3; i < this.galleryTotalSlides; i++) {
+                    const clone = this.originalSlides[i].cloneNode(true);
+                    fragmentStart.appendChild(clone);
+                }
+                
+                // Append clones to track
+                this.galleryTrack.prepend(fragmentStart);
+                this.galleryTrack.appendChild(fragmentEnd);
+                
+                // Setup image click events for all slides
+                this.gallerySetupImageClickEvents();
+            }
+            
+            gallerySetupImageClickEvents() {
+                const slides = this.galleryTrack.querySelectorAll('.gallery-slide');
+                slides.forEach((slide, index) => {
+                    const img = slide.querySelector('.gallery-image');
+                    img.addEventListener('click', () => {
+                        // Calculate original image index
+                        const totalSlides = slides.length;
+                        const originalIndex = (index - 3 + totalSlides) % this.galleryTotalSlides;
+                        this.openGalleryLightbox(originalIndex);
+                    });
+                });
+            }
+            
+            // galleryCreateDots() {
+            //     for (let i = 0; i < this.galleryTotalSlides; i++) {
+            //         const galleryDot = document.createElement('button');
+            //         galleryDot.className = 'gallery-dot';
+            //         galleryDot.addEventListener('click', () => this.galleryGoToSlide(i));
+            //         this.galleryDotsContainer.appendChild(galleryDot);
+            //     }
+            // }
+            
+            galleryBindEvents() {
+                this.galleryPrevBtn.addEventListener('click', () => this.galleryPrevSlide());
+                this.galleryNextBtn.addEventListener('click', () => this.galleryNextSlide());
+                
+                // Touch events for mobile
+                let galleryStartX = 0;
+                let galleryEndX = 0;
+                
+                this.galleryTrack.addEventListener('touchstart', (e) => {
+                    galleryStartX = e.touches[0].clientX;
+                },{passive:true});
+                
+                this.galleryTrack.addEventListener('touchend', (e) => {
+                    galleryEndX = e.changedTouches[0].clientX;
+                    const galleryDiff = galleryStartX - galleryEndX;
+                    
+                    if (Math.abs(galleryDiff) > 50) {
+                        if (galleryDiff > 0) {
+                            this.galleryNextSlide();
+                        } else {
+                            this.galleryPrevSlide();
+                        }
+                    }
+                },{passive:true});
+                
+                // Pause autoplay on hover
+                this.galleryTrack.addEventListener('mouseenter', () => this.galleryStopAutoPlay());
+                this.galleryTrack.addEventListener('mouseleave', () => this.galleryStartAutoPlay());
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        this.galleryPrevSlide();
+                    } else if (e.key === 'ArrowRight') {
+                        this.galleryNextSlide();
+                    } else if (e.key === 'Escape' && this.galleryLightbox.classList.contains('active')) {
+                        this.closeGalleryLightbox();
+                    }
+                });
+            }
+            
+            galleryBindLightboxEvents() {
+                // Close lightbox events
+                this.galleryLightboxClose.addEventListener('click', () => this.closeGalleryLightbox());
+                this.galleryLightbox.addEventListener('click', (e) => {
+                    if (e.target === this.galleryLightbox) {
+                        this.closeGalleryLightbox();
+                    }
+                });
+                
+                // Lightbox navigation
+                this.galleryLightboxPrev.addEventListener('click', () => this.galleryLightboxPrevImage());
+                this.galleryLightboxNext.addEventListener('click', () => this.galleryLightboxNextImage());
+            }
+            
+            openGalleryLightbox(index) {
+                console.log(index);
+                this.galleryLightboxCurrentIndex = index;
+                this.galleryLightboxImage.src = this.galleryImages[index];
+                // this.galleryLightboxTitle.textContent = this.galleryTexts[index];
+                this.updateGalleryLightboxCounter();
+                this.galleryLightbox.classList.add('active');
+                this.galleryStopAutoPlay();
+                document.body.style.overflow = 'hidden';
+            }
+            
+            closeGalleryLightbox() {
+                this.galleryLightbox.classList.remove('active');
+                this.galleryStartAutoPlay();
+                document.body.style.overflow = 'auto';
+            }
+            
+            galleryLightboxPrevImage() {
+                this.galleryLightboxCurrentIndex = (this.galleryLightboxCurrentIndex - 1 + this.galleryTotalSlides) % this.galleryTotalSlides;
+                this.galleryLightboxImage.src = this.galleryImages[this.galleryLightboxCurrentIndex];
+                // this.galleryLightboxTitle.textContent = this.galleryTexts[this.galleryLightboxCurrentIndex];
+                this.updateGalleryLightboxCounter();
+            }
+            
+            galleryLightboxNextImage() {
+                this.galleryLightboxCurrentIndex = (this.galleryLightboxCurrentIndex + 1) % this.galleryTotalSlides;
+                this.galleryLightboxImage.src = this.galleryImages[this.galleryLightboxCurrentIndex];
+                // this.galleryLightboxTitle.textContent = this.galleryTexts[this.galleryLightboxCurrentIndex];
+                this.updateGalleryLightboxCounter();
+            }
+            
+            updateGalleryLightboxCounter() {
+                this.galleryLightboxCounter.textContent = `${this.galleryLightboxCurrentIndex + 1} / ${this.galleryTotalSlides}`;
+            }
+            
+            galleryUpdateCarousel() {
+                const gallerySlides = this.galleryTrack.querySelectorAll('.gallery-slide');
+                // const galleryDots = this.galleryDotsContainer.querySelectorAll('.gallery-dot');
+                
+                // Calculate which slide is in the center
+                const galleryIsMobile = window.innerWidth <= 576;
+                const galleryCenterIndex = galleryIsMobile ? 
+                    this.galleryPosition + 1 : 
+                    this.galleryPosition + 1;
+                
+                // Update center slide highlighting
+                // gallerySlides.forEach((slide, index) => {
+                //     slide.classList.remove('gallery-center');
+                //     if (index === galleryCenterIndex) {
+                //         slide.classList.add('gallery-center');
+                //     }
+                // });
+                
+                // Update active dot
+                // galleryDots.forEach((dot, index) => {
+                //     dot.classList.remove('gallery-active');
+                //     if (index === this.galleryCurrentIndex) {
+                //         dot.classList.add('gallery-active');
+                //     }
+                // });
+                
+                // Move carousel
+                const gallerySlideWidth = galleryIsMobile ? 100 : 33.333;
+                const galleryTranslateX = -(this.galleryPosition * gallerySlideWidth);
+                this.galleryTrack.style.transform = `translateX(${galleryTranslateX}%)`;
+                console.log("middle");
+            }
+            
+            galleryNextSlide() {
+                if (this.galleryIsTransitioning) return;
+                this.galleryIsTransitioning = true;
+                
+                this.galleryPosition++;
+                this.galleryCurrentIndex = (this.galleryCurrentIndex + 1) % this.galleryTotalSlides;
+                
+                this.galleryUpdateCarousel();
+                
+                // Reset position for seamless infinite scroll
+                setTimeout(() => {
+                    const totalSlides = this.galleryTrack.querySelectorAll('.gallery-slide').length;
+                    if (this.galleryPosition >= totalSlides - 3) {
+                        this.galleryTrack.style.transition = 'none';
+                        this.galleryPosition = 3;
+                        
+                        const galleryIsMobile = window.innerWidth <= 576;
+                        const gallerySlideWidth = galleryIsMobile ? 100 : 33.333;
+                        this.galleryTrack.style.transform = `translateX(-${this.galleryPosition * gallerySlideWidth}%)`;
+                        console.log("rresetting");
+                        // gallerySlides[index].classList.add("gallery-center");
+                        console.log("Adding");
+                        setTimeout(() => {
+                            this.galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                            console.log(this.galleryTrack.style.transform);
+                        }, 50);
+                    }
+                    this.galleryIsTransitioning = false;
+                }, 600);
+            }
+            
+            galleryPrevSlide() {
+                if (this.galleryIsTransitioning) return;
+                this.galleryIsTransitioning = true;
+                
+                this.galleryPosition--;
+                this.galleryCurrentIndex = (this.galleryCurrentIndex - 1 + this.galleryTotalSlides) % this.galleryTotalSlides;
+                
+                this.galleryUpdateCarousel();
+                
+                // Reset position for seamless infinite scroll
+                setTimeout(() => {
+                    if (this.galleryPosition <= 0) {
+                        this.galleryTrack.style.transition = 'none';
+                        const totalSlides = this.galleryTrack.querySelectorAll('.gallery-slide').length;
+                        this.galleryPosition = totalSlides - 6;
+                        const galleryIsMobile = window.innerWidth <= 576;
+                        const gallerySlideWidth = galleryIsMobile ? 100 : 33.333;
+                        this.galleryTrack.style.transform = `translateX(-${this.galleryPosition * gallerySlideWidth}%)`;
+                        
+                        setTimeout(() => {
+                            this.galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        }, 50);
+                    }
+                    this.galleryIsTransitioning = false;
+                }, 600);
+            }
+            
+            galleryGoToSlide(index) {
+                if (this.galleryIsTransitioning || index === this.galleryCurrentIndex) return;
+                
+                this.galleryIsTransitioning = true;
+                
+                // Calculate the difference
+                const diff = index - this.galleryCurrentIndex;
+                this.galleryPosition += diff;
+                this.galleryCurrentIndex = index;
+                
+                this.galleryUpdateCarousel();
+                
+                setTimeout(() => {
+                    this.galleryIsTransitioning = false;
+                }, 600);
+            }
+            
+            galleryStartAutoPlay() {
+                this.galleryStopAutoPlay();
+                this.galleryAutoPlayInterval = setInterval(() => {
+                    this.galleryNextSlide();
+                }, 5000);
+            }
+            
+            galleryStopAutoPlay() {
+                if (this.galleryAutoPlayInterval) {
+                    clearInterval(this.galleryAutoPlayInterval);
+                    this.galleryAutoPlayInterval = null;
+                }
+            }
+        }
+        
+        // Initialize carousel when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new GalleryCarousel();
+        });
+    </script>
+</body>
+</html>

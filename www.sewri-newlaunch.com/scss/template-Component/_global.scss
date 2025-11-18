@@ -1,0 +1,20 @@
+// overview section 
+
+.overview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        border-radius: 0.4rem;
+    }
+}
+
+p,li{
+    font-size: 1.4rem;
+    line-height: 2.5rem;
+    word-wrap: break-word;
+}
+
+// .thankyou-section{
+//     background-image: url('../../img/Banner/banner.webp');
+// }

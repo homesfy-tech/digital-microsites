@@ -1,0 +1,14 @@
+.price-plan{
+    .price-sec{
+        background-color: #fbc488; 
+        th{
+            padding: 1rem;
+        }  
+        button{
+            background-color: $secondary-color;
+        }      
+        .carousel{
+            margin-left: 3rem;
+        }
+    }
+}

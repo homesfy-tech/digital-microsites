@@ -1,0 +1,160 @@
+#header {
+    position: fixed;
+    width: 100%;
+}
+
+$open-sans: 'Open Sans', sans-serif;
+
+.top-bar {
+    font-family: $open-sans;
+    background: #ffffffd9;
+    box-shadow: 5px 2px 6px 0 #0000001f, inset 0 -1px 0 0 #dadce0;
+    // position: fixed;
+    width: 100%;
+
+    .hide-notice {
+        display: block;
+    }
+
+    .nav-link {
+        color: #333;
+        font-weight: 700;
+        padding: 8px 20px;
+
+    }
+
+    .header-first-row {
+        padding: 5px 0px;
+        background: #fff;
+
+        .Logo {
+            display: inline-block;
+            padding: 5px;
+            width: 214px;
+
+            // img {
+            //     height: 70px;
+            // }
+        }
+
+        .ph-no {
+            border: 1px solid $primary-color;
+            color: #1c1611;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            margin-left: 5px;
+            display: inline-block;
+            background-color: $primary-color;
+
+            a {
+                text-decoration: none;
+            }
+        }
+
+        .phone_no {
+            color: #fff;
+        }
+
+        .navbar.navbar-expand-md.navbar-light {
+            padding: 0 10px;
+            background: #fff;
+        }
+
+        .navbar-nav li {
+            .phone_url {
+                font-size: 16px;
+            }
+        }
+
+        .navbar-expand-lg {
+            padding: 0 10px;
+
+            .navbar-nav {
+                .nav-link {
+                    padding-right: .4rem;
+                    padding-left: .4rem;
+                }
+            }
+        }
+
+        .navbar-light {
+            .navbar-nav {
+
+                .active>.nav-link,
+                .nav-link.active,
+                .nav-link.show,
+                .show>.nav-link {
+                    color: #666;
+                }
+
+                .nav-link {
+                    color: #666;
+                    font-weight: 500;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                }
+
+                .nav-link:focus,
+                .nav-link:hover {
+                    color: #000;
+                    transition: 0.5s ease all;
+                }
+            }
+
+            .navbar-toggler {
+                border: none;
+                padding: 0px;
+
+                .navbar-toggler-icon {
+                    // background-image: none;
+                    line-height: 1.25em;
+                    color: #000;
+                }
+
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .nav-item {
+            transition: all ease 0.3s;
+
+            a {
+                text-decoration: none;
+                color: #1c1611;
+            }
+        }
+
+        .nav-item:last-child {
+            margin-bottom: 24px;
+            color: #1c1611;
+        }
+
+        .icon-menu {
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .mb-number {
+            margin-top: 7px;
+            font-size: 0.875em;
+        }
+
+        .brochure {
+            .broucher-link {
+                padding: 0;
+            }
+
+            cursor: pointer;
+            display: flex;
+            padding: 15px 1px;
+
+            .icon-download1 {
+                font-size: 18px;
+                color: $primary-color;
+            }
+        }
+    }
+}

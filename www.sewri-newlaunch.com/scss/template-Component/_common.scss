@@ -1,0 +1,33 @@
+.theme-font{
+    font-size: 2rem;
+}
+
+.location-color{
+    color: $theme-color;
+    font-size: 1.5rem;
+}
+
+.highlight-headig{
+    .main-heading-para{
+        margin-bottom: 10rem;
+    }
+}
+
+.font-600{
+    font-weight: 600;
+}
+
+.overview-section{
+    p,h4,li{
+        color: #333333;
+    }
+    h4{
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+}
+
+
+.font-md{
+    font-size: 1.7rem;
+}

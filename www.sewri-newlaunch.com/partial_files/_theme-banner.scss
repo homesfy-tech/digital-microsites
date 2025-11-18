@@ -1,0 +1,16 @@
+.banner-section{
+    background-color: $primary-color;
+
+    .banner-form-part{
+        background-color: $primary-color;
+        h3{
+            color: $white;
+        }
+        .text-primary{
+            font-size: 26px;
+        }
+        button{
+            background-color: $secondary-color;
+        }
+    }
+}

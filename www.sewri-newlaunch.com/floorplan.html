@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<section class="plan-gallery-section">
+  <h2 class="gallery-heading"><span>Site & Floor Plan</span> of Lodha Elanor</h2>
+  <div class="plan-gallery">
+    <div class="plan-card">
+      <img src="https://www.elanor-thane.com/assests/images/floorPlan/floorplan1.webp" alt="Site Plan">
+      <div class="plan-overlay">
+        <button class="view-btn">View Plan</button>
+      </div>
+    </div>
+    <div class="plan-card">
+      <img src="https://www.elanor-thane.com/assests/images/floorPlan/floorplan1.webp" alt="Floor Plan 1">
+      <div class="plan-overlay">
+        <button class="view-btn">View Plan</button>
+      </div>
+    </div>
+    <div class="plan-card">
+      <img src="https://www.elanor-thane.com/assests/images/floorPlan/floorplan1.webp" alt="Floor Plan 2">
+      <div class="plan-overlay">
+        <button class="view-btn">View Plan</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+ .plan-gallery-section {
+  padding: 50px 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.gallery-heading {
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+.gallery-heading span {
+  color: #cc6c22; /* Match the orange highlight */
+}
+
+.plan-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.plan-card {
+  position: relative;
+  width: 300px;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.plan-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: filter 0.3s ease;
+}
+
+.plan-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.view-btn {
+  background-color: #cc6c22;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 2px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.view-btn:hover {
+  background-color: #a55215;
+}
+
+.plan-card:hover img {
+  filter: blur(3px);
+}
+
+.plan-card:hover .plan-overlay {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .plan-card {
+    width: 90%;
+  }
+}
+
+
+</style>
+</body>
+</html>

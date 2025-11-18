@@ -1,0 +1,67 @@
+#banner {
+    position: relative;
+    width: 100%;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .banner-form-part {
+        width: 100%;
+        background: $white;
+        border-radius: $border-rad;
+        z-index: 1;
+        padding: 16px;
+
+        .banner-form-header {
+            background: $primary;
+            padding: 12px;
+            border-radius: $border-rad;
+
+            h1 {
+                font-size: $h3;
+                text-align: $tc;
+                color: $white;
+                margin-bottom: 4px;
+            }
+
+            h3 {
+                font-size: $h3;
+                text-align: $tc;
+                font-weight: 400;
+                margin-bottom: -12px;
+            }
+
+            p {
+                text-align: $tc;
+            }
+        }
+
+        form {
+            margin-top: 14px;
+
+            h5 {
+                text-align: $tc;
+                margin-bottom: 12px;
+                color: #000;
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+           .carpet-area{
+            text-align: $tc;
+            font-size: 16px;
+            color: #000;
+            font-weight: 500;
+            display: block;
+           }
+
+            p {
+                text-align: $tc;
+                font-weight: 500;
+                margin: 12px 0 0 0;
+            }
+        }
+    }
+}
