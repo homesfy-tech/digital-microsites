@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+<style>
+    .faqs-questionContainer {
+        box-shadow: 0 0 2px rgba(0, 0, 0, .1);
+        margin-bottom: 15px;
+        border: 1px solid #0E1F351F;
+        border-radius: 4px;
+    }
+    /* .faqs-question-active {
+        box-shadow: 6px 6px 4px 0px #FEF3CBCC;
+    } */
+    .faqs-container {
+        max-width: 100%;
+    }
+    .faqs-question {
+        background-color: #efe6db;
+        color: #000;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        border: 0;
+        width: 100%;
+        text-align: left;
+        font-size: 16px;
+        padding: 1rem;
+    }
+    .faqs-answerContainer {
+        transition: all 0.3s ease-in;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+    }
+    .faqs-answer-active {
+        max-height: 1000px;
+        overflow: visible;
+        opacity: 1;
+    }
+
+    .faqs-answer {
+        padding: 10px;
+        line-height: 1.3rem;
+        text-align: justify;
+    }
+    .faqs-arrow {
+        transform: rotate(-90deg);
+        transition: transform 0.3s ease-in-out;
+    }
+    .faqs-arrow-active {
+        transform: rotate(0deg);
+    }
+
+    @media (max-width:768px) {
+        .faqs-container {
+            max-width:100%;
+        }
+    }
+</style>
+</head>
+<body>
+    <section class="aboutSectionContainer">
+        <div class="faqs-container">
+            <h2 class="newGalleryTitle">Frequently Asked Question</h2>
+            
+            <div class="faqs-questionContainer faqs-question-active">
+                <button class="faqs-question">
+                    <span>How is Anand Nagar in terms of Saftey and Security ?</span>
+                    <span class="faqs-arrow faqs-arrow-active"><i class="ri-arrow-down-s-line"></i></span>
+                </button>
+                <div class="faqs-answerContainer faqs-answer-active">
+                    <hr>
+                    <p class="faqs-answer">Anand Nagar in Thane West is generally considered a safe locality for residents. The area boasts low crime rates and a well-developed infrastructure, including reliable utilities and services. Residents appreciate the availability of essential amenities such as schools, hospitals, supermarkets, parks, and recreational facilities</p>
+                </div>
+            </div>
+            <div class="faqs-questionContainer">
+                <button class="faqs-question">
+                    <span>How is Anand Nagar in terms of Saftey and Security ?</span>
+                    <span class="faqs-arrow"><i class="ri-arrow-down-s-line"></i></span>
+                </button>
+                <div class="faqs-answerContainer ">
+                    <hr>
+                    <p class="faqs-answer">Anand Nagar in Thane West is generally considered a safe locality for residents. The area boasts low crime rates and a well-developed infrastructure, including reliable utilities and services. Residents appreciate the availability of essential amenities such as schools, hospitals, supermarkets, parks, and recreational facilities</p>
+                </div>
+            </div>
+            <div class="faqs-questionContainer">
+                <button class="faqs-question">
+                    <span>How is Anand Nagar in terms of Saftey and Security ?</span>
+                    <span class="faqs-arrow"><i class="ri-arrow-down-s-line"></i></span>
+                </button>
+                <div class="faqs-answerContainer ">
+                    <hr>
+                    <p class="faqs-answer">Anand Nagar in Thane West is generally considered a safe locality for residents. The area boasts low crime rates and a well-developed infrastructure, including reliable utilities and services. Residents appreciate the availability of essential amenities such as schools, hospitals, supermarkets, parks, and recreational facilities</p>
+                </div>
+            </div>
+            <div class="faqs-questionContainer">
+                <button class="faqs-question">
+                    <span>How is Anand Nagar in terms of Saftey and Security ?</span>
+                    <span class="faqs-arrow"><i class="ri-arrow-down-s-line"></i></span>
+                </button>
+                <div class="faqs-answerContainer">
+                    <hr>
+                    <p class="faqs-answer">Anand Nagar in Thane West is generally considered a safe locality for residents. The area boasts low crime rates and a well-developed infrastructure, including reliable utilities and services. Residents appreciate the availability of essential amenities such as schools, hospitals, supermarkets, parks, and recreational facilities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll(".faqs-question").forEach((element,index)=>{
+            element.addEventListener("click",(e)=>{
+                e.preventDefault();
+                document.querySelectorAll(".faqs-arrow")[index].classList.toggle("faqs-arrow-active");
+                document.querySelectorAll(".faqs-answerContainer")[index].classList.toggle("faqs-answer-active");
+                document.querySelectorAll(".faqs-questionContainer")[index].classList.toggle("faqs-question-active");
+            })
+        })
+    </script>
+</body>
+</html>

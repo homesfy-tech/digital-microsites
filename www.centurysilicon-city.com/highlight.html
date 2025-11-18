@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Overview</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        *{
+            margin: 0;
+        }
+        .overviewPropertySection {
+            max-width: 100%;
+            padding: 40px;
+            background-color: #efe6db
+        }
+
+        .overviewContent {
+            width: 100%;
+            /* padding-right: 20px */
+        }
+
+        .overviewPropertyDescription {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: #2e2b27;
+  margin-bottom: 20px
+}
+.overviewPropertyTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a2530;
+  margin: 30px 0;
+  text-align: center;
+  position: relative;
+  flex-wrap: nowrap;
+  padding: 0 10px
+}
+
+.overviewPropertyTitle::after,
+.overviewPropertyTitle::before {
+  content: "";
+  width: 40px;
+  height: 1px;
+  background-color: #1a2530;
+  margin: 0 15px
+}
+
+
+        .overviewCtaButton {
+            padding: 12px 24px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #000;
+            border: none
+        }
+
+        .overviewCtaButton:hover {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000
+        }
+
+        .overviewImageContainer {
+            width: 50%
+        }
+
+        .overviewPropertyImage {
+            width: 80%;
+            height: auto;
+            border-radius: 5px;
+            border: 8px solid #fff
+        }
+
+        .overviewFloatingButtons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .overviewCallButton {
+            background-color: green;
+            color: #fff;
+            border: none;
+            font-size: 20px;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer
+        }
+
+        .overviewInquireButton {
+            position: fixed;
+            right: -44px;
+            top: 89%;
+            transform: rotate(270deg);
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer
+        }
+
+        .overviewContainer {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #efe6db;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1)
+        }
+
+        .overviewCarousel {
+            flex: 1;
+            padding: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overviewCarouselImage {
+            width: 100%;
+            border-radius: 2px;
+            height: 400px;
+            object-fit: cover;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .overviewCarouselImage.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .overviewHighlights {
+            flex: 1;
+            padding: 20px 20px;
+            background-color: #efe6db
+        }
+
+        .overviewTitle {
+            color: #2e2b27;
+            font-size: 32px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #b5945f;
+            padding-bottom: 10px;
+            font-weight: 700;
+            font-family: serif
+        }
+
+        .overviewFeaturesList {
+            list-style: none
+        }
+
+        .overviewFeatureItem {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+            color: #333;
+            font-size: 16px
+        }
+
+        .overviewFeatureItem:before {
+            content: "•";
+            color: #b5945f;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px
+        }
+
+        .overviewButtons {
+            display: flex;
+            margin-top: 30px;
+            gap: 15px;
+            flex-wrap: wrap
+        }
+
+
+        .overviewBookVisitButton {
+            border-color: #000
+        }
+
+
+        /* New thumbnail gallery styles */
+        .overviewThumbnailGallery {
+            padding: 15px;
+            background-color: #efe6db;
+            border-top: 1px solid #ddd;
+        }
+
+        .overviewThumbnailContainer {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .overviewThumbnail {
+            width: 60px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .overviewThumbnail:hover,
+        .overviewThumbnail.active {
+            border-color: #b5945f;
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        .overviewButton,
+.overviewCtaButton,
+.overviewRegisterButton {
+  transition: .3s;
+  cursor: pointer
+}
+.overviewButtons {
+  display: flex;
+  margin-top: 30px;
+  gap: 15px;
+  flex-wrap: wrap
+}
+
+.overviewButton {
+  position: relative;
+  padding: 12px 25px;
+  border: 1px solid #1a2530;
+  font-size: 18px;
+  background-color: #1a2530;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  overflow: hidden
+}
+.overviewButton::after {
+    content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
+  animation: 3s infinite shine;
+}
+
+        @media screen and (max-width:992px) {
+            /* .overviewContainer {
+                margin: 10px
+            } */
+
+            .overviewTitle {
+                font-size: 28px
+            }
+
+            .overviewHighlights {
+                padding: 15px 0px;
+                text-align: start
+            }
+        }
+
+        @media screen and (max-width:768px) {
+            .overviewContainer {
+                flex-direction: column
+            }
+
+            .overviewCarousel,
+            .overviewHighlights {
+                width: 100%
+            }
+
+            .overviewTitle {
+                font-size: 24px;
+                text-align: center
+            }
+
+            .overviewButtons {
+                justify-content: center
+            }
+
+
+
+            .overviewCarouselImage {
+                height: 300px;
+            }
+            .overviewFeaturesList{
+                padding: 20px;
+            }
+            .overviewCarousel{
+                padding: 0px;
+            }
+        }
+
+        @media screen and (max-width:480px) {
+            .overviewTitle {
+                font-size: 22px
+            }
+
+            .overviewFeatureItem {
+                font-size: 14px
+            }
+
+            .overviewButtons {
+                flex-direction: column;
+                align-items: center;
+                margin: 0 0 30px;
+            }
+
+
+            .overviewCarouselImage {
+                height: 250px;
+            }
+
+            .overviewThumbnail {
+                width: 50px;
+                height: 35px;
+            }
+            .overviewFeaturesList{
+                padding: 20px;
+            }
+            .overviewCarousel{
+                padding: 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="overviewPropertySection" id="overview">
+        <div class="overviewContent">
+            <h1 class="overviewPropertyTitle">OVERVIEW</h1>
+            <p class="overviewPropertyDescription" id="overviewText">
+                <span class="clampText">
+                Introducing Godrej Avenue Eleven Mahalaxmi, a magnificent skyscraper that redefines the concept of luxury
+                living. With more than 68 floors, this iconic building offers a world of unparalleled elegance. Experience the
+                epitome of comfort and sophistication in our meticulously designed luxurious flats. For those in search of an
+                extraordinary living experience, our exclusive duplex flats provide a sense of grandeur and opulence. Discover a
+                new level of luxury at Godrej Avenue Eleven Mahalaxmi.
+                </span>
+                <a href="javascript:void(0);" class="readMoreLink" style="color:#b5945f; text-decoration:none;"> Read More</a>
+            </p>
+        </div>
+        <div class="overviewContainer">
+            <div class="overviewHighlights">
+                <h2 class="overviewTitle">PROJECT HIGHLIGHTS</h2>
+                <ul class="overviewFeaturesList">
+                    <li class="overviewFeatureItem">3.85 Acres of Freehold Land Parcel</li>
+                    <li class="overviewFeatureItem">Natural Beauty & Urban Sophistication</li>
+                    <li class="overviewFeatureItem">2.4 Acres of Open Spaces</li>
+                    <li class="overviewFeatureItem">Clubhouse and Best-In-Class Amenities</li>
+                    <li class="overviewFeatureItem">Infinity Pool, Observatory & Lounge</li>
+                    <li class="overviewFeatureItem">Exclusive 3 & 4 Bed Residences</li>
+                    <li class="overviewFeatureItem">Modern Layouts with A Timeless Touch</li>
+                    <li class="overviewFeatureItem">Proximity to Schools, Malls, & Hospitals</li>
+                </ul>
+                <div class="overviewButtons">
+                    <button class="overviewButton overviewRequestBrochureButton">Request Brochure</button>
+                </div>
+            </div>
+            <div class="overviewCarousel">
+                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop" alt="Luxury Apartment Building" class="overviewCarouselImage active">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop" alt="Modern Living Room" class="overviewCarouselImage">
+                <img src="https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800&h=600&fit=crop" alt="Luxury Bedroom" class="overviewCarouselImage">
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop" alt="Infinity Pool" class="overviewCarouselImage">
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop" alt="City View" class="overviewCarouselImage">
+                <img src="https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?w=800&h=600&fit=crop" alt="Gym Amenities" class="overviewCarouselImage">
+                
+                <div class="overviewThumbnailGallery">
+                    <div class="overviewThumbnailContainer">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=120&h=90&fit=crop" alt="Building Thumbnail" class="overviewThumbnail active" data-index="0">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=120&h=90&fit=crop" alt="Living Room Thumbnail" class="overviewThumbnail" data-index="1">
+                        <img src="https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=120&h=90&fit=crop" alt="Bedroom Thumbnail" class="overviewThumbnail" data-index="2">
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=120&h=90&fit=crop" alt="Pool Thumbnail" class="overviewThumbnail" data-index="3">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=120&h=90&fit=crop" alt="City Thumbnail" class="overviewThumbnail" data-index="4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.overviewCarouselImage');
+        const thumbnails = document.querySelectorAll('.overviewThumbnail');
+        let autoSlideInterval;
+        let restartTimeout; // Add this to track the restart timeout
+
+        function showImage(index) {
+            // Remove active class from all images and thumbnails
+            images.forEach(img => img.classList.remove('active'));
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            
+            // Add active class to current image and thumbnail
+            images[index].classList.add('active');
+            thumbnails[index].classList.add('active');
+            
+            currentImageIndex = index;
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            showImage(currentImageIndex);
+        }
+
+        function startAutoSlide() {
+            // Clear any existing interval before starting a new one
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+            }
+            autoSlideInterval = setInterval(nextImage, 4000); // Change image every 4 seconds
+        }
+
+        function stopAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = null;
+            }
+            // Also clear any pending restart timeout
+            if (restartTimeout) {
+                clearTimeout(restartTimeout);
+                restartTimeout = null;
+            }
+        }
+
+        // Add click event listeners to thumbnails
+        thumbnails.forEach((thumbnail, index) => {
+            thumbnail.addEventListener('click', () => {
+                showImage(index);
+                stopAutoSlide();
+                
+                // Clear any existing restart timeout before setting a new one
+                if (restartTimeout) {
+                    clearTimeout(restartTimeout);
+                }
+                
+                // Restart auto-slide after 8 seconds of manual interaction
+                restartTimeout = setTimeout(() => {
+                    startAutoSlide();
+                    restartTimeout = null;
+                }, 8000);
+            });
+        });
+
+        // Pause auto-slide when hovering over carousel
+        const carousel = document.querySelector('.overviewCarousel');
+        carousel.addEventListener('mouseenter', stopAutoSlide);
+        carousel.addEventListener('mouseleave', () => {
+            // Only restart if there's no pending restart timeout from thumbnail click
+            if (!restartTimeout) {
+                startAutoSlide();
+            }
+        });
+
+        // Start the automatic slideshow
+        startAutoSlide();
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
