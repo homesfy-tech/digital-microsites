@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floor Plan Carousel</title>
+  <style>
+   
+
+    body {
+      font-family: sans-serif;
+      background-color: #f7f7f7;
+    }
+
+    .floorSection {
+      background-color: #fff;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 1200px;
+    }
+
+    .floorPlan-title {
+      font-size: 24px;
+      color: #356fac;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    /* ---------------- DESKTOP LAYOUT ---------------- */
+    @media (min-width: 769px) {
+      .floorPlan-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .floorPlan-box {
+        position: relative;
+        width: 280px;
+        height: 200px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: #eee;
+      }
+
+      .floorPlan-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .floorPlan-carousel-btn,
+      .floorPlan-dots {
+        display: none !important;
+      }
+    }
+
+    /* ---------------- MOBILE CAROUSEL ---------------- */
+    @media (max-width: 768px) {
+      .floorPlan-carousel-wrapper {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+
+      .floorPlan-container {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0;
+        transition: transform 0.6s ease-in-out;
+        will-change: transform;
+      }
+
+      .floorPlan-box {
+        flex: 0 0 100%;
+        height: 250px;
+        width: 100%;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .floorPlan-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Navigation Buttons */
+      .floorPlan-carousel-btn {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 22px;
+        color: #fff;
+        z-index: 10;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .floorPlan-carousel-btn:disabled {
+        background: rgba(0, 0, 0, 0.2);
+        cursor: not-allowed;
+      }
+
+      .floorPlan-carousel-prev {
+        left: 10px;
+      }
+
+      .floorPlan-carousel-next {
+        right: 10px;
+      }
+
+      /* Dots */
+      .floorPlan-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        gap: 10px;
+      }
+
+      .floorPlan-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ccc;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .floorPlan-dot.active {
+        background: #356fac;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="floorSection" id="masterunitplan">
+    <div class="floorPlan-wrapper">
+      <h2 class="floorPlan-title">Site & Floor Plan Of Adani Thane</h2>
+
+      <div class="floorPlan-carousel-wrapper">
+        <div class="floorPlan-container" id="floorPlanContainer">
+          <div class="floorPlan-box">
+            <img src="assests/images/floorPlan/floorplan1.webp" alt="2 BHK Floor Plan">
+          </div>
+          <div class="floorPlan-box">
+            <img src="assests/images/floorPlan/floorplan2.webp" alt="3 BHK Floor Plan">
+          </div>
+          <div class="floorPlan-box">
+            <img src="assests/images/floorPlan/floorplan3.webp" alt="4 BHK Floor Plan">
+          </div>
+        </div>
+
+        <button class="floorPlan-carousel-btn floorPlan-carousel-prev" id="floorPlanPrev" aria-label="Previous Floor Plan">❮</button>
+        <button class="floorPlan-carousel-btn floorPlan-carousel-next" id="floorPlanNext" aria-label="Next Floor Plan">❯</button>
+      </div>
+
+      <div class="floorPlan-dots" id="floorPlanDots"></div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function initFloorPlanCarousel() {
+        if (window.innerWidth > 768) return; // Run only on mobile
+
+        const container = document.getElementById('floorPlanContainer');
+        const prevBtn = document.getElementById('floorPlanPrev');
+        const nextBtn = document.getElementById('floorPlanNext');
+        const dotsContainer = document.getElementById('floorPlanDots');
+        const slides = container ? container.querySelectorAll('.floorPlan-box') : [];
+
+        if (!container || slides.length === 0) return;
+
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        let autoPlayInterval;
+
+        dotsContainer.innerHTML = '';
+
+        slides.forEach((_, i) => {
+          const dot = document.createElement('button');
+          dot.classList.add('floorPlan-dot');
+          dot.setAttribute('aria-label', `Go to floor plan ${i + 1}`);
+          dot.addEventListener('click', () => {
+            currentIndex = i;
+            updateCarousel();
+            resetAutoplay();
+          });
+          dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll('.floorPlan-dot');
+
+        function updateCarousel() {
+          container.style.transform = `translateX(-${currentIndex * 100}%)`;
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+          });
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === totalSlides - 1;
+        }
+
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % totalSlides; // Infinite loop
+          updateCarousel();
+        }
+
+        nextBtn.addEventListener('click', () => {
+          nextSlide();
+          resetAutoplay();
+        });
+
+        prevBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          updateCarousel();
+          resetAutoplay();
+        });
+
+        // Autoplay every 4 seconds
+        function startAutoplay() {
+          autoPlayInterval = setInterval(nextSlide, 4000);
+        }
+
+        function resetAutoplay() {
+          clearInterval(autoPlayInterval);
+          startAutoplay();
+        }
+
+        const images = container.querySelectorAll('img');
+        let loaded = 0;
+        images.forEach(img => {
+          img.addEventListener('load', () => {
+            loaded++;
+            if (loaded === images.length) {
+              updateCarousel();
+              startAutoplay();
+            }
+          });
+          if (img.complete) loaded++;
+        });
+        if (loaded === images.length) {
+          updateCarousel();
+          startAutoplay();
+        }
+      }
+
+      initFloorPlanCarousel();
+      window.addEventListener('resize', initFloorPlanCarousel);
+    });
+  </script>
+
+</body>
+</html>
