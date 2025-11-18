@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobha Neopolis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .headerContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logoContainer {
+            display: flex;
+            align-items: center;
+        }
+
+        .logoImg {
+            height: 50px;
+            width: auto;
+        }
+
+        .menuToggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menuToggle span {
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .navContainer {
+            display: flex;
+            align-items: center;
+        }
+
+        .navMenu {
+            display: flex;
+            list-style: none;
+        }
+
+        .navItem {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .navLink {
+            text-decoration: none;
+            color: #666;
+            font-size: 16px;
+            transition: color 0.3s;
+            padding: 10px 0;
+            display: block;
+        }
+
+        .navLink:hover {
+            color: #f8b932;
+        }
+
+        .navLinkActive {
+            color: #f8b932;
+        }
+
+        .contactButton {
+            background-color: #f8b932;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contactButton:hover {
+            background-color: #e5a82e;
+        }
+
+        /* Banner Section */
+        .bannerSection {
+            overflow-x: hidden;
+            position: relative;
+            padding-top: 80px; /* Offset for fixed header height */
+        }
+
+        .bannerContainer {
+            display: flex;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Carousel takes 75% width on desktop */
+        .bannerCarousel {
+            width: 75%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Carousel Slide Settings */
+        .bannerSlideContainer {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .bannerSlide {
+            min-width: 100%;
+            height: 100%;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        /* Dots + Nav */
+        .bannerControls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .bannerDot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .bannerDot.active {
+            background-color: #fff;
+        }
+
+        .bannerNav {
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translateY(-50%);
+            font-size: 20px;
+            z-index: 10;
+        }
+
+        .bannerPrev { left: 20px; }
+        .bannerNext { right: 20px; }
+
+        /* Form Container - fixed on right side at 25% width */
+        .bannerFormContainer {
+            width: 25%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            position: fixed;
+            top: 80px;
+            right: 0;
+            height: calc(100vh - 80px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px 0 0 10px; /* Rounded corners only on left side */
+            overflow-y: auto;
+        }
+
+        .bannerFormHeader {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .bannerProjectName {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .bannerProjectLocation {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .bannerPropertyDivider {
+            width: 50%;
+            height: 2px;
+            margin: 0 auto 12px;
+            background-color: #ffd700;
+        }
+
+        .bannerPropertyDetail {
+            font-size: 16px;
+            font-weight: 500;
+            color: #222;
+        }
+
+        .bannerForm {
+            padding: 0 20px 20px;
+        }
+
+        .bannerFormInput,
+        .bannerFormMobile {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .bannerFormPhone {
+            display: flex;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .bannerFormCountry {
+            width: 35%;
+            padding: 12px;
+            background-color: #f3f3f3;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .bannerFormCheckbox {
+            display: flex;
+            align-items: flex-start;
+            font-size: 11px;
+            color: #666;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .bannerFormSubmit {
+            position: relative;
+            background-color: #1c1c1c;
+            color: white;
+            font-size: 16px;
+            padding: 14px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 4px;
+            z-index: 0;
+        }
+
+        .bannerFormSubmitOverlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 35%;
+            height: 100%;
+            background-color: #ffd700;
+            clip-path: polygon(100% 0%, 100% 100%, 0 100%);
+            z-index: -1;
+        }
+
+        .bannerPropertyInfoFooter {
+            background-color: #ffd700;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .bannerPropertyPriceLabel,
+        .bannerPropertyTypeLabel {
+            font-size: 14px;
+            color: #444;
+        }
+
+        .bannerPropertyAmount,
+        .bannerPropertyType {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Offer Card - positioned on left side of carousel */
+        .offerCardWrapper {
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            z-index: 10;
+            max-width: 380px;
+            width: 33%;
+        }
+
+        /* Offer Card Styles */
+        .offerCard {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .offerCard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .offerBanner {
+            background-color: #ffd54f;
+            color: #1f2937;
+            text-align: center;
+            padding: 6%;
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offerBanner::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 2.5s infinite;
+        }
+
+        @keyframes shine {
+            100% {
+                left: 100%;
+            }
+        }
+
+        .offerCardContent {
+            padding: 24px;
+        }
+
+        .offerProjectTitle {
+            margin-bottom: 20px;
+        }
+
+        .offerProjectName {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .offerBuilderName {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .offerProjectLocation {
+            font-size: 14px;
+            color: #6b7280;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .offerYellowLine {
+            height: 3px;
+            width: 100%;
+            background-color: #ffd54f;
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+
+        .offerSection {
+            background-color: #fef3c7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .offerSectionHeader {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .offerSectionTitle {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .offerList {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .offerItem {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .offerIcon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: #ffd54f;
+            color: #1f2937;
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .offerText {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .offerPrice {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 24px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .offerPrice::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background-color: #ffd54f;
+        }
+
+        .offerCtaButton {
+            width: 100%;
+            height: 48px;
+            background: linear-gradient(135deg, #333333 70%, #ffd54f 70%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .offerCtaButton:hover {
+            opacity: 0.95;
+        }
+
+        /* Tablet Styles - 768px to 1023px */
+        @media screen and (min-width: 768px) and (max-width: 1023px) {
+            .bannerCarousel {
+                width: 65%;
+            }
+            
+            .bannerFormContainer {
+                width: 35%;
+            }
+            
+            .offerCardWrapper {
+                width: 40%;
+                left: 3%;
+            }
+            
+            .offerProjectName,
+            .offerBuilderName {
+                font-size: 18px;
+            }
+            
+            .navItem {
+                margin: 0 10px;
+            }
+            
+            .navLink {
+                font-size: 14px;
+            }
+            
+            .contactButton {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+
+        /* Mobile Styles - 767px and below */
+        @media screen and (max-width: 767px) {
+            .menuToggle {
+                display: flex;
+            }
+
+            .navContainer {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .navContainerActive {
+                max-height: 500px;
+                padding: 10px 0;
+            }
+
+            .navMenu {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navItem {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid #eee;
+            }
+
+            .navLink {
+                padding: 15px 20px;
+            }
+
+            .contactButton {
+                margin: 15px 20px;
+                width: calc(100% - 40px);
+                text-align: center;
+            }
+            
+            .bannerContainer {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .bannerCarousel {
+                width: 100%;
+                height: 40vh;
+                order: 1; /* Ensure carousel appears first */
+            }
+            
+            .offerCardWrapper {
+                position: static;
+                margin: 20px auto;
+                width: 90%;
+                max-width: 350px;
+                order: 2; /* Offer card appears second */
+            }
+
+            .bannerFormContainer {
+                position: relative;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: auto;
+                max-width: 100%;
+                box-shadow: none;
+                margin: 0 auto;
+                border-radius: 0; /* reset rounded corners on mobile */
+                order: 3; /* Form appears last */
+            }
+
+            .bannerPropertyInfoFooter {
+                border-radius: 0;
+            }
+            
+            .offerCard {
+                max-width: 100%;
+            }
+            
+            .offerProjectName {
+                font-size: 20px;
+            }
+            
+            .offerBuilderName {
+                font-size: 16px;
+            }
+            
+            .bannerProjectName {
+                font-size: 16px;
+            }
+            
+            .bannerProjectLocation,
+            .bannerPropertyDetail {
+                font-size: 14px;
+            }
+        }
+
+        /* Small Mobile Devices - 480px and below */
+        @media screen and (max-width: 480px) {
+            .headerContainer {
+                padding: 10px 15px;
+            }
+            
+            .logoImg {
+                height: 40px;
+            }
+            
+            .bannerCarousel {
+                height: 30vh;
+            }
+            
+            .offerCardWrapper {
+                width: 95%;
+            }
+            
+            .offerBanner {
+                font-size: 14px;
+            }
+            
+            .offerProjectName {
+                font-size: 18px;
+            }
+            
+            .offerBuilderName {
+                font-size: 14px;
+            }
+            
+            .offerSectionTitle {
+                font-size: 14px;
+            }
+            
+            .offerPrice {
+                font-size: 16px;
+            }
+            
+            .bannerFormInput,
+            .bannerFormMobile,
+            .bannerFormCountry {
+                padding: 10px;
+                font-size: 13px;
+            }
+            
+            .bannerFormSubmit {
+                font-size: 14px;
+                padding: 12px;
+            }
+            
+            .bannerPropertyPriceLabel,
+            .bannerPropertyTypeLabel,
+            .bannerPropertyAmount,
+            .bannerPropertyType {
+                font-size: 12px;
+            }
+        }
+
+        /* Large Desktop Styles - 1440px and above */
+        @media screen and (min-width: 1440px) {
+            .offerCardWrapper {
+                max-width: 420px;
+                width: 30%;
+            }
+            
+            .offerProjectName {
+                font-size: 24px;
+            }
+            
+            .offerBuilderName {
+                font-size: 20px;
+            }
+            
+            .bannerProjectName {
+                font-size: 20px;
+            }
+            
+            .bannerProjectLocation {
+                font-size: 16px;
+            }
+            
+            .bannerPropertyDetail {
+                font-size: 18px;
+            }
+            
+            .bannerFormInput,
+            .bannerFormMobile {
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .bannerFormSubmit {
+                padding: 16px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="headerContainer">
+        <div class="logoContainer">
+            <img src="assets/images/logo/logo.webp" alt="Sobha Neopolis" class="logoImg">
+        </div>
+        
+        <div class="menuToggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <nav class="navContainer" id="navContainer">
+            <ul class="navMenu">
+                <li class="navItem">
+                    <a href="#amenities" class="navLink">AMENITIES</a>
+                </li>
+                <li class="navItem">
+                    <a href="#pricePlan" class="navLink">PRICE PLAN</a>
+                </li>
+                <li class="navItem">
+                    <a href="#floorPlan" class="navLink">FLOOR PLAN</a>
+                </li>
+                <li class="navItem">
+                    <a href="#location" class="navLink navLinkActive">LOCATION</a>
+                </li>
+                <li class="navItem">
+                    <a href="#brochure" class="navLink">BROCHURE</a>
+                </li>
+            </ul>
+            <button class="contactButton">+917948540388</button>
+        </nav>
+    </header>
+
+    <section class="bannerSection">
+      <div class="bannerContainer">
+        <!-- Carousel -->
+        <div class="bannerCarousel">
+          <div class="bannerSlideContainer">
+            <div class="bannerSlide" style="background-image: url('assets/images/banner/banner.webp');"></div>
+          </div>
+          <!-- Optional: Add navigation dots -->
+          <div class="bannerControls">
+            <div class="bannerDot active"></div>
+            <!-- Add more dots if you have multiple slides -->
+          </div>
+        </div>
+        
+        <div class="offerCardWrapper">
+          <div class="offerCard">
+            <div class="offerBanner">New Launch Exclusive Offer</div>
+          
+            <div class="offerCardContent">
+              <div class="offerProjectTitle">
+                <h1 class="offerProjectName">Lodha Mirabelle</h1>
+                <h2 class="offerBuilderName">by Lodha Group</h2>
+                <br>
+                <p class="offerProjectLocation">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  Manyata Tech Park, Bengaluru
+                </p>
+                <div class="offerYellowLine"></div>
+              </div>
+          
+              <div class="offerSection">
+                <div class="offerSectionHeader">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v4"></path>
+                    <path d="m7 7 2 2"></path>
+                    <path d="m17 7-2 2"></path>
+                    <path d="M5 11a7 7 0 0 0 14 0"></path>
+                    <path d="M5.5 16.5a3.5 3.5 0 0 0 5 5"></path>
+                    <path d="M18.5 16.5a3.5 3.5 0 0 1-5 5"></path>
+                  </svg>
+                  <h2 class="offerSectionTitle">Launch Benefits</h2>
+                </div>
+          
+                <ul class="offerList">
+                  <li class="offerItem">
+                    <div class="offerIcon">%</div>
+                    <span class="offerText">Spot booking discounts</span>
+                  </li>
+                  <li class="offerItem">
+                    <div class="offerIcon">₹</div>
+                    <span class="offerText">Flexible payment plans</span>
+                  </li>
+                </ul>
+              </div>
+          
+              <p class="offerPrice">3 & 4 BHK Starting ₹2.99 Cr*</p>
+          
+              <button class="offerCtaButton">Enquire Now</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bannerFormContainer">
+          <div>
+            <div class="bannerFormHeader">
+              <div class="bannerProjectName">Sobha Neopolis Bangalore</div>
+              <div class="bannerProjectLocation">Near Panathur Main Road</div>
+              <div class="bannerPropertyDivider"></div>
+              <div class="bannerPropertyDetail">3 & 4 BHK Starts 2.35 Cr* Onwards</div>
+            </div>
+          
+            <form class="bannerForm">
+              <input type="text" class="bannerFormInput" placeholder="Your Name*" required />
+          
+              <div class="bannerFormPhone">
+                <div class="bannerFormCountry">India (+91)</div>
+                <input type="tel" class="bannerFormMobile" placeholder="Mobile No*" required />
+              </div>
+          
+              <div class="bannerFormCheckbox">
+                <input type="checkbox" required checked />
+                <label>I consent to the use of provided data in accordance with the privacy policy</label>
+              </div>
+          
+              <button type="submit" class="bannerFormSubmit">
+                Submit
+                <div class="bannerFormSubmitOverlay"></div>
+              </button>
+            </form>
+          
+            <div class="bannerPropertyInfoFooter">
+              <div>
+                <div class="bannerPropertyPriceLabel">Price</div>
+                <div class="bannerPropertyAmount">2.35 Cr*</div>
+              </div>
+              <div>
+                <div class="bannerPropertyTypeLabel">Type</div>
+                <div class="bannerPropertyType">3 BHK</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+        // JavaScript for toggle menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navContainer = document.getElementById('navContainer');
+            
+            menuToggle.addEventListener('click', function() {
+                navContainer.classList.toggle('navContainerActive');
+            });
+            
+            // Close menu when clicking a nav link on mobile
+            const navLinks = document.querySelectorAll('.navLink');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        navContainer.classList.remove('navContainerActive');
+                    }
+                });
+            });
+            
+            // Handle responsive behavior on window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    navContainer.classList.remove('navContainerActive');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

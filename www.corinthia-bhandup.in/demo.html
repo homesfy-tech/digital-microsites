@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobha Neopolis - Greek Themed Luxury Apartments In Bangalore</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+        }
+        
+        .header {
+            background-color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 100;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .logo-subtitle {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .logo-partner {
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-item {
+            text-transform: uppercase;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .nav-item.active {
+            color: #F9B234;
+        }
+        
+        .contact-btn {
+            background-color: #F9B234;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+        
+        /* Carousel Styling */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .carousel-item.active {
+            opacity: 1;
+        }
+        
+        .content-section {
+            width: 78%;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1));
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .form-section {
+            width: 22%;
+            background-color: white;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 10;
+        }
+        
+        .offer-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 450px;
+            position: relative;
+            margin: 50px;
+            overflow: hidden;
+            z-index: 5;
+        }
+        
+        .new-launch-tag {
+            background-color: #FBE38F;
+            padding: 15px;
+            color: #333;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .offer-content {
+            padding: 20px;
+        }
+        
+        .property-name {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .property-developer {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        
+        .location-icon {
+            color: #666;
+        }
+        
+        .benefits-section {
+            background-color: #FBE38F;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .benefits-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 50px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .benefit-icon {
+            width: 30px;
+            height: 30px;
+            background-color: #FBE38F;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .price-section {
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .price-underline {
+            border-bottom: 2px solid #F9B234;
+            width: 100px;
+            display: inline-block;
+            margin-left: 5px;
+        }
+        
+        .enquire-btn {
+            background: linear-gradient(to right, #333 70%, #F9B234 30%);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        
+        /* Form Section */
+        .form-header {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .form-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .property-location {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .property-details {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #333;
+        }
+        
+        .form-content {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .phone-inputs {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .country-code {
+            width: 30%;
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+        
+        .consent-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .consent-checkbox input {
+            margin-top: 3px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #000 75%, #F9B234 25%);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 25%;
+            height: 100%;
+            background-color: #F9B234;
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+        }
+        
+        .price-info {
+            display: flex;
+            margin-top: 20px;
+            background-color: #FBE38F;
+        }
+        
+        .price-box, .type-box {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .price-label, .type-label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .price-value, .type-value {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        /* Numbered sections styling */
+        .section {
+            padding: 30px;
+            position: relative;
+            z-index: 5;
+            background-color: white;
+            margin: 0 50px 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #F9B234;
+            margin-bottom: 5px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: #F9B234;
+            margin-bottom: 15px;
+        }
+        
+        .section-text {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .features-list {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-icon {
+            width: 10px;
+            height: 10px;
+            background-color: #333;
+            clip-path: polygon(100% 50%, 0 0, 0 100%);
+        }
+        
+        /* Mobile Carousel */
+        .mobile-carousel {
+            display: none;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Mobile view */
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px;
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                margin-bottom: 10px;
+            }
+            
+            .nav {
+                display: none;
+            }
+            
+            .main-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .content-section, .form-section {
+                width: 100%;
+                height: auto;
+            }
+            
+            .content-section {
+                order: 1;
+            }
+            
+            .carousel {
+                display: none;
+            }
+            
+            .mobile-carousel {
+                display: block;
+                order: 1;
+            }
+            
+            .mobile-content {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .offer-card {
+                width: 90%;
+                margin: 20px auto;
+                order: 2;
+            }
+            
+            .text-sections {
+                order: 3;
+            }
+            
+            .section {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .form-section {
+                order: 4;
+                position: relative;
+            }
+            
+            .property-name {
+                font-size: 24px;
+            }
+            
+            .property-developer {
+                font-size: 16px;
+            }
+            
+            .section-number {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <svg class="logo-img" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 5L5 20H10L20 10L30 20H35L20 5Z" fill="#F9B234"/>
+                <path d="M20 15L10 25H30L20 15Z" fill="#F9B234"/>
+            </svg>
+            <div class="logo-text">
+                <div class="logo-title">SOBHA NEOPOLIS</div>
+                <div class="logo-subtitle">Panathur, Bangalore</div>
+                <div class="logo-partner">Authorized Channel Partner</div>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="nav-item">AMENITIES</div>
+            <div class="nav-item">PRICE PLAN</div>
+            <div class="nav-item">FLOOR PLAN</div>
+            <div class="nav-item active">LOCATION</div>
+            <div class="nav-item">BROCHURE</div>
+        </div>
+        <button class="contact-btn">+917948540388</button>
+    </div>
+    
+    <!-- Mobile Carousel - Only visible on mobile -->
+    <div class="mobile-carousel">
+        <div class="carousel-item active" style="background-image: url('https://www.mirabellebangalore.com/img/banner/banner.webp')"></div>
+        <div class="carousel-item" style="background-image: url('https://www.mirabellebangalore.com/img/banner/banner.webp')"></div>
+        <!-- <div class="carousel-item" style="background-image: url('/api/placeholder/800/402')"></div> -->
+    </div>
+    
+    <div class="main-container">
+        <div class="content-section">
+            <!-- Desktop Carousel - Behind the offer card -->
+            <div class="carousel">
+                <div class="carousel-item active" style="background-image: url('https://www.mirabellebangalore.com/img/banner/banner.webp')"></div>
+                <div class="carousel-item" style="background-image: url('https://www.mirabellebangalore.com/img/banner/banner.webp')"></div>
+                <!-- <div class="carousel-item" style="background-image: url('/api/placeholder/1200/802')"></div> -->
+            </div>
+            <div class="overlay"></div>
+            
+            <div class="mobile-content">
+                <div class="offer-card">
+                    <div class="new-launch-tag">New Launch Exclusive Offer</div>
+                    
+                    <div class="offer-content">
+                        <h2 class="property-name">Lodha Mirabelle</h2>
+                        <div class="property-developer">by Lodha Group</div>
+                        
+                        <div class="location">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" class="location-icon">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
+                                <circle cx="12" cy="9" r="2.5"></circle>
+                            </svg>
+                            Manyata Tech Park, Bengaluru
+                        </div>
+                        
+                        <div class="benefits-section">
+                            <div class="benefits-title">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="#333">
+                                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.4-1.4L9 13.2l5.6-5.6L16 9l-6 8z"></path>
+                                </svg>
+                                Launch Benefits
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">%</div>
+                                Spot booking discounts
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">₹</div>
+                                Flexible payment plans
+                            </div>
+                        </div>
+                        
+                        <div class="price-section">
+                            3 & 4 BHK Starting <span class="price-value">₹2.99 Cr*</span>
+                            <span class="price-underline"></span>
+                        </div>
+                        
+                        <button class="enquire-btn">Enquire Now</button>
+                    </div>
+                </div>
+                
+                <!-- Text sections container for mobile reordering -->
+                <div class="text-sections">
+                    <!-- Additional content sections -->
+                    <div class="section">
+                        <div class="section-number">01</div>
+                        <h2 class="section-title">Sobha Neopolis - Greek Themed Luxury Apartments In Bangalore</h2>
+                        <div class="section-subtitle">Overview</div>
+                        <p class="section-text">
+                            Discover the epitome of opulence at Sobha Neopolis, an upcoming luxurious residential complex in the heart of Bangalore's
+                            IT Corridor. Offering an array of 1, 3 and 4 BHK flats, this Grecian-themed township stands as a testament to modern
+                            indulgence. Nestled near Panathur, off Marathahalli – ORR, it's a haven that artfully combines contemporary amenities
+                            catering to residents of all ages with the allure of a Mediterranean lifestyle.
+                        </p>
+                        <p class="section-text">
+                            Sobha Neopolis offers a tranquil yet dynamic living experience, strategically located in Bangalore's IT corridor, presenting a
+                            significant advantage to residents in terms of time and cost savings on daily commutes. The close proximity to numerous
+                            multinational companies makes this location an irresistible choice for IT professionals, ensuring a perfect blend of comfort
+                            and sophistication, redefining the essence of city living. Explore your future in luxury living at Sobha Neopolis today
+                        </p>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-number">02</div>
+                        <h2 class="section-title">Why Sobha Neopolis Bangalore?</h2>
+                        
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <div class="feature-icon"></div>
+                                <div>Well planned layouts</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"></div>
+                                <div>Prime location</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"></div>
+                                <div>Near Bangalore IT hub</div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon"></div>
+                                <div>Lifestyle Amenities</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="form-header">
+                <h3 class="form-title">Sobha Neopolis Bangalore</h3>
+                <div class="property-location">Near Panathur Main Road</div>
+                <div class="property-details">3 & 4 BHK Starts 2.35 Cr* Onwards</div>
+            </div>
+            
+            <div class="form-content">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name*" class="form-input">
+                </div>
+                
+                <div class="form-group phone-inputs">
+                    <input type="text" value="India (+91)" class="form-input country-code" readonly>
+                    <input type="tel" placeholder="Mobile No*" class="form-input">
+                </div>
+                
+                <div class="consent-checkbox">
+                    <input type="checkbox" id="consent" checked>
+                    <label for="consent">I consent to the use of provided data in accordance with the privacy policy</label>
+                </div>
+                
+                <button class="submit-btn">Submit</button>
+                
+                <div class="price-info">
+                    <div class="price-box">
+                        <div class="price-label">Price</div>
+                        <div class="price-value">2.35 Cr*</div>
+                    </div>
+                    <div class="type-box">
+                        <div class="type-label">Type</div>
+                        <div class="type-value">3 BHK</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const desktopSlides = document.querySelectorAll('.carousel .carousel-item');
+        const mobileSlides = document.querySelectorAll('.mobile-carousel .carousel-item');
+        
+        function nextSlide() {
+            // Desktop carousel
+            desktopSlides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % desktopSlides.length;
+            desktopSlides[currentSlide].classList.add('active');
+            
+            // Mobile carousel - use same slide index for consistency
+            mobileSlides.forEach(slide => slide.classList.remove('active'));
+            mobileSlides[currentSlide].classList.add('active');
+        }
+        
+        // Auto-advance the carousel every 4 seconds
+        setInterval(nextSlide, 4000);
+    </script>
+</body>
+</html>

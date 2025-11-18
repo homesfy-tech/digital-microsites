@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule a Site Visit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .siteVisit-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .siteVisit-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .siteVisit-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .siteVisit-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .siteVisit-subtitle {
+            width: 80px;
+            height: 4px;
+            background: #f1c40f;
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .siteVisit-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .siteVisit-imageSection {
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            position: relative;
+        }
+
+        .siteVisit-familyImage {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .siteVisit-formSection {
+            padding: 60px 50px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .siteVisit-form {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .siteVisit-formTitle {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .siteVisit-formSubtitle {
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        .siteVisit-inputGroup {
+            margin-bottom: 24px;
+        }
+
+        .siteVisit-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #2c3e50;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .siteVisit-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .siteVisit-input::placeholder {
+            color: #95a5a6;
+            font-weight: normal;
+        }
+
+        .siteVisit-phoneWrapper {
+            display: flex;
+            gap: 0;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .siteVisit-phoneWrapper:focus-within {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .siteVisit-countrySelect {
+            padding: 16px 16px 16px 20px;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            color: #2c3e50;
+            border-right: 1px solid #e9ecef;
+            min-width: 140px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            cursor: pointer;
+        }
+
+        .siteVisit-phoneInput {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        .siteVisit-phoneInput:focus {
+            outline: none;
+        }
+
+        .siteVisit-phoneInput::placeholder {
+            color: #95a5a6;
+        }
+
+        .siteVisit-checkboxWrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .siteVisit-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: #3498db;
+            cursor: pointer;
+        }
+
+        .siteVisit-checkboxLabel {
+            font-size: 14px;
+            color: #7f8c8d;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .siteVisit-privacyLink {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .siteVisit-privacyLink:hover {
+            text-decoration: underline;
+        }
+
+        .siteVisit-submitButton {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .siteVisit-submitButton::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+            clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+
+        .siteVisit-submitButton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.3);
+        }
+
+        .siteVisit-submitButton:active {
+            transform: translateY(0);
+        }
+
+        .siteVisit-submitText {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .siteVisit-formSection {
+                padding: 50px 40px;
+            }
+            
+            .siteVisit-imageSection {
+                padding: 50px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .siteVisit-container {
+                padding: 10px;
+            }
+
+            .siteVisit-title {
+                font-size: 2rem;
+            }
+
+            .siteVisit-header {
+                padding: 30px 20px;
+            }
+
+            .siteVisit-content {
+                grid-template-columns: 1fr;
+            }
+
+            .siteVisit-imageSection {
+                order: 1;
+                padding: 40px 30px;
+                min-height: 350px;
+            }
+
+            .siteVisit-familyImage {
+                height: 300px;
+            }
+
+            .siteVisit-formSection {
+                order: 2;
+                padding: 40px 30px;
+            }
+
+            .siteVisit-formTitle {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .siteVisit-title {
+                font-size: 1.75rem;
+            }
+
+            .siteVisit-header {
+                padding: 25px 15px;
+            }
+
+            .siteVisit-imageSection {
+                padding: 30px 20px;
+                min-height: 280px;
+            }
+
+            .siteVisit-familyImage {
+                height: 220px;
+            }
+
+            .siteVisit-formSection {
+                padding: 30px 20px;
+            }
+
+            .siteVisit-input,
+            .siteVisit-countrySelect,
+            .siteVisit-phoneInput {
+                padding: 14px 16px;
+                font-size: 16px;
+            }
+
+            .siteVisit-countrySelect {
+                min-width: 120px;
+                padding-right: 36px;
+            }
+
+            .siteVisit-submitButton {
+                padding: 16px;
+            }
+
+            .siteVisit-formTitle {
+                font-size: 1.35rem;
+            }
+
+            .siteVisit-formSubtitle {
+                font-size: 0.9rem;
+                margin-bottom: 30px;
+            }
+        }
+
+        /* Loading animation */
+        .siteVisit-loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .siteVisit-loading .siteVisit-submitText::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            display: inline-block;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="siteVisit-container">
+        <div class="siteVisit-wrapper">
+            <div class="siteVisit-header">
+                <h1 class="siteVisit-title">Schedule a Site Visit</h1>
+                <div class="siteVisit-subtitle"></div>
+            </div>
+            
+            <div class="siteVisit-content">
+                <div class="siteVisit-imageSection">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 400'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f8f9fa'/%3E%3Cstop offset='100%25' style='stop-color:%23e9ecef'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='500' height='400' fill='url(%23bg)'/%3E%3C!-- Living room background --%3E%3Crect x='0' y='250' width='500' height='150' fill='%23d6d8db'/%3E%3C!-- Sofa --%3E%3Cellipse cx='120' cy='320' rx='80' ry='25' fill='%23f39c12'/%3E%3Crect x='40' y='295' width='160' height='50' rx='25' fill='%23f39c12'/%3E%3C!-- Sofa pillows --%3E%3Ccircle cx='80' cy='305' r='15' fill='%23e67e22'/%3E%3Ccircle cx='160' cy='305' r='15' fill='%23e67e22'/%3E%3C!-- Family members --%3E%3C!-- Father --%3E%3Ccircle cx='200' cy='220' r='25' fill='%23deb887'/%3E%3Crect x='185' y='245' width='30' height='50' rx='15' fill='%232c3e50'/%3E%3C!-- Mother --%3E%3Ccircle cx='250' cy='225' r='22' fill='%23deb887'/%3E%3Crect x='238' y='247' width='24' height='45' rx='12' fill='%23e74c3c'/%3E%3C!-- Child 1 --%3E%3Ccircle cx='170' cy='250' r='18' fill='%23deb887'/%3E%3Crect x='160' y='268' width='20' height='35' rx='10' fill='%23f1c40f'/%3E%3C!-- Child 2 --%3E%3Ccircle cx='280' cy='250' r='18' fill='%23deb887'/%3E%3Crect x='270' y='268' width='20' height='35' rx='10' fill='%23e74c3c'/%3E%3C!-- House model in center --%3E%3Crect x='210' y='270' width='40' height='30' fill='%23ecf0f1'/%3E%3Cpolygon points='210,270 230,250 250,270' fill='%23e74c3c'/%3E%3Crect x='220' y='285' width='8' height='15' fill='%234a4a4a'/%3E%3Crect x='235' y='275' width='6' height='6' fill='%233498db'/%3E%3C!-- Wall decorations --%3E%3Crect x='50' y='150' width='60' height='80' rx='5' fill='%23f4f4f4'/%3E%3Crect x='320' y='160' width='50' height='60' rx='3' fill='%23f4f4f4'/%3E%3Crect x='380' y='140' width='40' height='70' rx='3' fill='%23f4f4f4'/%3E%3C!-- Frame contents --%3E%3Ccircle cx='80' cy='180' r='15' fill='%23e74c3c'/%3E%3Crect x='330' y='175' width='30' height='2' fill='%2327ae60'/%3E%3Ccircle cx='345' cy='190' r='5' fill='%23f39c12'/%3E%3Cpolygon points='385,155 395,165 405,155' fill='%23e74c3c'/%3E%3C/svg%3E" 
+                         alt="Happy family in living room with house model" 
+                         class="siteVisit-familyImage">
+                </div>
+                
+                <div class="siteVisit-formSection">
+                    <form class="siteVisit-form" id="siteVisitForm">
+                        <h2 class="siteVisit-formTitle">Book Now & Pay Nothing Till March'26</h2>
+                        <p class="siteVisit-formSubtitle">Schedule your visit today</p>
+                        
+                        <div class="siteVisit-inputGroup">
+                            <input type="text" 
+                                   class="siteVisit-input" 
+                                   placeholder="Your Name*" 
+                                   required>
+                        </div>
+                        
+                        <div class="siteVisit-inputGroup">
+                            <div class="siteVisit-phoneWrapper">
+                                <select class="siteVisit-countrySelect">
+                                    <option value="+91">India (+91)</option>
+                                    <option value="+1">USA (+1)</option>
+                                    <option value="+44">UK (+44)</option>
+                                    <option value="+971">UAE (+971)</option>
+                                    <option value="+65">Singapore (+65)</option>
+                                </select>
+                                <input type="tel" 
+                                       class="siteVisit-phoneInput" 
+                                       placeholder="Mobile No*" 
+                                       required>
+                            </div>
+                        </div>
+                        
+                        <div class="siteVisit-checkboxWrapper">
+                            <input type="checkbox" 
+                                   id="siteVisit-privacyConsent" 
+                                   class="siteVisit-checkbox" 
+                                   required>
+                            <label for="siteVisit-privacyConsent" class="siteVisit-checkboxLabel">
+                                I consent to the use of provided data in accordance with the 
+                                <a href="#" class="siteVisit-privacyLink">privacy policy</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="siteVisit-submitButton">
+                            <span class="siteVisit-submitText">Submit</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

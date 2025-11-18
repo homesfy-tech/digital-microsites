@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobha Neopolis - Greek Themed Luxury Apartments In Bangalore</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .overview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .overview-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .overview-section-content {
+            padding: 40px;
+        }
+
+        .overview-section-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #f4c430;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .overview-section-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .overview-label {
+            color: #f4c430;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .overview-description {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .overview-text-container {
+            position: relative;
+        }
+
+        .overview-text-preview {
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .overview-text-preview.collapsed {
+            max-height: calc(1.7em * 5);
+            position: relative;
+        }
+
+        .overview-text-preview.collapsed::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(transparent, white);
+        }
+
+        .overview-read-more-btn {
+            background: none;
+            border: none;
+            color: #f4c430;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 10px 0;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .overview-read-more-btn:hover {
+            color: #e6b12a;
+            transform: translateX(3px);
+        }
+
+        .overview-read-more-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .overview-read-more-btn.expanded .overview-read-more-arrow {
+            transform: rotate(90deg);
+        }
+
+        .overview-features-section {
+            position: relative;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .overview-features-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .overview-features-list {
+            list-style: none;
+        }
+
+        .overview-features-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .overview-features-item:last-child {
+            border-bottom: none;
+        }
+
+        .overview-features-arrow {
+            margin-right: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .overview-features-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .overview-image-container {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(45deg, #e9ecef, #f8f9fa);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .overview-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23f8f9fa"/><path d="M50 100 L150 200 L250 150 L350 250" stroke="%23dee2e6" stroke-width="3" fill="none"/><circle cx="300" cy="80" r="30" fill="%23e9ecef"/></svg>') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .overview-container {
+                padding: 15px;
+            }
+
+            .overview-section-content {
+                padding: 25px;
+            }
+
+            .overview-section-number {
+                font-size: 36px;
+            }
+
+            .overview-section-title {
+                font-size: 22px;
+            }
+
+            .overview-features-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .overview-image-container {
+                height: 200px;
+            }
+
+            .overview-description {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overview-section-content {
+                padding: 20px;
+            }
+
+            .overview-section-number {
+                font-size: 32px;
+            }
+
+            .overview-section-title {
+                font-size: 20px;
+            }
+
+            .overview-features-item {
+                padding: 12px 0;
+            }
+
+            .overview-features-text {
+                font-size: 15px;
+            }
+        }
+
+        /* Desktop Center Alignment */
+        @media (min-width: 1200px) {
+            .overview-container {
+                padding: 40px 20px;
+            }
+            
+            .overview-section {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overview-container">
+        <!-- Section 01 - Overview -->
+        <div class="overview-section">
+            <div class="overview-section-content">
+                <span class="overview-section-number">01</span>
+                <h1 class="overview-section-title">Sobha Neopolis - Greek Themed Luxury Apartments In Bangalore</h1>
+                
+                <span class="overview-label">Overview</span>
+                
+                <div class="overview-text-container">
+                    <div class="overview-text-preview collapsed" id="overviewText">
+                        <p class="overview-description">
+                            Discover the epitome of opulence at Sobha Neopolis, an upcoming luxurious residential complex in the heart of Bangalore's IT Corridor. Offering an array of 1, 3 and 4 BHK flats, this Grecian-themed township stands as a testament to modern indulgence. Nestled near Panathur, off Marathahalli – ORR, it's a haven that artfully combines contemporary amenities catering to residents of all ages with the allure of a Mediterranean lifestyle.
+                        </p>
+                        
+                        <p class="overview-description">
+                            Sobha Neopolis offers a tranquil yet dynamic living experience, strategically located in Bangalore's IT corridor, presenting a significant advantage to residents in terms of time and cost savings on daily commutes. The close proximity to numerous multinational companies makes this location an irresistible choice for IT professionals, ensuring a perfect blend of comfort and sophistication, redefining the essence of city living. Explore your future in luxury living at Sobha Neopolis today
+                        </p>
+                    </div>
+                    
+                    <button class="overview-read-more-btn" id="readMoreBtn">
+                        Read More
+                        <span class="overview-read-more-arrow">▶</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 02 - Why Sobha Neopolis -->
+        <div class="overview-section overview-features-section">
+            <div class="overview-section-content">
+                <div class="overview-features-content">
+                    <div>
+                        <span class="overview-section-number">02</span>
+                        <h2 class="overview-section-title">Why Sobha Neopolis Bangalore?</h2>
+                        
+                        <ul class="overview-features-list">
+                            <li class="overview-features-item">
+                                <span class="overview-features-arrow">▶</span>
+                                <span class="overview-features-text">Well planned layouts</span>
+                            </li>
+                            <li class="overview-features-item">
+                                <span class="overview-features-arrow">▶</span>
+                                <span class="overview-features-text">Prime location</span>
+                            </li>
+                            <li class="overview-features-item">
+                                <span class="overview-features-arrow">▶</span>
+                                <span class="overview-features-text">Near Bangalore IT hub</span>
+                            </li>
+                            <li class="overview-features-item">
+                                <span class="overview-features-arrow">▶</span>
+                                <span class="overview-features-text">Lifestyle Amenities</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="overview-image-container">
+                        <div class="overview-image-placeholder"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Apply animation to sections
+            const sections = document.querySelectorAll('.overview-section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(section);
+            });
+
+            // Add hover effects to feature items
+            const featureItems = document.querySelectorAll('.overview-features-item');
+            featureItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(244, 196, 48, 0.05)';
+                    this.style.transform = 'translateX(5px)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+
+            // Read More functionality
+            const readMoreBtn = document.getElementById('readMoreBtn');
+            const overviewText = document.getElementById('overviewText');
+            let isExpanded = false;
+
+            readMoreBtn.addEventListener('click', function() {
+                if (!isExpanded) {
+                    // Expand text
+                    overviewText.classList.remove('collapsed');
+                    readMoreBtn.innerHTML = 'Read Less <span class="overview-read-more-arrow">▼</span>';
+                    readMoreBtn.classList.add('expanded');
+                    isExpanded = true;
+                } else {
+                    // Collapse text
+                    overviewText.classList.add('collapsed');
+                    readMoreBtn.innerHTML = 'Read More <span class="overview-read-more-arrow">▶</span>';
+                    readMoreBtn.classList.remove('expanded');
+                    isExpanded = false;
+                    
+                    // Smooth scroll back to the beginning of the section
+                    overviewText.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
