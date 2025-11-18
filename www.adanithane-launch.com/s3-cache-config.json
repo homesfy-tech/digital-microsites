@@ -1,0 +1,7 @@
+{
+  "CacheControl": "public, max-age=31536000, immutable",
+  "ContentType": "application/octet-stream",
+  "Metadata": {
+    "Cache-Control": "public, max-age=31536000, immutable"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "rules": [
+    {
+      "name": "HTML Files - No Cache",
+      "expression": "(http.host eq \"www.adanithane-launch.com\" or http.host eq \"adanithane-launch.com\") and http.request.uri.path matches \"^.*\\.html$\"",
+      "action": "cache_level",
+      "action_parameters": {
+        "cache_level": "bypass"
+      }
+    },
+    {
+      "name": "CSS Files - Cache 1 Year",
+      "expression": "(http.host eq \"www.adanithane-launch.com\" or http.host eq \"adanithane-launch.com\") and http.request.uri.path matches \"^.*\\.css$\"",
+      "action": "cache_level",
+      "action_parameters": {
+        "cache_level": "cache_everything",
+        "edge_ttl": {
+          "mode": "respect_origin",
+          "default": 31536000
+        }
+      }
+    },
+    {
+      "name": "JS Files - Cache 1 Year",
+      "expression": "(http.host eq \"www.adanithane-launch.com\" or http.host eq \"adanithane-launch.com\") and http.request.uri.path matches \"^.*\\.js$\"",
+      "action": "cache_level",
+      "action_parameters": {
+        "cache_level": "cache_everything",
+        "edge_ttl": {
+          "mode": "respect_origin",
+          "default": 31536000
+        }
+      }
+    },
+    {
+      "name": "Images - Cache 1 Year",
+      "expression": "(http.host eq \"www.adanithane-launch.com\" or http.host eq \"adanithane-launch.com\") and (http.request.uri.path matches \"^.*\\.webp$\" or http.request.uri.path matches \"^.*\\.jpg$\" or http.request.uri.path matches \"^.*\\.jpeg$\" or http.request.uri.path matches \"^.*\\.png$\" or http.request.uri.path matches \"^.*\\.svg$\" or http.request.uri.path matches \"^.*\\.gif$\")",
+      "action": "cache_level",
+      "action_parameters": {
+        "cache_level": "cache_everything",
+        "edge_ttl": {
+          "mode": "respect_origin",
+          "default": 31536000
+        }
+      }
+    },
+    {
+      "name": "Fonts - Cache 1 Year",
+      "expression": "(http.host eq \"www.adanithane-launch.com\" or http.host eq \"adanithane-launch.com\") and (http.request.uri.path matches \"^.*\\.woff$\" or http.request.uri.path matches \"^.*\\.woff2$\" or http.request.uri.path matches \"^.*\\.ttf$\" or http.request.uri.path matches \"^.*\\.eot$\")",
+      "action": "cache_level",
+      "action_parameters": {
+        "cache_level": "cache_everything",
+        "edge_ttl": {
+          "mode": "respect_origin",
+          "default": 31536000
+        }
+      }
+    },
+    {
+      "name": "Assets Folder - Cache 1 Year",
+      "expression": "(http.host eq \"www.adanithane-launch.com\" or http.host eq \"adanithane-launch.com\") and http.request.uri.path matches \"^/assests/.*\"",
+      "action": "cache_level",
+      "action_parameters": {
+        "cache_level": "cache_everything",
+        "edge_ttl": {
+          "mode": "respect_origin",
+          "default": 31536000
+        }
+      }
+    }
+  ]
+}
