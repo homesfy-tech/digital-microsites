@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Amenities Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f0e8;
+        }
+
+        .newAmenitiesContainer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .newAmenitiesTitle {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 28px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .newAmenitiesTitle::before,
+        .newAmenitiesTitle::after {
+            content: "—";
+            display: inline-block;
+            margin: 0 15px;
+            color: #333;
+        }
+
+        .newAmenitiesGallery {
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .newAmenitiesSlideWrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .newAmenitiesSlide {
+            min-width: 100%;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .newAmenitiesImage {
+            position: relative;
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .newAmenitiesImage:hover {
+            transform: scale(1.02);
+        }
+
+        .newAmenitiesImage img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .newAmenitiesImageOverlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1), transparent);
+            padding: 40px 20px 20px;
+        }
+
+        .newAmenitiesImageTitle {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease;
+            transform: translateY(5px);
+        }
+
+        .newAmenitiesImage:hover .newAmenitiesImageTitle {
+            transform: translateY(0);
+        }
+
+        .newAmenitiesNav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 10;
+            pointer-events: none; /* This allows clicks to pass through */
+        }
+
+        .newAmenitiesNavButton {
+            background-color: rgba(100, 100, 100, 0.7);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            pointer-events: auto; /* Re-enable pointer events for buttons */
+            border-radius: 50%;
+            z-index: 20;
+        }
+
+        .newAmenitiesNavButton:hover {
+            background-color: rgba(80, 80, 80, 0.9);
+        }
+
+        .newAmenitiesPrev {
+            margin-left: 10px;
+        }
+
+        .newAmenitiesNext {
+            margin-right: 10px;
+        }
+
+        .newAmenitiesTagline {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .newAmenitiesDownload {
+            display: block;
+            width: 220px;
+            margin: 20px auto;
+            padding: 12px 20px;
+            background-color: #222;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .newAmenitiesDownload:hover {
+            background-color: #444;
+        }
+
+        /* Lightbox Styles */
+        .newAmenitiesLightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .newAmenitiesLightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .newAmenitiesLightboxContent {
+            position: relative;
+            width: 80%;
+            max-width: 1000px;
+            max-height: 80vh;
+        }
+
+        .newAmenitiesLightboxImage {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .newAmenitiesLightboxClose {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            background-color: rgba(100, 100, 100, 0.7);
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            border-radius: 50%;
+        }
+
+        .newAmenitiesLightboxClose:hover {
+            background-color: rgba(80, 80, 80, 0.9);
+        }
+
+        .newAmenitiesLightboxNavButton {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(100, 100, 100, 0.7);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            font-size: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            border-radius: 50%;
+        }
+
+        .newAmenitiesLightboxNavButton:hover {
+            background-color: rgba(80, 80, 80, 0.9);
+        }
+
+        .newAmenitiesLightboxPrev {
+            left: -80px;
+        }
+
+        .newAmenitiesLightboxNext {
+            right: -80px;
+        }
+
+        .newAmenitiesLightboxTitle {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            width: 100%;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* Desktop specific styles */
+        @media (min-width: 769px) {
+            .newAmenitiesDesktopSlideWrapper {
+                display: flex;
+                transition: transform 0.5s ease;
+            }
+            
+            .newAmenitiesDesktopSlide {
+                min-width: 33.333%;
+                padding: 0 10px;
+                cursor: pointer;
+            }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .newAmenitiesDesktopSlide {
+                min-width: 100% !important;
+                padding: 0;
+                cursor: pointer;
+            }
+
+            .newAmenitiesImage img {
+                height: 250px;
+            }
+
+            .newAmenitiesNavButton {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .newAmenitiesTagline {
+                font-size: 20px;
+                padding: 0 15px;
+            }
+
+            .newAmenitiesTitle {
+                font-size: 24px;
+                margin: 20px 0;
+            }
+
+            .newAmenitiesTitle::before,
+            .newAmenitiesTitle::after {
+                margin: 0 10px;
+            }
+
+            .newAmenitiesLightboxNavButton {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .newAmenitiesLightboxPrev {
+                left: -50px;
+            }
+
+            .newAmenitiesLightboxNext {
+                right: -50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="newAmenitiesContainer">
+        <h1 class="newAmenitiesTitle">GALLERY OF LUXE LIVING</h1>
+        
+        <div class="newAmenitiesGallery">
+            <div class="newAmenitiesNav">
+                <button class="newAmenitiesNavButton newAmenitiesPrev">&lt;</button>
+                <button class="newAmenitiesNavButton newAmenitiesNext">&gt;</button>
+            </div>
+            
+            <div class="newAmenitiesSlideWrapper">
+                <div class="newAmenitiesDesktopSlide" id="newAmenitiesLastClone">
+                    <div class="newAmenitiesImage">
+                        <img src="assets/images/banner/banner.webp" alt="Minimalist kitchen with island">
+                        <div class="newAmenitiesImageOverlay">
+                            <h3 class="newAmenitiesImageTitle">Designer Kitchen</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="newAmenitiesDesktopSlide">
+                    <div class="newAmenitiesImage">
+                        <img src="assets/images/banner/banner1.webp" alt="Luxury living room with light blue sofa">
+                        <div class="newAmenitiesImageOverlay">
+                            <h3 class="newAmenitiesImageTitle">Modern Living Space</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="newAmenitiesDesktopSlide">
+                    <div class="newAmenitiesImage">
+                        <img src="assets/images/banner/banner2.webp" alt="Modern living area with wooden divider">
+                        <div class="newAmenitiesImageOverlay">
+                            <h3 class="newAmenitiesImageTitle">Elegant Partition Design</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="newAmenitiesDesktopSlide">
+                    <div class="newAmenitiesImage">
+                        <img src="assets/images/banner/banner.webp" alt="Contemporary living space with gray sofa">
+                        <div class="newAmenitiesImageOverlay">
+                            <h3 class="newAmenitiesImageTitle">Contemporary Lounge</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="newAmenitiesDesktopSlide">
+                    <div class="newAmenitiesImage">
+                        <img src="assets/images/banner/banner1.webp" alt="Modern living room with beige accent wall">
+                        <div class="newAmenitiesImageOverlay">
+                            <h3 class="newAmenitiesImageTitle">Serene Living Area</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="newAmenitiesDesktopSlide">
+                    <div class="newAmenitiesImage">
+                        <img src="assets/images/banner/banner2.webp" alt="Elegant bedroom with soft lighting">
+                        <div class="newAmenitiesImageOverlay">
+                            <h3 class="newAmenitiesImageTitle">Luxurious Bedroom</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="newAmenitiesDesktopSlide">
+                    <div class="newAmenitiesImage">
+                        <img src="assets/images/banner/banner.webp" alt="Minimalist kitchen with island">
+                        <div class="newAmenitiesImageOverlay">
+                            <h3 class="newAmenitiesImageTitle">Designer Kitchen</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="newAmenitiesDesktopSlide" id="newAmenitiesFirstClone">
+                    <div class="newAmenitiesImage">
+                        <img src="assets/images/banner/banner2.webp" alt="Luxury living room with light blue sofa">
+                        <div class="newAmenitiesImageOverlay">
+                            <h3 class="newAmenitiesImageTitle">Modern Living Space</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="newAmenitiesTagline">Delight In Richness</h2>
+        
+        <a href="#" class="newAmenitiesDownload">Download Gallery</a>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="newAmenitiesLightbox">
+        <div class="newAmenitiesLightboxContent">
+            <button class="newAmenitiesLightboxClose">&times;</button>
+            <img class="newAmenitiesLightboxImage" src="" alt="">
+            <h3 class="newAmenitiesLightboxTitle"></h3>
+            <button class="newAmenitiesLightboxNavButton newAmenitiesLightboxPrev">&lt;</button>
+            <button class="newAmenitiesLightboxNavButton newAmenitiesLightboxNext">&gt;</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const newAmenitiesSlideWrapper = document.querySelector('.newAmenitiesSlideWrapper');
+            const newAmenitiesSlides = document.querySelectorAll('.newAmenitiesDesktopSlide');
+            const newAmenitiesPrevBtn = document.querySelector('.newAmenitiesPrev');
+            const newAmenitiesNextBtn = document.querySelector('.newAmenitiesNext');
+            
+            let newAmenitiesCurrentIndex = 1;
+            const newAmenitiesSlidesCount = newAmenitiesSlides.length - 2;
+            let newAmenitiesAutoPlayInterval;
+            let newAmenitiesSlideWidth;
+
+            // Initial setup
+            function newAmenitiesInitialize() {
+                newAmenitiesSlideWidth = newAmenitiesCalculateSlideWidth();
+                newAmenitiesSlideWrapper.style.transition = 'none';
+                newAmenitiesSlideWrapper.style.transform = `translateX(-${newAmenitiesSlideWidth * newAmenitiesCurrentIndex}%)`;
+            }
+
+            function newAmenitiesCalculateSlideWidth() {
+                return window.innerWidth <= 768 ? 100 : 33.333;
+            }
+
+            function newAmenitiesGoToSlide(index) {
+                if (index < 1) newAmenitiesCurrentIndex = newAmenitiesSlidesCount;
+                else if (index > newAmenitiesSlidesCount) newAmenitiesCurrentIndex = 1;
+                else newAmenitiesCurrentIndex = index;
+
+                newAmenitiesSlideWidth = newAmenitiesCalculateSlideWidth();
+                newAmenitiesSlideWrapper.style.transition = 'transform 0.5s ease';
+                newAmenitiesSlideWrapper.style.transform = `translateX(-${newAmenitiesCurrentIndex * newAmenitiesSlideWidth}%)`;
+
+                newAmenitiesSlideWrapper.addEventListener('transitionend', function handler() {
+                    newAmenitiesSlideWrapper.removeEventListener('transitionend', handler);
+                    if (newAmenitiesCurrentIndex === 0 || newAmenitiesCurrentIndex === newAmenitiesSlidesCount + 1) {
+                        newAmenitiesSlideWrapper.style.transition = 'none';
+                        newAmenitiesCurrentIndex = newAmenitiesCurrentIndex === 0 ? newAmenitiesSlidesCount : 1;
+                        newAmenitiesSlideWrapper.style.transform = `translateX(-${newAmenitiesCurrentIndex * newAmenitiesSlideWidth}%)`;
+                    }
+                });
+            }
+
+            newAmenitiesPrevBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent propagation to parent elements
+                newAmenitiesGoToSlide(newAmenitiesCurrentIndex - 1);
+                resetNewAmenitiesAutoPlay();
+            });
+
+            newAmenitiesNextBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent propagation to parent elements
+                newAmenitiesGoToSlide(newAmenitiesCurrentIndex + 1);
+                resetNewAmenitiesAutoPlay();
+            });
+
+            function startNewAmenitiesAutoPlay() {
+                newAmenitiesAutoPlayInterval = setInterval(() => {
+                    newAmenitiesGoToSlide(newAmenitiesCurrentIndex + 1);
+                }, 5000);
+            }
+
+            function resetNewAmenitiesAutoPlay() {
+                clearInterval(newAmenitiesAutoPlayInterval);
+                startNewAmenitiesAutoPlay();
+            }
+
+            function handleResize() {
+                newAmenitiesInitialize();
+                newAmenitiesGoToSlide(newAmenitiesCurrentIndex);
+            }
+
+            // Initialize carousel
+            newAmenitiesInitialize();
+            startNewAmenitiesAutoPlay();
+            window.addEventListener('resize', handleResize);
+
+            // Lightbox functionality
+            const newAmenitiesLightbox = document.querySelector('.newAmenitiesLightbox');
+            const newAmenitiesLightboxImage = document.querySelector('.newAmenitiesLightboxImage');
+            const newAmenitiesLightboxTitle = document.querySelector('.newAmenitiesLightboxTitle');
+            const newAmenitiesLightboxClose = document.querySelector('.newAmenitiesLightboxClose');
+            const newAmenitiesLightboxPrev = document.querySelector('.newAmenitiesLightboxPrev');
+            const newAmenitiesLightboxNext = document.querySelector('.newAmenitiesLightboxNext');
+            
+            let lightboxCurrentIndex = 0;
+            let lightboxImages = [];
+            let lightboxTitles = [];
+
+            // Make entire slide areas clickable, not just images
+            newAmenitiesSlides.forEach((slide, index) => {
+                // Skip clone slides from the lightbox
+                if (slide.id === 'newAmenitiesFirstClone' || slide.id === 'newAmenitiesLastClone') {
+                    return;
+                }
+                
+                const img = slide.querySelector('img');
+                const title = slide.querySelector('.newAmenitiesImageTitle').textContent;
+                
+                lightboxImages.push(img.src);
+                lightboxTitles.push(title);
+                
+                // Make the entire slide clickable
+                slide.addEventListener('click', function(e) {
+                    // Don't open lightbox if clicking on nav buttons
+                    if (e.target.closest('.newAmenitiesNavButton')) {
+                        return;
+                    }
+                    
+                    // Adjust index to account for the clone slides
+                    const adjustedIndex = index - 1;
+                    if (adjustedIndex >= 0 && adjustedIndex < lightboxImages.length) {
+                        openLightbox(adjustedIndex);
+                        pauseAutoPlay();
+                    }
+                });
+            });
+
+            function openLightbox(index) {
+                lightboxCurrentIndex = index;
+                if (lightboxCurrentIndex < 0) lightboxCurrentIndex = 0;
+                if (lightboxCurrentIndex >= lightboxImages.length) lightboxCurrentIndex = lightboxImages.length - 1;
+                
+                updateLightboxContent();
+                newAmenitiesLightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
+            }
+
+            function closeLightbox() {
+                newAmenitiesLightbox.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+                resumeAutoPlay();
+            }
+
+            function updateLightboxContent() {
+                newAmenitiesLightboxImage.src = lightboxImages[lightboxCurrentIndex];
+                newAmenitiesLightboxTitle.textContent = lightboxTitles[lightboxCurrentIndex];
+            }
+
+            function navigateLightbox(direction) {
+                lightboxCurrentIndex += direction;
+                
+                if (lightboxCurrentIndex < 0) {
+                    lightboxCurrentIndex = lightboxImages.length - 1;
+                } else if (lightboxCurrentIndex >= lightboxImages.length) {
+                    lightboxCurrentIndex = 0;
+                }
+                
+                updateLightboxContent();
+            }
+
+            function pauseAutoPlay() {
+                clearInterval(newAmenitiesAutoPlayInterval);
+            }
+
+            function resumeAutoPlay() {
+                startNewAmenitiesAutoPlay();
+            }
+
+            // Lightbox event listeners
+            newAmenitiesLightboxClose.addEventListener('click', closeLightbox);
+            newAmenitiesLightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+            newAmenitiesLightboxNext.addEventListener('click', () => navigateLightbox(1));
+            
+            // Close lightbox when clicking on the background
+            newAmenitiesLightbox.addEventListener('click', (e) => {
+                if (e.target === newAmenitiesLightbox) {
+                    closeLightbox();
+                }
+            });
+
+            // Keyboard navigation for lightbox
+            document.addEventListener('keydown', (e) => {
+                if (!newAmenitiesLightbox.classList.contains('active')) return;
+                
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    navigateLightbox(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateLightbox(1);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
