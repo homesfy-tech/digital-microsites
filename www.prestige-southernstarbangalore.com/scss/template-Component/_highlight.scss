@@ -1,0 +1,88 @@
+.highlight-section {
+    .highlight-color-div {
+        width: 100%;
+        height: 100px;
+        background: $theme-bg;
+        clip-path: polygon(22% 0, 100% 0, 100% 100%, 6% 100%);
+        z-index: 1;
+    }
+
+    .main-heading-para {
+        margin-bottom: 8rem;
+    }
+
+    .highlight-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 20px;
+        margin-top: -40px;
+        gap: 40px;
+
+        .highlight {
+            position: relative;
+            z-index: 2;
+            width: 30rem;
+            height: 20rem;
+            box-shadow: 0px 1px 4px rgb(0 0 0 / 25%);
+            text-align: center;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 60px;
+            border-radius: 5px;
+
+            p {
+                margin-bottom: 0;
+                line-height: 2rem;
+                color: #333333;
+                font-weight: 600;
+            }
+
+            .highlight-img {
+                background: #333333;
+                width: 100px;
+                padding: 3rem;
+            }
+        }
+
+        .highlight.slick-slide {
+            margin-left: 20px;
+        }
+
+        .highlight:nth-of-type(even) {
+            background-color: #f8f5f3;
+        }
+
+        .highlight:nth-of-type(odd) {
+            background-color: #fff;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .highlight-section {
+        .highlight-color-div {
+            display: none;
+        }
+
+        .highlight-main {
+            margin-left: 0;
+            flex-direction: column;
+
+            .highlight {
+                border: 0.8 solid #ccc;
+                width: 90%;
+                height: 22rem;
+                padding: 1rem;
+            }
+
+            .highlight:nth-of-type(even) {
+                margin-top: -2rem;
+            }
+        }
+    }
+}

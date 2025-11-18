@@ -1,0 +1,16 @@
+.overview{
+    .overv-points{
+        list-style-type: disclosure-closed;
+    }
+    .overv-list-items{
+        display: flex;
+        .overview-list{
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+            background-color: #fff;
+            padding: 15px;
+            text-align: center;
+            margin: 10px;
+            width: 100%;
+        }
+    }
+}

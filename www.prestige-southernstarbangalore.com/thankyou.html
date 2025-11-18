@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-54HMZS4B');</script>
+<!-- End Google Tag Manager -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" type="image/x-icon" href="assests/images/logo/favicon.webp" />
+<title>Prestige Southern Star Bannerghatta Road | Price, Floor Plans, Amenities | Download Brochure </title>
+<meta name=Description content="Explore luxurious, meticulously crafted 3 & 4 BHK flats in Prestige  Southern Star at Bannerghatta Road, with top-notch amenities and seamless connectivity for residents.">
+<meta name=keywords content="Prestige Southern Star Bannerghatta Road - Residential Project Offering Beautiful Apartments. Get A Free Quote Today. See Price List, Amenities & Other Details">
+ <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <!-- <link rel=" stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <!-- <link rel="icon" href="img/logo/favicon.png" type="image/png"> -->
+    <link rel="stylesheet" href="thankyou-css/style.css">
+    <link rel="shortcut icon" href="img/logo/favicon.webp" type="image/x-icon">
+
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54HMZS4B"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header class="th-top-bar">
+        <div class="container ">
+            <a href="index.html" class="th-Logo"><img src="assests/images/logo/logo.webp" class="img-fluid" alt=""></a>
+        </div>
+    </header>
+    <div class="thanks-page">
+        <div class="thankyou-container text-center text-white">
+            <div class="container">
+                <div class="th-main-section">
+                    <div class="ty-cont">
+                        <h2 class="text-center">Thank You</h2>
+                        <strong>Our expert will get in touch with you to share all details in regards to the
+                            project</strong>
+                            <p><strong id="userPhone"></strong></p>
+                    </div>
+                    <div class="helpful-content">
+                        <div class="helping">
+                            <h4>FOR IMMEDIATE ASSISTANCE</h4>
+                            <div class="help-item" style="margin-top: 3%;">
+                                <a href="tel:" class="btn btn-primary phone_url IVR_Phone_No_Url"><img src="/assests/images/icons/phone-call.webp"
+                                        alt=""><span class="phone_no "></span></a>
+                                <a href="" class="btn btn-success whatsapp_url">Chat On <img
+                                        src="/assests/images/icons/whatsapp.svg" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="back_link">
+                            <h3><a href="index.html">BACK TO HOMEPAGE</a></h3>
+                            <!-- <div class="loan-img"> <img src="img/white-loan-img.svg" alt="loan"> <br> <a href="https://homesfy.in/loans/"> Avail Home Loan & Check Your Credit Score</a> </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const submittedPhone = localStorage.getItem("submittedPhone");
+  const submittedCountryCode = localStorage.getItem("submittedCountryCode");
+
+  if (submittedPhone && submittedCountryCode) {
+    const fullPhone = `${submittedCountryCode}${submittedPhone}`;
+    const phoneElement = document.getElementById("userPhone");
+
+    if (phoneElement) {
+      // Set the phone number as text content
+      phoneElement.textContent = fullPhone;
+      
+      // Store as data attribute for easy access
+      phoneElement.setAttribute('data-phone', fullPhone);
+      
+      // Store in a global variable for easy access
+      window.userPhoneNumber = fullPhone;
+    }
+console.log("Phone displayed:", document.getElementById("userPhone").outerHTML);
+
+    // Push to GTM
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "formSubmitted",
+      leadsUserData: {
+        phone_number: fullPhone
+      }
+    });
+
+    // Optional: Log the phone number to console for debugging
+    console.log("User Phone Number:", fullPhone);
+
+  } else {
+    console.warn("Phone number not found in localStorage.");
+  }
+});
+
+// Utility functions to get the phone number
+function getUserPhoneNumber() {
+  // Method 1: Get from element text content
+  const phoneElement = document.getElementById("userPhone");
+  if (phoneElement && phoneElement.textContent) {
+    return phoneElement.textContent;
+  }
+  
+
+  
+  return null;
+}
+
+// Function to copy phone number to clipboard
+function copyPhoneNumber() {
+  const phoneNumber = getUserPhoneNumber();
+  if (phoneNumber) {
+    navigator.clipboard.writeText(phoneNumber).then(function() {
+      console.log('Phone number copied to clipboard:', phoneNumber);
+      alert('Phone number copied to clipboard!');
+    }).catch(function(err) {
+      console.error('Could not copy phone number: ', err);
+    });
+  } else {
+    console.warn('No phone number found to copy');
+  }
+}
+
+// Function to get phone number for external use
+function getPhoneForExternalUse() {
+  return getUserPhoneNumber();
+}
+
+// Event listeners for debugging (optional)
+document.addEventListener("click", function(event) {
+  // If clicked on phone number element, log the phone number
+  if (event.target.id === "userPhone") {
+    console.log("Phone number clicked:", getUserPhoneNumber());
+  }
+});
+
+// Make functions globally accessible
+window.getUserPhoneNumber = getUserPhoneNumber;
+window.copyPhoneNumber = copyPhoneNumber;
+window.getPhoneForExternalUse = getPhoneForExternalUse;
+</script>
+    <script src="assests/js/api.js"></script>
+    <script src="assests/js/custom.js"></script>
+    <!-- <script src="js/jquery-3.6.0.min.js"></script> -->
+    <!-- <script src="assests/"></script> -->
+    <!-- <script src="assests/js/custom.js"></script> -->
+</body>
+
+</html>

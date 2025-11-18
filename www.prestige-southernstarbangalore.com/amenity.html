@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+<style>
+  .newGallery-section {
+  padding: 40px 0;
+  background-color: #fff;
+}
+
+.newGallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.newGallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.newGallery-header h1 {
+  color: #333;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.newGallery-download-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newGallery-download-btn:hover {
+  background-color: #0d47a1;
+}
+
+.newGallery-carousel {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.newGallery-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.newGallery-slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 20px;
+  /* padding: 20px; */
+}
+
+.newGallery-card {
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.newGallery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.newGallery-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.newGallery-card:hover .newGallery-image {
+  transform: scale(1.05);
+}
+
+.newGallery-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  border-top-right-radius: 10px;
+}
+
+.newGallery-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.newGallery-nav-btn:hover {
+  background: white;
+}
+
+.newGallery-prev-btn {
+  left: 10px;
+}
+
+.newGallery-next-btn {
+  right: 10px;
+}
+
+.newGallery-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.newGallery-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ddd;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.newGallery-indicator.active {
+  background-color: #1a73e8;
+  transform: scale(1.2);
+}
+
+.newGallery-mobile-download {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .newGallery-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .newGallery-header h1 {
+    font-size: 20px;
+  }
+  
+  .newGallery-download-btn {
+    display: none;
+  }
+  
+  .newGallery-mobile-download {
+    display: block;
+  }
+  
+  .newGallery-mobile-download .newGallery-download-btn {
+    display: inline-flex;
+  }
+  
+  .newGallery-slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 15px;
+  }
+  
+  .newGallery-slide .newGallery-card {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 0;
+  }
+  
+  .newGallery-slide .newGallery-card:nth-child(n+2) {
+    display: none;
+  }
+  
+  .newGallery-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .newGallery-mobile-hidden {
+    display: none !important;
+  }
+  
+  .newGallery-nav-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+}
+/* Fullscreen image popup styles */
+.newGallery-image-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.newGallery-popup-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  top: 0;
+  left: 0;
+}
+
+.newGallery-popup-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newGallery-popup-image {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.newGallery-popup-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 36px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.newGallery-popup-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 48px;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newGallery-popup-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.newGallery-popup-nav.prev {
+  left: -80px;
+}
+
+.newGallery-popup-nav.next {
+  right: -80px;
+}
+
+@media (max-width: 768px) {
+  .newGallery-popup-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+  
+  .newGallery-popup-nav.prev {
+    left: 10px;
+  }
+  
+  .newGallery-popup-nav.next {
+    right: 10px;
+  }
+  
+  .newGallery-popup-close {
+    top: 10px;
+    right: 10px;
+  }
+}
+</style>
+</head>
+<body>
+  <section class="newGallery-section">
+    <div class="newGallery-container">
+      <div class="newGallery-header">
+        <h1>Amenities Of Piramal Revanta Raynav</h1>
+        <button class="newGallery-download-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Download Amenities
+        </button>
+      </div>
+      
+      <div class="newGallery-carousel">
+        <button class="newGallery-nav-btn newGallery-prev-btn" id="newGalleryPrevBtn" aria-label="Previous slide">‹</button>
+        <button class="newGallery-nav-btn newGallery-next-btn" id="newGalleryNextBtn" aria-label="Next slide">›</button>
+        
+        <div class="newGallery-track" id="newGalleryTrack">
+          <!-- Slide 1 -->
+          <div class="newGallery-slide">
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/entranceLobby.webp" alt="Entrance Lobby" class="newGallery-image" />
+              <div class="newGallery-label">Entrance Lobby</div>
+            </div>
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/gardenArera.webp" alt="Garden Area" class="newGallery-image" />
+              <div class="newGallery-label">Garden Area</div>
+            </div>
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/gym.webp" alt="Gym" class="newGallery-image" />
+              <div class="newGallery-label">Gym</div>
+            </div>
+          </div>
+  
+          <!-- Slide 2 -->
+          <div class="newGallery-slide">
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/indian-family-2.webp" alt="Family" class="newGallery-image" />
+              <div class="newGallery-label">Family</div>
+            </div>
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/indian-family.webp" alt="Fitness Area" class="newGallery-image" />
+              <div class="newGallery-label">Fitness Area</div>
+            </div>
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/kidsPlayArera.webp" alt="Kids Play Area" class="newGallery-image" />
+              <div class="newGallery-label">Kids Play Area</div>
+            </div>
+          </div>
+          
+          <!-- Slide 3 -->
+          <div class="newGallery-slide">
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/miniTheater.webp" alt="Mini Theater" class="newGallery-image" />
+              <div class="newGallery-label">Mini Theater</div>
+            </div>
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/multipurposeSportsCourt.webp" alt="Sports Court" class="newGallery-image" />
+              <div class="newGallery-label">Sports Court</div>
+            </div>
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/swimmingPool.webp" alt="Swimming Pool" class="newGallery-image" />
+              <div class="newGallery-label">Swimming Pool</div>
+            </div>
+          </div>
+          
+          <!-- Slide 4 -->
+          <div class="newGallery-slide">
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/petArera.webp" alt="Pet Area" class="newGallery-image" />
+              <div class="newGallery-label">Pet Area</div>
+            </div>
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/seniorCitizenArera.webp" alt="Senior Citizen Area" class="newGallery-image" />
+              <div class="newGallery-label">Senior Citizen Area</div>
+            </div>
+            <div class="newGallery-card">
+              <img src="assests/images/amenities/walkInArera.webp" alt="Walk In Area" class="newGallery-image" />
+              <div class="newGallery-label">Walk In Area</div>
+            </div>
+          </div>
+          
+          <!-- Additional mobile slides - will be created dynamically by JS -->
+        </div>
+      </div>
+      
+      <div class="newGallery-indicators" id="newGalleryIndicators">
+        <!-- Indicators will be generated dynamically based on slides -->
+        <button class="newGallery-indicator active" data-index="0"></button>
+        <button class="newGallery-indicator" data-index="1"></button>
+        <button class="newGallery-indicator" data-index="2"></button>
+        <button class="newGallery-indicator" data-index="3"></button>
+      </div>
+      
+      <div class="newGallery-mobile-download">
+        <button class="newGallery-download-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Download Amenities
+        </button>
+      </div>
+    </div>
+  
+    <!-- Fullscreen image popup -->
+    <div id="newGalleryImagePopup" class="newGallery-image-popup">
+      <div class="newGallery-popup-overlay" id="newGalleryPopupOverlay"></div>
+      <div class="newGallery-popup-content">
+        <button class="newGallery-popup-close" id="newGalleryPopupClose">×</button>
+        <button class="newGallery-popup-nav prev" id="newGalleryPopupPrev">‹</button>
+        <img id="newGalleryPopupImage" src="" alt="Enlarged amenity" class="newGallery-popup-image">
+        <button class="newGallery-popup-nav next" id="newGalleryPopupNext">›</button>
+      </div>
+    </div>
+  </section>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Carousel elements
+  const track = document.getElementById('newGalleryTrack');
+  const prevBtn = document.getElementById('newGalleryPrevBtn');
+  const nextBtn = document.getElementById('newGalleryNextBtn');
+  const indicatorsContainer = document.getElementById('newGalleryIndicators');
+
+  // Popup elements
+  const popup = document.getElementById('newGalleryImagePopup');
+  const popupImage = document.getElementById('newGalleryPopupImage');
+  const popupClose = document.getElementById('newGalleryPopupClose');
+  const popupPrev = document.getElementById('newGalleryPopupPrev');
+  const popupNext = document.getElementById('newGalleryPopupNext');
+  const popupOverlay = document.getElementById('newGalleryPopupOverlay');
+
+  // Variables
+  let currentSlide = 0;
+  let currentImageIndex = 0;
+  let slideInterval;
+  let slides;
+  let totalSlides;
+  let allImages;
+
+  function initCarousel() {
+    // Start automatic sliding
+    startAutoSlide();
+    
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Initialize the first slide
+    updateSlidePosition();
+  }
+
+  function updateSlidePosition() {
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    updateIndicators();
+  }
+
+  function updateIndicators() {
+    const indicators = document.querySelectorAll('.newGallery-indicator');
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentSlide);
+    });
+  }
+
+  function goToSlide(index) {
+    currentSlide = (index + totalSlides) % totalSlides;
+    updateSlidePosition();
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide(); // Clear any existing interval
+    slideInterval = setInterval(() => {
+      goToSlide(currentSlide + 1);
+    }, 5000); // Change slide every 5 seconds
+  }
+
+  function stopAutoSlide() {
+    if (slideInterval) {
+      clearInterval(slideInterval);
+    }
+  }
+
+  // Create mobile-specific slides if on small screen
+  function setupMobileSlides() {
+    const allCards = Array.from(document.querySelectorAll('.newGallery-card'));
+    
+    // Remove all existing slides
+    while (track.firstChild) {
+      track.removeChild(track.firstChild);
+    }
+    
+    // Clear existing indicators
+    indicatorsContainer.innerHTML = '';
+    
+    const cardsPerSlide = window.innerWidth <= 768 ? 2 : 3;
+    const totalSlidesNeeded = Math.ceil(allCards.length / cardsPerSlide);
+    
+    for (let i = 0; i < totalSlidesNeeded; i++) {
+      const newSlide = document.createElement('div');
+      newSlide.className = 'newGallery-slide';
+      
+      const startIdx = i * cardsPerSlide;
+      const endIdx = startIdx + cardsPerSlide;
+      allCards.slice(startIdx, endIdx).forEach(card => {
+        newSlide.appendChild(card.cloneNode(true));
+      });
+      
+      track.appendChild(newSlide);
+    }
+    
+    // Create indicators
+    slides = document.querySelectorAll('.newGallery-slide');
+    totalSlides = slides.length;
+    
+    slides.forEach((_, index) => {
+      const indicator = document.createElement('button');
+      indicator.className = 'newGallery-indicator' + (index === 0 ? ' active' : '');
+      indicator.dataset.index = index;
+      indicator.addEventListener('click', () => {
+        stopAutoSlide();
+        goToSlide(index);
+        startAutoSlide();
+      });
+      indicatorsContainer.appendChild(indicator);
+    });
+    
+    currentSlide = 0;
+    updateSlidePosition();
+    setupImageClickListeners();
+  }
+
+  // Image popup functions
+  function showPopup(index) {
+    currentImageIndex = index;
+    popupImage.src = allImages[index].src;
+    popupImage.alt = allImages[index].alt;
+    popup.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hidePopup() {
+    popup.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function showNextImage() {
+    currentImageIndex = (currentImageIndex + 1) % allImages.length;
+    popupImage.src = allImages[currentImageIndex].src;
+    popupImage.alt = allImages[currentImageIndex].alt;
+  }
+
+  function showPrevImage() {
+    currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+    popupImage.src = allImages[currentImageIndex].src;
+    popupImage.alt = allImages[currentImageIndex].alt;
+  }
+
+  function setupImageClickListeners() {
+    allImages = document.querySelectorAll('.newGallery-image');
+    allImages.forEach((img, index) => {
+      img.addEventListener('click', () => showPopup(index));
+    });
+  }
+
+  function setupEventListeners() {
+    // Carousel navigation
+    prevBtn.addEventListener('click', () => {
+      stopAutoSlide();
+      goToSlide(currentSlide - 1);
+      startAutoSlide();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      stopAutoSlide();
+      goToSlide(currentSlide + 1);
+      startAutoSlide();
+    });
+    
+    // Popup controls
+    popupClose.addEventListener('click', hidePopup);
+    popupOverlay.addEventListener('click', hidePopup);
+    popupPrev.addEventListener('click', showPrevImage);
+    popupNext.addEventListener('click', showNextImage);
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (popup.style.display === 'flex') {
+        if (e.key === 'Escape') hidePopup();
+        if (e.key === 'ArrowRight') showNextImage();
+        if (e.key === 'ArrowLeft') showPrevImage();
+      }
+    });
+    
+    // Touch swipe support
+    let touchStartX = 0;
+    
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      stopAutoSlide();
+    }, { passive: true });
+    
+    track.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const swipeDistance = touchStartX - touchEndX;
+      
+      if (Math.abs(swipeDistance) > 50) {
+        if (swipeDistance > 0) {
+          goToSlide(currentSlide + 1);
+        } else {
+          goToSlide(currentSlide - 1);
+        }
+      }
+      startAutoSlide();
+    }, { passive: true });
+    
+    // Pause on hover
+    track.addEventListener('mouseenter', stopAutoSlide);
+    track.addEventListener('mouseleave', startAutoSlide);
+  }
+
+  // Initialize the carousel
+  window.addEventListener('resize', setupMobileSlides);
+  setupMobileSlides();
+  initCarousel();
+});
+</script>
+</body>
+</html>

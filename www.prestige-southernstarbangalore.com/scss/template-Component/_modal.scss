@@ -1,0 +1,23 @@
+.modal-content{
+    background-color: rgba(0, 0, 0, 0.9);
+    .close{
+        background-color: $theme-color !important;
+        padding: 5px 1.5rem !important;
+    }
+    .modal-content-form{
+        width: 355px;
+        button{
+            background-color: $theme-color;
+            color: #fff;
+        }
+    }
+    .form-imput{
+        color: gray!important;
+    }
+}
+
+.form-phone-group{
+    select option{
+        color: #000;
+    }
+}
