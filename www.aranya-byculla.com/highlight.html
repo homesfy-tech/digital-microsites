@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overview Highlights</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+
+        .overviewHighlightContainer {
+            /* max-width: 1200px; */
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .overviewHighlightSection {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overviewHighlightSection::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            z-index: -1;
+        }
+
+        .overviewHighlightHeader {
+            margin-bottom: 60px;
+        }
+
+        .overviewHighlightSubtitle {
+            color: #d4773a;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .overviewHighlightTitle {
+            color: #2c3e50;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .overviewHighlightGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            align-items: start;
+        }
+
+        .overviewHighlightItem {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .overviewHighlightNumber {
+            background: white;
+            color: #2c3e50;
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .overviewHighlightNumber::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: white;
+            border-radius: 18px;
+            z-index: -1;
+        }
+
+        .overviewHighlightText {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.5;
+            flex: 1;
+            padding-top: 15px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .overviewHighlightContainer {
+                padding: 20px 15px;
+            }
+
+            .overviewHighlightSection {
+                padding: 30px 25px;
+                margin-bottom: 30px;
+                border-radius: 15px;
+            }
+
+            .overviewHighlightTitle {
+                font-size: 2.2rem;
+            }
+
+            .overviewHighlightGrid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .overviewHighlightItem {
+                gap: 20px;
+                padding: 15px 0;
+            }
+
+            .overviewHighlightNumber {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+                border-radius: 18px;
+            }
+
+            .overviewHighlightText {
+                font-size: 1rem;
+                padding-top: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overviewHighlightSection {
+                padding: 25px 20px;
+            }
+
+            .overviewHighlightTitle {
+                font-size: 1.8rem;
+            }
+
+            .overviewHighlightSubtitle {
+                font-size: 16px;
+            }
+
+            .overviewHighlightNumber {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+                border-radius: 15px;
+            }
+
+            .overviewHighlightItem {
+                gap: 15px;
+            }
+        }
+
+        /* Tablet specific adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .overviewHighlightGrid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+
+        /* Large screen adjustments */
+        @media (min-width: 1400px) {
+            /* .overviewHighlightContainer {
+                max-width: 1400px;
+            } */
+
+            .overviewHighlightSection {
+                padding: 60px;
+            }
+
+            .overviewHighlightTitle {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overviewHighlightContainer">
+        <!-- Highlights Section -->
+        <div class="overviewHighlightSection">
+            <div class="overviewHighlightHeader">
+                <div class="overviewHighlightSubtitle">Highlights</div>
+                <h2 class="overviewHighlightTitle">
+                    Exceptional Properties.<br>
+                    Exceptional Clients.
+                </h2>
+            </div>
+            
+            <div class="overviewHighlightGrid">
+                <div class="overviewHighlightItem">
+                    <div class="overviewHighlightNumber">01</div>
+                    <div class="overviewHighlightText">
+                        Exclusive Doctors' Enclave units available
+                    </div>
+                </div>
+                
+                <div class="overviewHighlightItem">
+                    <div class="overviewHighlightNumber">02</div>
+                    <div class="overviewHighlightText">
+                        Excellent connectivity to various parts of the city
+                    </div>
+                </div>
+                
+                <div class="overviewHighlightItem">
+                    <div class="overviewHighlightNumber">03</div>
+                    <div class="overviewHighlightText">
+                        Prime location in Matunga, near Eastern Express Highway
+                    </div>
+                </div>
+                
+                <div class="overviewHighlightItem">
+                    <div class="overviewHighlightNumber">04</div>
+                    <div class="overviewHighlightText">
+                        High-value appreciation & rental yield as the only premium commercial development in the area
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
