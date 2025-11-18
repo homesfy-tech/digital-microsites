@@ -1,0 +1,1244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobha Neopolis Banner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Banner Container */
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bannerImageContainer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bannerImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .bannerOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.1), rgba(255,255,255,0.1));
+        }
+
+        /* Tree Overlay Effects */
+        .bannerTreeOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10,0 Q20,10 15,20 Q25,25 20,35 Q30,30 25,40 Q35,35 30,45 L25,50 Q30,55 25,65 Q35,60 30,70 Q40,65 35,75 L30,80 Q35,85 30,95 L25,100 L0,100 L0,0 Z" fill="%23228B22" opacity="0.3"/></svg>') no-repeat left top;
+            background-size: 200px 100%;
+            pointer-events: none;
+        }
+
+        .bannerTreeOverlayRight {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M90,0 Q80,10 85,20 Q75,25 80,35 Q70,30 75,40 Q65,35 70,45 L75,50 Q70,55 75,65 Q65,60 70,70 Q60,65 65,75 L70,80 Q65,85 70,95 L75,100 L100,100 L100,0 Z" fill="%23228B22" opacity="0.3"/></svg>') no-repeat right top;
+            background-size: 200px 100%;
+            pointer-events: none;
+        }
+
+        /* FIXED: Desktop positioning for offer card */
+        .offer-card {
+            position: absolute;
+            top: 50%;
+            left: 60px;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 380px;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .offer-header {
+            background: linear-gradient(135deg, #ffd700, #ffd700);
+            padding: 16px 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .offer-header-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .offer-content {
+            padding: 32px 24px 24px;
+        }
+
+        .project-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .developer-name {
+            font-size: 16px;
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .location-icon {
+            font-size: 16px;
+            color: #e74c3c;
+        }
+
+        .location-text {
+            font-size: 15px;
+            color: #5d6d7e;
+            font-weight: 500;
+        }
+
+        .benefits-section {
+            background: linear-gradient(135deg, #fff7e6, #fff1d1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+            border: 1px solid #f7e6a3;
+        }
+
+        .benefits-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .benefits-icon {
+            font-size: 18px;
+        }
+
+        .benefits-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .benefit-icon {
+            background: linear-gradient(135deg, #ffd700, #ffd700);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #333;
+            flex-shrink: 0;
+        }
+
+        .price-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .price-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            line-height: 1.3;
+        }
+
+        .enquire-btn {
+             width: 100%;
+    background: linear-gradient(135deg, #333, #555);
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+
+        }
+
+        .enquire-btn::after {
+          content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(135deg, #f4d03f, #f7dc6f);
+    clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+        }
+
+
+        .enquire-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .enquire-btn-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Form Styles */
+        .bannerForm {
+            position: fixed;
+            top: 45%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 380px;
+            z-index: 100;
+        }
+
+        .bannerFormHeader {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .bannerFormTitle {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .bannerFormSubtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .bannerFormSubtitle::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(135deg, #ffd700, #ffd700);
+            border-radius: 2px;
+        }
+
+        .bannerFormPrice {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .bannerFormGroup {
+            margin-bottom: 18px;
+        }
+
+        .bannerFormInput {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+            background-color: #fafafa;
+        }
+
+        .bannerFormInput:focus {
+            outline: none;
+            border-color: #ff6b35;
+            background-color: white;
+        }
+
+        .bannerFormPhoneContainer {
+            display: flex;
+            gap: 10px;
+        }
+
+        .bannerFormCountryCode {
+            flex: 0 0 120px;
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #fafafa;
+            cursor: pointer;
+        }
+
+        .bannerFormPhoneInput {
+            flex: 1;
+        }
+
+        .bannerFormCheckbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .bannerFormCheckboxInput {
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .bannerFormSubmit {
+    width: 100%;
+    background: linear-gradient(135deg, #333, #555);
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.bannerFormSubmit::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(135deg, #f4d03f, #f7dc6f);
+    clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.bannerFormSubmit:hover {
+    transform: translateY(-2px);
+}
+     
+
+        .bannerFormSubmitText {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Price Card */
+        .bannerPriceCard {
+            background: linear-gradient(135deg, #ffd700, #ffd700);
+            /* border-radius: 8px; */
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* margin-top: 20px; */
+            box-shadow: 0 4px 12px rgba(255,185,71,0.3);
+        }
+
+        .bannerPriceInfo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bannerRupeeIcon {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .bannerPriceDetails {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bannerPriceLabel {
+            font-size: 12px;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .bannerPriceValue {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .bannerTypeDetails {
+            text-align: right;
+        }
+
+        .bannerTypeLabel {
+            font-size: 12px;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .bannerTypeValue {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Carousel Navigation */
+        .bannerNavigation {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 50;
+        }
+
+        .bannerDot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .bannerDotActive {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .banner {
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .bannerImageContainer {
+                height: 60vh;
+            }
+
+            .bannerForm {
+                position: static;
+                transform: none;
+                top: auto;
+                right: auto;
+                margin: 20px 20px 20px 20px;
+                width: calc(100% - 40px);
+                border-radius: 12px;
+                z-index: 150;
+            }
+
+            .offer-card {
+                position: static;
+                transform: none;
+                top: auto;
+                left: auto;
+                margin: 20px 20px 20px 20px;
+                width: calc(100% - 40px);
+                z-index: 150;
+            }
+
+            .bannerTreeOverlay,
+            .bannerTreeOverlayRight {
+                display: none;
+            }
+
+            .bannerNavigation {
+                bottom: calc(60vh - 40px);
+            }
+
+            .bannerFormTitle {
+                font-size: 16px;
+            }
+
+            .bannerFormSubtitle {
+                font-size: 13px;
+            }
+
+            .bannerFormPrice {
+                font-size: 14px;
+            }
+
+            .bannerOfferTitle {
+                font-size: 18px;
+            }
+
+            .bannerOfferSubtitle {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bannerForm {
+                margin: 20px 15px 15px 15px;
+                width: calc(100% - 30px);
+                padding: 25px;
+            }
+
+            .offer-card {
+                margin: 20px 15px 15px 15px;
+                width: calc(100% - 30px);
+                padding: 20px;
+            }
+
+            .bannerFormCountryCode {
+                flex: 0 0 110px;
+            }
+
+            /* Mobile Responsiveness for offer card */
+            .offer-card {
+                max-width: 100%;
+                border-radius: 12px;
+            }
+
+            .offer-content {
+                padding: 24px 20px 20px;
+            }
+
+            .project-title {
+                font-size: 24px;
+            }
+
+            .benefits-section {
+                padding: 16px;
+            }
+
+            .price-text {
+                font-size: 18px;
+            }
+        }
+
+        /* Loading Animation */
+        .bannerLoader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: bannerSpin 1s linear infinite;
+            z-index: 200;
+        }
+
+        @keyframes bannerSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .overview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .overview-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .overview-section-content {
+            padding: 40px;
+        }
+
+        .overview-section-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #f4c430;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .overview-section-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .overview-label {
+            color: #f4c430;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .overview-description {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .overview-text-container {
+            position: relative;
+        }
+
+        .overview-text-preview {
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .overview-text-preview.collapsed {
+            max-height: calc(1.7em * 5);
+            position: relative;
+        }
+
+        .overview-text-preview.collapsed::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(transparent, white);
+        }
+
+        .overview-read-more-btn {
+            background: none;
+            border: none;
+            color: #f4c430;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 10px 0;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .overview-read-more-btn:hover {
+            color: #e6b12a;
+            transform: translateX(3px);
+        }
+
+        .overview-read-more-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .overview-read-more-btn.expanded .overview-read-more-arrow {
+            transform: rotate(90deg);
+        }
+
+        .overview-features-section {
+            position: relative;
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+        }
+
+        .overview-features-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .overview-features-list {
+            list-style: none;
+        }
+
+        .overview-features-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .overview-features-item:last-child {
+            border-bottom: none;
+        }
+
+        .overview-features-arrow {
+            margin-right: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .overview-features-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .overview-image-container {
+            position: relative;
+            height: 300px;
+            background: linear-gradient(45deg, #e9ecef, #f8f9fa);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .overview-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: url('https://www.vikhroli-riservo.in/assests/images/amenities/indian-family.webp') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .overview-container {
+                padding: 15px;
+            }
+
+            .overview-section-content {
+                padding: 25px;
+            }
+
+            .overview-section-number {
+                font-size: 36px;
+            }
+
+            .overview-section-title {
+                font-size: 22px;
+            }
+
+            .overview-features-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .overview-image-container {
+                height: 200px;
+            }
+
+            .overview-description {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overview-section-content {
+                padding: 20px;
+            }
+
+            .overview-section-number {
+                font-size: 32px;
+            }
+
+            .overview-section-title {
+                font-size: 20px;
+            }
+
+            .overview-features-item {
+                padding: 12px 0;
+            }
+
+            .overview-features-text {
+                font-size: 15px;
+            }
+        }
+
+        /* Desktop Center Alignment */
+        @media (min-width: 1200px) {
+            .overview-container {
+                padding: 40px 20px;
+            }
+            
+            .overview-section {
+                margin-bottom: 40px;
+            }
+        }
+
+        /* Subtle animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .offer-card {
+            animation: fadeInUp 0.8s ease;
+        }
+        /* Desktop Center Alignment */
+        @media (min-width: 1200px) {
+            .overview-container {
+                padding: 40px 20px;
+            }
+            
+            .overview-section {
+                margin-bottom: 40px;
+            }
+        }
+
+        /* Desktop spacing to avoid form overlap */
+        @media (min-width: 769px) {
+            .overview-container {
+                margin-right: 420px; /* Space for fixed form (380px width + 40px margin) */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="bannerImageContainer">
+            <img class="bannerImage" id="bannerCurrentImage" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Sobha Neopolis">
+            <div class="bannerOverlay"></div>
+            <div class="bannerTreeOverlay"></div>
+            <div class="bannerTreeOverlayRight"></div>
+            <div class="bannerLoader" id="bannerLoader" style="display: none;"></div>
+        </div>
+
+        <!-- Offer Card -->
+        <div class="offer-card">
+            <div class="offer-header">
+                <div class="offer-header-text">New Launch Exclusive Offer</div>
+            </div>
+            
+            <div class="offer-content">
+                <h1 class="project-title">Lodha Mirabelle</h1>
+                <p class="developer-name">by Lodha Group</p>
+                
+                <div class="location-info">
+                    <span class="location-icon">📍</span>
+                    <span class="location-text">Manyata Tech Park, Bengaluru</span>
+                </div>
+                
+                <div class="benefits-section">
+                    <div class="benefits-header">
+                        <span class="benefits-icon">🎁</span>
+                        <span class="benefits-title">Launch Benefits</span>
+                    </div>
+                    
+                    <ul class="benefits-list">
+                        <li class="benefit-item">
+                            <div class="benefit-icon">%</div>
+                            <span>Spot booking discounts</span>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon">₹</div>
+                            <span>Flexible payment plans</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="price-section">
+                    <div class="price-text">3 & 4 BHK Starting ₹2.99 Cr*</div>
+                </div>
+                
+                <button class="enquire-btn">
+                    <span class="enquire-btn-text">Enquire Now</span>
+                </button>
+
+            </div>
+            
+            <!-- <div class="bannerPriceCard">
+                <div class="bannerPriceInfo">
+                    <div class="bannerRupeeIcon">₹</div>
+                    <div class="bannerPriceDetails">
+                        <div class="bannerPriceLabel">Price</div>
+                        <div class="bannerPriceValue">2.35 Cr*</div>
+                    </div>
+                </div>
+                <div class="bannerTypeDetails">
+                    <div class="bannerTypeLabel">Type</div>
+                    <div class="bannerTypeValue">3 BHK</div>
+                </div>
+            </div> -->
+        </div>
+        
+
+        <!-- Form -->
+        <div class="bannerForm">
+            <div class="bannerFormHeader">
+                <div class="bannerFormTitle">Book Now & Pay Nothing Till March'26</div>
+                <div class="bannerFormSubtitle"></div>
+                <!-- <div class="bannerFormPrice">3 & 4 BHK Starts 2.35 Cr* Onwards</div> -->
+            </div>
+
+            <form id="bannerLeadForm">
+                <div class="bannerFormGroup">
+                    <input type="text" class="bannerFormInput" placeholder="Your Name*" required>
+                </div>
+
+                <div class="bannerFormGroup">
+                    <div class="bannerFormPhoneContainer">
+                        <select class="bannerFormCountryCode">
+                            <option value="+91">India (+91)</option>
+                            <option value="+1">USA (+1)</option>
+                            <option value="+44">UK (+44)</option>
+                        </select>
+                        <input type="tel" class="bannerFormInput bannerFormPhoneInput" placeholder="Mobile No*" required>
+                    </div>
+                </div>
+
+                <div class="bannerFormCheckbox">
+                    <input type="checkbox" class="bannerFormCheckboxInput" id="bannerConsent" required>
+                    <label for="bannerConsent">I consent to the use of provided data in accordance with the privacy policy</label>
+                </div>
+
+                <button type="submit" class="bannerFormSubmit">
+                    <span class="bannerFormSubmitText">Submit</span>
+                </button>
+            </form>
+
+            
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="bannerNavigation">
+            <div class="bannerDot bannerDotActive" onclick="bannerGoToSlide(0)"></div>
+            <div class="bannerDot" onclick="bannerGoToSlide(1)"></div>
+            <div class="bannerDot" onclick="bannerGoToSlide(2)"></div>
+        </div>
+    </div>
+
+    <div class="overview-container">
+        <!-- Section 01 - Overview -->
+        <div class="overview-section">
+            <div class="overview-section-content">
+                <span class="overview-section-number">01</span>
+                <h1 class="overview-section-title">Sobha Neopolis - Greek Themed Luxury Apartments In Bangalore</h1>
+                
+                <span class="overview-label">Overview</span>
+                
+                <div class="overview-text-container">
+                    <div class="overview-text-preview collapsed" id="overviewText">
+                        <p class="overview-description">
+                            Sobha Neopolis offers a tranquil yet dynamic living experience, strategically located in Bangalore's IT corridor, presenting a significant advantage to residents in terms of time and cost savings on daily commutes. The close proximity to numerous multinational companies makes this location an irresistible choice for IT professionals, ensuring a perfect blend of comfort and sophistication, redefining the essence of city living. Explore your future in luxury living at Sobha Neopolis today
+                            
+                        </p>
+                    </div>
+                    
+                    <button class="overview-read-more-btn" id="readMoreBtn">
+                        Read More
+                        <span class="overview-read-more-arrow">▶</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 02 - Why Sobha Neopolis -->
+        <div class="overview-section overview-features-section">
+            <div class="overview-section-content">
+                <div class="overview-features-content">
+                    <div>
+                        <span class="overview-section-number">02</span>
+                        <h2 class="overview-section-title">Highlights o Sobha Neopolis Bangalore?</h2>
+                        
+                        <ul class="overview-features-list">
+                            <li class="overview-features-item">
+                                <span class="overview-features-arrow">▶</span>
+                                <span class="overview-features-text">Well planned layouts</span>
+                            </li>
+                            <li class="overview-features-item">
+                                <span class="overview-features-arrow">▶</span>
+                                <span class="overview-features-text">Prime location</span>
+                            </li>
+                            <li class="overview-features-item">
+                                <span class="overview-features-arrow">▶</span>
+                                <span class="overview-features-text">Near Bangalore IT hub</span>
+                            </li>
+                            <li class="overview-features-item">
+                                <span class="overview-features-arrow">▶</span>
+                                <span class="overview-features-text">Lifestyle Amenities</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="overview-image-container">
+                        <div class="overview-image-placeholder"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Banner Carousel Data
+        const bannerImages = [
+            'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
+        ];
+
+        let bannerCurrentSlide = 0;
+        let bannerAutoSlideInterval;
+
+        // Initialize Banner
+        function bannerInit() {
+            bannerStartAutoSlide();
+            bannerPreloadImages();
+        }
+
+        // Preload Images
+        function bannerPreloadImages() {
+            bannerImages.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        }
+
+        // Go to specific slide
+        function bannerGoToSlide(index) {
+            if (index === bannerCurrentSlide) return;
+            
+            bannerShowLoader();
+            bannerCurrentSlide = index;
+            
+            // Update image
+            const bannerImg = document.getElementById('bannerCurrentImage');
+            bannerImg.style.transform = 'scale(1.1)';
+            
+            setTimeout(() => {
+                bannerImg.src = bannerImages[bannerCurrentSlide];
+                bannerImg.onload = () => {
+                    bannerImg.style.transform = 'scale(1)';
+                    bannerHideLoader();
+                };
+            }, 200);
+
+            // Update dots
+            bannerUpdateDots();
+            bannerRestartAutoSlide();
+        }
+
+        // Update navigation dots
+        function bannerUpdateDots() {
+            const dots = document.querySelectorAll('.bannerDot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bannerDotActive', index === bannerCurrentSlide);
+            });
+        }
+
+        // Show loader
+        function bannerShowLoader() {
+            document.getElementById('bannerLoader').style.display = 'block';
+        }
+
+        // Hide loader
+        function bannerHideLoader() {
+            document.getElementById('bannerLoader').style.display = 'none';
+        }
+
+        // Auto slide functionality
+        function bannerStartAutoSlide() {
+            bannerAutoSlideInterval = setInterval(() => {
+                const nextSlide = (bannerCurrentSlide + 1) % bannerImages.length;
+                bannerGoToSlide(nextSlide);
+            }, 5000);
+        }
+
+        function bannerStopAutoSlide() {
+            clearInterval(bannerAutoSlideInterval);
+        }
+
+        function bannerRestartAutoSlide() {
+            bannerStopAutoSlide();
+            bannerStartAutoSlide();
+        }
+
+        // Form submission
+        document.getElementById('bannerLeadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.bannerFormSubmit');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<span class="bannerFormSubmitText">Submitting...</span>';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Thank you for your interest! Our team will contact you soon.');
+                this.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Pause auto-slide on hover
+        document.querySelector('.banner').addEventListener('mouseenter', bannerStopAutoSlide);
+        document.querySelector('.banner').addEventListener('mouseleave', bannerStartAutoSlide);
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', bannerInit);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            // Restart auto-slide to prevent timing issues
+            bannerRestartAutoSlide();
+        });
+    </script>
+
+        <script>
+        // Add smooth scrolling and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Apply animation to sections
+            const sections = document.querySelectorAll('.overview-section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(section);
+            });
+
+            // Add hover effects to feature items
+            const featureItems = document.querySelectorAll('.overview-features-item');
+            featureItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(244, 196, 48, 0.05)';
+                    this.style.transform = 'translateX(5px)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+
+            // Read More functionality
+            const readMoreBtn = document.getElementById('readMoreBtn');
+            const overviewText = document.getElementById('overviewText');
+            let isExpanded = false;
+
+            readMoreBtn.addEventListener('click', function() {
+                if (!isExpanded) {
+                    // Expand text
+                    overviewText.classList.remove('collapsed');
+                    readMoreBtn.innerHTML = 'Read Less <span class="overview-read-more-arrow">▼</span>';
+                    readMoreBtn.classList.add('expanded');
+                    isExpanded = true;
+                } else {
+                    // Collapse text
+                    overviewText.classList.add('collapsed');
+                    readMoreBtn.innerHTML = 'Read More <span class="overview-read-more-arrow">▶</span>';
+                    readMoreBtn.classList.remove('expanded');
+                    isExpanded = false;
+                    
+                    // Smooth scroll back to the beginning of the section
+                    overviewText.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+     <script>
+        // Add click interaction to the enquire button
+        document.querySelector('.enquire-btn').addEventListener('click', function() {
+            // Add a subtle click animation
+            this.style.transform = 'translateY(0) scale(0.98)';
+            
+            setTimeout(() => {
+                this.style.transform = 'translateY(-2px) scale(1)';
+                // Here you would typically handle the form submission or redirect
+                alert('Thank you for your interest! Our team will contact you soon.');
+            }, 150);
+        });
+
+        // Add hover effect to benefit items
+        document.querySelectorAll('.benefit-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'rgba(255, 201, 71, 0.1)';
+                this.style.transform = 'translateX(3px)';
+            });
+
+            item.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = 'transparent';
+                this.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>

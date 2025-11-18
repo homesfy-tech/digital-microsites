@@ -1,0 +1,157 @@
+.banner-section {
+    .banner-form-part{
+        position: relative;
+        background: #000000e6;
+        padding: 35px 15px;
+        width: 100%;
+        // top: 52rem;
+    }
+    .banner-form-title {
+        h1 {
+            text-align: center;
+            font-size: 30px;
+        }
+
+        h2 {
+            padding: 10px 30px 10px 50px;
+            font-weight: 600;
+            margin: auto;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+            position: relative;
+            color: #2f2f2f;
+            max-width: fit-content;
+            z-index: 1;
+
+            &::before {
+                left: 10px;
+                right: unset;
+                width: 8px;
+                position: absolute;
+                content: '';
+                height: 100%;
+                // width: 10px;
+                background: $primary-color;
+                // right: calc(100% + 10px);
+                top: 0;
+                transform: skewX(-17deg);
+            }
+
+            &::after {
+                width: calc(100% - 20px);
+                right: 0;
+                left: unset;
+                position: absolute;
+                content: '';
+                background: $primary-color;
+                // left: 0;
+                top: 0;
+                // width: 100%;
+                height: 100%;
+                z-index: -1;
+                clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+            }
+        }
+    }
+    .banner-offer{
+        margin-top: 2rem;
+    }
+    .price-heading {
+        background-image: linear-gradient(to right, rgb(0 0 0 / 15%), rgb(0 0 0 / 7%), rgb(0 0 0 / 0%));
+        width: 100%;
+        padding: 10px 65px;
+        margin: 15px 0;
+        position: relative;
+        line-height: initial;
+
+        .rupees-symbol {
+            -webkit-text-stroke-color: rgb(255 255 255);
+            font-size: 50px;
+            left: 40px;
+            transform: translateY(-50%);
+            backface-visibility: visible;
+            animation: flip 2s ease infinite;
+            position: absolute;
+            top: 50%;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke-width: 1px;
+        }
+
+        .price-line {
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #000;
+            display: block;
+            font-weight: 400;
+            text-transform: uppercase;
+            position: relative;
+            text-align: center;
+        }
+
+        .amount {
+            font-size: 26px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            margin-top: 5px;
+            line-height: 28px;
+            display: block;
+            position: relative;
+            text-align: center;
+
+            span {
+                color: $Secondary-color;
+                font-size: 36px;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+            }
+
+            .star {
+                position: relative;
+                right: unset;
+                font-size: 20px;
+                top: unset;
+                font-weight: 500;
+                margin-left: 10px;
+                bottom: 0px;
+                color: $Secondary-color;
+            }
+        }
+    }
+
+    .possession-status {
+        margin: 20px auto 0px;
+        max-width: initial;
+
+        .possession-heading {
+            letter-spacing: 1px;
+            font-size: 12px;
+            font-weight: 400;
+            // letter-spacing: 2px;
+            background-color: #121212;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            margin: auto;
+            text-align: center;
+            color: #fff;
+            display: block;
+            max-width: fit-content;
+        }
+
+        .possession-date {
+            font-size: 16px;
+            letter-spacing: 1px;
+            line-height: 34px;
+            padding: 3px 20px;
+            background-color: $primary-color;
+            color: #2f2f2f;
+            display: block;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-align: center;
+            max-width: fit-content;
+            margin: auto;
+        }
+    }
+}

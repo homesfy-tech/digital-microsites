@@ -1,0 +1,13 @@
+.location-section{
+    background-color: $primary-color;
+    padding: 10px;
+    ul{
+        padding: 10px;
+        li{
+            font-size: 14px;
+            list-style-type: circle;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+    }
+}

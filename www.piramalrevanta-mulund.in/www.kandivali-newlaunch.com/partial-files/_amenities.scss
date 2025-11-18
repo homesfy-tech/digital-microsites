@@ -1,0 +1,19 @@
+.amenities-section{
+    .mob-title{
+        background: #be8d6c;
+        padding: 40px;
+        h4{
+            color: $Secondary-color;
+        }
+        h3{
+            color: #2f2f2f;
+        }
+    }
+    .amenities-content{
+        .card{
+            border: 1px solid #032c2812;
+            box-shadow: 3px 3px 5px 0px #979797;
+            margin: 16px;
+        }
+    }
+}

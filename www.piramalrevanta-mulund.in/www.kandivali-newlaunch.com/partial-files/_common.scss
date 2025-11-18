@@ -1,0 +1,128 @@
+
+html{
+    scroll-behavior: smooth;
+}
+body{
+    font-family: 'Inter';
+}
+p{
+    font-size: 14px;
+    letter-spacing: 1px;
+    line-height: 25px;
+}
+h4{
+    font-family: 'Courgette';
+}
+.footer-section{
+    background-color: $Secondary-color;
+    color: #fff;
+}
+.modal-content{
+    background-color: $Secondary-color;
+    .btn{
+        background-color: $primary-color;
+    }
+}
+#ModalForm{
+    background-color: $Secondary-color;
+}
+
+
+@media(min-width:992px){
+    .main-title{
+        h4{
+            letter-spacing: 1px;
+            font-weight: 500;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        h3{
+            font-size: 34px;
+            line-height: 40px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    }
+}
+
+
+
+/* mobile-section */
+
+.mobile-section{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    background:#fff;
+    box-shadow: 0 -1px 15px rgb(0 0 0 / 7%);
+    z-index: 99;
+}
+
+/* .mobile-section:before{
+    position:absolute;
+    content:'';
+    height:1px;
+    width:100%;
+    left:0;
+    background:rgba(0 0 0 / 6%)
+} */
+
+.mobile-section .btn{
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    max-width: 33.33%;
+    flex: 0 0 33.33%;
+    padding: 0;
+    min-height:auto;
+}
+
+.mobile-section .btn .icon_bg{
+    height: 40px;
+    width: 40px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    margin-top: -10px;
+    margin-bottom: 5px;
+    -webkit-box-shadow:  0 -1px 15px rgb(0 0 0 / 7%);
+    -moz-box-shadow:  0 -1px 15px rgb(0 0 0 / 7%);
+    box-shadow:  0 -1px 15px rgb(0 0 0 / 7%);
+}
+
+.mobile-section .icon{
+    width:22px;
+    height:22px;
+    object-fit: contain;
+    display:block;
+    margin:auto;
+}
+
+.single .download_btn{
+        position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    padding: 6px 12px;
+    opacity: 0.8;
+}
+.destop-show{
+display: block;
+padding: 15px;
+width: 100%;
+}
+.mobile-show{
+display: none;
+padding: 15px;
+width: 100%;
+}
+span{
+    color: #000;
+}

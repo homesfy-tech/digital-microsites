@@ -1,0 +1,158 @@
+.price-section{
+    background: url(../img/price/price-image.webp) no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    margin-bottom: 0;
+    &::before{
+        position: absolute;
+        content: '';
+        height: 134rem;
+        width: 100%;
+        // top: 0;
+        left: 0;
+        background: rgba(0 0 0 / 90%);
+        z-index: 0;
+    }
+    .main-title{
+        position: relative;
+        h4{
+            color: $primary-color;
+        }
+        h3{
+            color: #fff;
+        }
+    }
+    .pricing-sec{
+        padding: 30px;
+        .pricing{
+            position: relative;
+            .first-element{
+                box-shadow: 0 5px 25px rgb(0 0 0 / 5%);
+                text-align: center;
+                border-radius: 20px;
+                overflow: hidden;
+                margin: auto;
+                margin-bottom: 30px;
+                .type{
+                    letter-spacing: 0.5px;
+                    min-height: 50px;
+                    font-size: 14px;
+                    background-color: #e7e7e7;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #333;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    max-width: calc(100% - 30px);
+                    margin: auto;
+                    border-top-left-radius: 20px;
+                    border-top-right-radius: 20px;
+                }
+                .price-plan-main{
+                    background: #fff;
+                    max-width: calc(100% - 30px);
+                    margin: auto;
+                    padding: 25px 10px 35px;
+                    margin-top: -1px;
+                    h3{
+                        font-size: 28px;
+                        line-height: 30px;
+                        color: $Secondary-color;
+                        font-weight: 600;
+                        margin: auto;
+                        sup{
+                            font-weight: 400;
+                        }
+                        small{
+                            font-size: 12px;
+                            color: #797979;
+                            font-weight: 500;
+                            letter-spacing: 2px;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+                .second-element{
+                    position: relative;
+                    z-index: 1;
+                    padding: 40px 10px 20px;
+                    max-width: calc(100% - 30px);
+                    margin: auto;
+                    background: #fff;
+                    padding: 30px 10px 20px;
+                    margin-top: -1px;
+                    &::before{
+                        position: absolute;
+                        content: '';
+                        height: calc(100% + 50px);
+                        width: calc(100% + 30px);
+                        background: #fdfdfd;
+                        left: -15px;
+                        top: 0;
+                        z-index: -1;
+                        transform: skewY(-10deg);
+                        border-radius: 20px;
+                        background-image: linear-gradient(to bottom, #be8d6c, #be8d6c);
+                    }
+                    .list-item{
+                        small{
+                            color: #2f2f2f;
+                            font-size: 13px;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        }
+                        p{
+                            font-size: 17px;
+                            letter-spacing: 0.5px;
+                            font-weight: 700;
+                            margin-top: 2px;
+                            color: #2f2f2f;
+                        }
+                    }
+                    .typography{
+                        margin-top: 15px;
+                        small{
+                            color: #2f2f2f;
+                            font-size: 13px;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                        }
+                        p{
+                            font-size: 17px;
+                            letter-spacing: 0.5px;
+                            font-weight: 700;
+                            margin-top: 2px;
+                            color: #2f2f2f;
+                        }
+                    }
+                    .btn{
+                        cursor: pointer;
+                        padding: 6px 24px;
+                        font-size: 14px;
+                        margin-top: 24px;
+                        border-radius: 100px;
+                        min-height: 42px;
+                        width: 100%;
+                        background: $Secondary-color;
+                        color: #fff;
+                        letter-spacing: 0.5px;
+                        &::before{
+                            position: absolute;
+                            content: '';
+                            height: 100%;
+                            width: 100%;
+                            background: #e7e7e7;
+                            top: -10px;
+                            left: 0;
+                            z-index: -2;
+                            transform: skewY(-10deg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

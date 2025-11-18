@@ -1,0 +1,25 @@
+@media(max-width:992px){
+    .main-title{
+        &::after{
+            position: absolute;
+            content: '';
+            background: $primary-color;
+            width: 20%;
+            height: 2px;
+            left: 50%;
+            // top: 72rem;
+            transform: translateX(-50%);
+        }
+        h4{
+            font-size: 17px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        h3{
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    }
+}

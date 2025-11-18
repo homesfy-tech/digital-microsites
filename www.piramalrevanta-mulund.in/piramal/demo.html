@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+<style>
+  .amenities-section {
+  padding: 40px 0;
+  background-color: #fff;
+}
+
+.amenities-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.amenities-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.amenities-header h1 {
+  color: #333;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.amenities-download-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.amenities-download-btn:hover {
+  background-color: #0d47a1;
+}
+
+.amenities-carousel {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.amenities-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.amenities-slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 20px;
+  /* padding: 20px; */
+}
+
+.amenities-card {
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.amenities-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.amenities-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.amenities-card:hover .amenities-image {
+  transform: scale(1.05);
+}
+
+.amenities-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  border-top-right-radius: 10px;
+}
+
+.amenities-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.amenities-nav-btn:hover {
+  background: white;
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+.amenities-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ddd;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background-color: #1a73e8;
+  transform: scale(1.2);
+}
+
+.amenities-mobile-download {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .amenities-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .amenities-header h1 {
+    font-size: 20px;
+  }
+  
+  .amenities-download-btn {
+    display: none;
+  }
+  
+  .amenities-mobile-download {
+    display: block;
+  }
+  
+  .amenities-mobile-download .amenities-download-btn {
+    display: inline-flex;
+  }
+  
+  .amenities-slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 15px;
+  }
+  
+  .amenities-slide .amenities-card {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 0;
+  }
+  
+  .amenities-slide .amenities-card:nth-child(n+2) {
+    display: none;
+  }
+  
+  .amenities-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  .amenities-nav-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+}
+/* Fullscreen image popup styles */
+.image-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  top: 0;
+  left: 0;
+}
+
+.popup-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-image {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.popup-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 36px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 48px;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.popup-nav.prev {
+  left: -80px;
+}
+
+.popup-nav.next {
+  right: -80px;
+}
+
+@media (max-width: 768px) {
+  .popup-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+  
+  .popup-nav.prev {
+    left: 10px;
+  }
+  
+  .popup-nav.next {
+    right: 10px;
+  }
+  
+  .popup-close {
+    top: 10px;
+    right: 10px;
+  }
+}
+</style>
+</head>
+<body>
+  <section class="amenities-section">
+    <div class="amenities-container">
+      <div class="amenities-header">
+        <h1>Amenities Of Piramal Revanta Raynav</h1>
+        <button class="amenities-download-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Download Amenities
+        </button>
+      </div>
+      
+      <div class="amenities-carousel">
+        <button class="amenities-nav-btn prev-btn" id="prevBtn" aria-label="Previous slide">‹</button>
+        <button class="amenities-nav-btn next-btn" id="nextBtn" aria-label="Next slide">›</button>
+        
+        <div class="amenities-track" id="amenitiesTrack">
+          <!-- Slide 1 -->
+          <div class="amenities-slide">
+            <div class="amenities-card">
+              <img src="assests/images/amenities/entranceLobby.webp" alt="Entrance Lobby" class="amenities-image" />
+              <div class="amenities-label">Entrance Lobby</div>
+            </div>
+            <div class="amenities-card">
+              <img src="assests/images/amenities/gardenArera.webp" alt="Garden Area" class="amenities-image" />
+              <div class="amenities-label">Garden Area</div>
+            </div>
+            <div class="amenities-card">
+              <img src="assests/images/amenities/gym.webp" alt="Gym" class="amenities-image" />
+              <div class="amenities-label">Gym</div>
+            </div>
+          </div>
+  
+          <!-- Slide 2 -->
+          <div class="amenities-slide">
+            <div class="amenities-card">
+              <img src="assests/images/amenities/indian-family-2.webp" alt="Family" class="amenities-image" />
+              <div class="amenities-label">Family</div>
+            </div>
+            <div class="amenities-card">
+              <img src="assests/images/amenities/indian-family.webp" alt="Fitness Area" class="amenities-image" />
+              <div class="amenities-label">Fitness Area</div>
+            </div>
+            <div class="amenities-card">
+              <img src="assests/images/amenities/kidsPlayArera.webp" alt="Kids Play Area" class="amenities-image" />
+              <div class="amenities-label">Kids Play Area</div>
+            </div>
+          </div>
+          
+          <!-- Slide 3 -->
+          <div class="amenities-slide">
+            <div class="amenities-card">
+              <img src="assests/images/amenities/miniTheater.webp" alt="Mini Theater" class="amenities-image" />
+              <div class="amenities-label">Mini Theater</div>
+            </div>
+            <div class="amenities-card">
+              <img src="assests/images/amenities/multipurposeSportsCourt.webp" alt="Sports Court" class="amenities-image" />
+              <div class="amenities-label">Sports Court</div>
+            </div>
+            <div class="amenities-card">
+              <img src="assests/images/amenities/swimmingPool.webp" alt="Swimming Pool" class="amenities-image" />
+              <div class="amenities-label">Swimming Pool</div>
+            </div>
+          </div>
+          
+          <!-- Slide 4 -->
+          <div class="amenities-slide">
+            <div class="amenities-card">
+              <img src="assests/images/amenities/petArera.webp" alt="Pet Area" class="amenities-image" />
+              <div class="amenities-label">Pet Area</div>
+            </div>
+            <div class="amenities-card">
+              <img src="assests/images/amenities/seniorCitizenArera.webp" alt="Senior Citizen Area" class="amenities-image" />
+              <div class="amenities-label">Senior Citizen Area</div>
+            </div>
+            <div class="amenities-card">
+              <img src="assests/images/amenities/walkInArera.webp" alt="Walk In Area" class="amenities-image" />
+              <div class="amenities-label">Walk In Area</div>
+            </div>
+          </div>
+          
+          <!-- Additional mobile slides - will be created dynamically by JS -->
+        </div>
+      </div>
+      
+      <div class="amenities-indicators" id="amenitiesIndicators">
+        <!-- Indicators will be generated dynamically based on slides -->
+        <button class="indicator active" data-index="0"></button>
+        <button class="indicator" data-index="1"></button>
+        <button class="indicator" data-index="2"></button>
+        <button class="indicator" data-index="3"></button>
+      </div>
+      
+      <div class="amenities-mobile-download">
+        <button class="amenities-download-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Download Amenities
+        </button>
+      </div>
+    </div>
+  
+    <!-- Fullscreen image popup -->
+    <div id="imagePopup" class="image-popup">
+      <div class="popup-overlay" id="popupOverlay"></div>
+      <div class="popup-content">
+        <button class="popup-close" id="popupClose">×</button>
+        <button class="popup-nav prev" id="popupPrev">‹</button>
+        <img id="popupImage" src="" alt="Enlarged amenity" class="popup-image">
+        <button class="popup-nav next" id="popupNext">›</button>
+      </div>
+    </div>
+  </section>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  // Carousel elements
+  const track = document.getElementById('amenitiesTrack');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const indicatorsContainer = document.getElementById('amenitiesIndicators');
+
+  // Popup elements
+  const popup = document.getElementById('imagePopup');
+  const popupImage = document.getElementById('popupImage');
+  const popupClose = document.getElementById('popupClose');
+  const popupPrev = document.getElementById('popupPrev');
+  const popupNext = document.getElementById('popupNext');
+  const popupOverlay = document.getElementById('popupOverlay');
+
+  // Variables
+  let currentSlide = 0;
+  let currentImageIndex = 0;
+  let slideInterval;
+  let slides;
+  let totalSlides;
+  let allImages;
+
+  function initCarousel() {
+    // Start automatic sliding
+    startAutoSlide();
+    
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Initialize the first slide
+    updateSlidePosition();
+  }
+
+  function updateSlidePosition() {
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    updateIndicators();
+  }
+
+  function updateIndicators() {
+    const indicators = document.querySelectorAll('.indicator');
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentSlide);
+    });
+  }
+
+  function goToSlide(index) {
+    currentSlide = (index + totalSlides) % totalSlides;
+    updateSlidePosition();
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide(); // Clear any existing interval
+    slideInterval = setInterval(() => {
+      goToSlide(currentSlide + 1);
+    }, 5000); // Change slide every 5 seconds
+  }
+
+  function stopAutoSlide() {
+    if (slideInterval) {
+      clearInterval(slideInterval);
+    }
+  }
+
+  // Create mobile-specific slides if on small screen
+  function setupMobileSlides() {
+    const allCards = Array.from(document.querySelectorAll('.amenities-card'));
+    
+    // Remove all existing slides
+    while (track.firstChild) {
+      track.removeChild(track.firstChild);
+    }
+    
+    // Clear existing indicators
+    indicatorsContainer.innerHTML = '';
+    
+    const cardsPerSlide = window.innerWidth <= 768 ? 2 : 3;
+    const totalSlidesNeeded = Math.ceil(allCards.length / cardsPerSlide);
+    
+    for (let i = 0; i < totalSlidesNeeded; i++) {
+      const newSlide = document.createElement('div');
+      newSlide.className = 'amenities-slide';
+      
+      const startIdx = i * cardsPerSlide;
+      const endIdx = startIdx + cardsPerSlide;
+      allCards.slice(startIdx, endIdx).forEach(card => {
+        newSlide.appendChild(card.cloneNode(true));
+      });
+      
+      track.appendChild(newSlide);
+    }
+    
+    // Create indicators
+    slides = document.querySelectorAll('.amenities-slide');
+    totalSlides = slides.length;
+    
+    slides.forEach((_, index) => {
+      const indicator = document.createElement('button');
+      indicator.className = 'indicator' + (index === 0 ? ' active' : '');
+      indicator.dataset.index = index;
+      indicator.addEventListener('click', () => {
+        stopAutoSlide();
+        goToSlide(index);
+        startAutoSlide();
+      });
+      indicatorsContainer.appendChild(indicator);
+    });
+    
+    currentSlide = 0;
+    updateSlidePosition();
+    setupImageClickListeners();
+  }
+
+  // Image popup functions
+  function showPopup(index) {
+    currentImageIndex = index;
+    popupImage.src = allImages[index].src;
+    popupImage.alt = allImages[index].alt;
+    popup.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hidePopup() {
+    popup.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function showNextImage() {
+    currentImageIndex = (currentImageIndex + 1) % allImages.length;
+    popupImage.src = allImages[currentImageIndex].src;
+    popupImage.alt = allImages[currentImageIndex].alt;
+  }
+
+  function showPrevImage() {
+    currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+    popupImage.src = allImages[currentImageIndex].src;
+    popupImage.alt = allImages[currentImageIndex].alt;
+  }
+
+  function setupImageClickListeners() {
+    allImages = document.querySelectorAll('.amenities-image');
+    allImages.forEach((img, index) => {
+      img.addEventListener('click', () => showPopup(index));
+    });
+  }
+
+  function setupEventListeners() {
+    // Carousel navigation
+    prevBtn.addEventListener('click', () => {
+      stopAutoSlide();
+      goToSlide(currentSlide - 1);
+      startAutoSlide();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      stopAutoSlide();
+      goToSlide(currentSlide + 1);
+      startAutoSlide();
+    });
+    
+    // Popup controls
+    popupClose.addEventListener('click', hidePopup);
+    popupOverlay.addEventListener('click', hidePopup);
+    popupPrev.addEventListener('click', showPrevImage);
+    popupNext.addEventListener('click', showNextImage);
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (popup.style.display === 'flex') {
+        if (e.key === 'Escape') hidePopup();
+        if (e.key === 'ArrowRight') showNextImage();
+        if (e.key === 'ArrowLeft') showPrevImage();
+      }
+    });
+    
+    // Touch swipe support
+    let touchStartX = 0;
+    
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      stopAutoSlide();
+    }, { passive: true });
+    
+    track.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const swipeDistance = touchStartX - touchEndX;
+      
+      if (Math.abs(swipeDistance) > 50) {
+        if (swipeDistance > 0) {
+          goToSlide(currentSlide + 1);
+        } else {
+          goToSlide(currentSlide - 1);
+        }
+      }
+      startAutoSlide();
+    }, { passive: true });
+    
+    // Pause on hover
+    track.addEventListener('mouseenter', stopAutoSlide);
+    track.addEventListener('mouseleave', startAutoSlide);
+  }
+
+  // Initialize the carousel
+  window.addEventListener('resize', setupMobileSlides);
+  setupMobileSlides();
+  initCarousel();
+});
+</script>
+</body>
+</html>
