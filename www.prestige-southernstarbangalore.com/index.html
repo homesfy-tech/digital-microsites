@@ -121,7 +121,8 @@ Virtual Site Visit
 <!-- <div class=offerBoxDeveloper></div> -->
 <div class="offerBoxDottedSection animatedBox" >
   <div class=offerBoxPaymentPlan><i class="fa fa-star" aria-hidden=true></i>
-Flexible Payment Plan - 20:20:20:20
+Pay just 20% now the rest in 3 easy instalments
+
 </div>
 <div class=offerBoxManhattanStyle><i class="fa fa-gift" aria-hidden=true></i>
 Spot Booking Offers</div>
@@ -132,6 +133,22 @@ Limited Period Launch Benefits
 Avail Flexi Payment Plan
 </div> -->
 </div>
+<style>
+.offerBoxDottedSection > div {
+  position: relative;
+  padding-left: 18px;
+}
+
+.offerBoxDottedSection > div::before {
+  content: "•"; /* change to › ► → ➤ whatever you like */
+  position: absolute;
+  left: 20px;
+  top: 0;
+  font-size: 20px;
+  color: #ffffff; /* pointer color */
+}
+</style>
+
 <div class=offerBoxPrice>
 Luxurious  <b>3 & 4 BHK</b> Starting From<br>
 <span class=offerBoxPriceHighlight>₹ 1.81 Cr</span> Onwards
