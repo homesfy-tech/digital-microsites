@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon10.jpg" />
+  <title data-field="meta_title">Thank You - Rustomjee Verdant Vistas, Majiwada, Thane| Price, Floor Plans, Amenities | Download Brochure</title>
+<meta name=description data-field="meta_description" content="Rustomjee Verdant Vistas, Majiwada, Thane- Residential Project By Rustomjee, Offering Beautiful 3 & 4 BHK residences Homes with world-class amenities and seamless connectivity for residents.">
+<meta name=keywords data-field="meta_keywords" content="Rustomjee Verdant Vistas, Rustomjee Verdant Vistas Thane, Verdant Vistas Thane, Rustomjee Vistas Thane, 3 bhk at verdant vistas, 4 bhk at verdant vistas, 3 bhk in thane, 4 bhk in thane, 3 & 4 bhk at rustomjee, 3 & 4 bhk at verdant vistas, Verdant Vistas by Rustomjee, 3 & 4 bhk in thane">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <!-- <link rel=" stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <!-- <link rel="icon" href="img/logo/favicon.png" type="image/png"> -->
+    <link rel="stylesheet" href="thankyou-css/style.css">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.webp" type="image/x-icon">
+
+</head>
+
+<body>
+
+
+    <header class="th-top-bar">
+        <div class="container ">
+            <a href="index.html" class="th-Logo"><img src="assets/images/logo/logo.webp" class="img-fluid" alt="Logo"></a>
+        </div>
+    </header>
+    <div class="thanks-page">
+        <div class="thankyou-container text-center text-white">
+            <div class="container">
+                <div class="th-main-section">
+                    <div class="ty-cont">
+                        <h2 class="text-center">Thank You</h2>
+                        <strong>Our expert will get in touch with you to share all details in regards to the
+                            project</strong>
+                            <p><strong id="userPhone"></strong></p>
+                    </div>
+                    <div class="helpful-content">
+                        <div class="helping">
+                            <h4>FOR IMMEDIATE ASSISTANCE</h4>
+                            <div class="help-item">
+                                <a href="tel:" class="btn btn-primary phone_url IVR_Phone_No_Url"><img src="assets/images/icons/phoneblack.gif"
+                                        alt="Call" width="30" height="30"><span class="phone_no "></span></a>
+                                <a href="" class="btn btn-success whatsapp_url">Chat On <img
+                                        src="/assets/images/icons/whatsappIcon.gif" alt="whatsapp" width="30" height="30"></a>
+                            </div>
+                        </div>
+                        <div class="back_link">
+                            <h3><a href="index.html">BACK TO HOMEPAGE</a></h3>
+                            <!-- <div class="loan-img"> <img src="img/white-loan-img.svg" alt="loan"> <br> <a href="https://homesfy.in/loans/"> Avail Home Loan & Check Your Credit Score</a> </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="js/jquery-3.6.0.min.js"></script> -->
+    <!-- <script src="assests/"></script> -->
+    <!-- <script src="assests/js/custom.js"></script> -->
+     <script src="assets/js/api.js"></script>
+     <script src="assets/js/custom.js"></script>
+
+     
+
+    <script >
+document.addEventListener("DOMContentLoaded", function () {
+  const submittedPhone = localStorage.getItem("submittedPhone");
+  const submittedCountryCode = localStorage.getItem("submittedCountryCode");
+
+  console.log(submittedPhone,"cc",submittedCountryCode);
+
+  if (submittedPhone && submittedCountryCode) {
+    // Remove anything that is not a digit (gets rid of tracking ID text)
+    let cleanPhone = submittedPhone.replace(/\D/g, '');
+    const fullPhone = `${submittedCountryCode}${cleanPhone}`;
+
+
+    const phoneElement = document.getElementById("userPhone");
+
+
+    if (phoneElement) {
+      // Set the phone number as text content
+      phoneElement.textContent = fullPhone;
+     
+      // Store as data attribute for easy access
+      phoneElement.setAttribute('data-phone', fullPhone);
+     
+      // Store in a global variable for easy access
+      window.userPhoneNumber = fullPhone;
+    }
+
+
+    console.log("Phone displayed:", document.getElementById("userPhone").outerHTML);
+
+
+    // Push to GTM
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "formSubmitted",
+      leadsUserData: {
+        phone_number: fullPhone
+      }
+    });
+
+
+    console.log("User Phone Number:", fullPhone);
+
+
+  } else {
+    console.warn("Phone number not found in localStorage.");
+  }
+});
+
+
+// Utility functions to get the phone number
+function getUserPhoneNumber() {
+  const phoneElement = document.getElementById("userPhone");
+  if (phoneElement && phoneElement.textContent) {
+    return phoneElement.textContent;
+  }
+  return null;
+}
+
+
+// Function to copy phone number to clipboard
+function copyPhoneNumber() {
+  const phoneNumber = getUserPhoneNumber();
+  if (phoneNumber) {
+    navigator.clipboard.writeText(phoneNumber).then(function() {
+      console.log('Phone number copied to clipboard:', phoneNumber);
+      alert('Phone number copied to clipboard!');
+    }).catch(function(err) {
+      console.error('Could not copy phone number: ', err);
+    });
+  } else {
+    console.warn('No phone number found to copy');
+  }
+}
+
+
+function getPhoneForExternalUse() {
+  return getUserPhoneNumber();
+}
+
+
+document.addEventListener("click", function(event) {
+  if (event.target.id === "userPhone") {
+    console.log("Phone number clicked:", getUserPhoneNumber());
+  }
+});
+
+
+window.getUserPhoneNumber = getUserPhoneNumber;
+window.copyPhoneNumber = copyPhoneNumber;
+window.getPhoneForExternalUse = getPhoneForExternalUse;
+</script>
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+{
+  "template-1": {
+    "name": "Template 1",
+    "description": "Standard Real Estate Template",
+    "thumbnail": "template-1/template-1.webp",
+    "htmlPath": "template-1/index.html",
+    "cssPath": "template-1/assets/css/style.css",
+    "jsPath": "template-1/assets/js/script.js",
+    "assetBase": "template-1/assets",
+    "bannerRootFiles": ["banner1.webp", "mobBanner1.webp"],
+    "imageMapping": {
+      "logo": {
+        "paths": ["assets/images/logo/logo.webp"],
+        "replacePatterns": ["/logo.webp", "logo.webp"]
+      },
+      "banner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "banner{index}.webp",
+        "replacePatterns": ["banner1.webp", "/banner1.webp", "banner.png", "/banner.webp", "/banner.png"]
+      },
+      "mobBanner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "mobBanner{index}.webp",
+        "replacePatterns": ["mobBanner1.webp", "/mobBanner1.webp", "banner-480.webp", "/banner-480.webp"]
+      },
+      "amenities": {
+        "paths": ["assets/images/amenities/"],
+        "replacePatterns": ["/amenities/"],
+        "multiple": true,
+        "pattern": "a{index}.webp"
+      },
+      "gallery": {
+        "paths": ["assets/images/gallery/"],
+        "replacePatterns": ["/gallery/"],
+        "multiple": true,
+        "pattern": "g{index}.webp"
+      },
+      "vtour": {
+        "paths": ["assets/images/vtour/tour1.webp"],
+        "replacePatterns": ["/vtour/", "/banner/banner.webp"]
+      },
+      "qr": {
+        "paths": ["assets/images/qr/"],
+        "replacePatterns": ["/qr.webp", "/qr"],
+        "multiple": true,
+        "pattern": "qr{index}.webp"
+      },
+      "favicon": {
+        "paths": ["assets/images/logo/favicon.ico"],
+        "replacePatterns": []
+      }
+    }
+  },
+  "template-2": {
+    "name": "Template 2",
+    "description": "Premium Real Estate Template",
+    "thumbnail": "template-2/template-2.webp",
+    "htmlPath": "template-2/index.html",
+    "cssPath": "template-2/assets/css/style.css",
+    "jsPath": "template-2/assets/js/script.js",
+    "assetBase": "template-2/assets",
+    "bannerRootFiles": ["banner1.webp", "mobBanner1.webp"],
+    "imageMapping": {
+      "logo": {
+        "paths": ["assets/images/logo/logo.webp"],
+        "replacePatterns": ["/logo.webp", "logo.webp"]
+      },
+      "banner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "banner{index}.webp",
+        "replacePatterns": ["banner1.webp", "/banner1.webp", "banner.png", "/banner.webp", "/banner.png"]
+      },
+      "mobBanner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "mobBanner{index}.webp",
+        "replacePatterns": ["mobBanner1.webp", "/mobBanner1.webp", "banner-480.webp", "/banner-480.webp"]
+      },
+      "amenities": {
+        "paths": ["assets/images/amenities/"],
+        "replacePatterns": ["/amenities/"],
+        "multiple": true,
+        "pattern": "a{index}.webp"
+      },
+      "gallery": {
+        "paths": ["assets/images/gallery/"],
+        "replacePatterns": ["/gallery/"],
+        "multiple": true,
+        "pattern": "g{index}.webp"
+      },
+      "vtour": {
+        "paths": ["assets/images/vtour/"],
+        "replacePatterns": ["/vtour/"]
+      },
+      "qr": {
+        "paths": ["assets/images/qr/"],
+        "replacePatterns": ["/qr.webp", "/qr"],
+        "multiple": true,
+        "pattern": "qr{index}.webp"
+      },
+      "favicon": {
+        "paths": ["assets/images/logo/favicon.webp"],
+        "replacePatterns": []
+      }
+    }
+  },
+  "template-3": {
+    "name": "Template 3",
+    "description": "Modern Real Estate Template",
+    "thumbnail": "template-3/template-3.webp",
+    "htmlPath": "template-3/index.html",
+    "cssPath": "template-3/assets/css/style.css",
+    "jsPath": "template-3/assets/js/script.js",
+    "assetBase": "template-3/assets",
+    "bannerRootFiles": ["banner1.webp", "mobBanner1.webp"],
+    "imageMapping": {
+      "logo": {
+        "paths": ["assets/images/logo/logo.webp"],
+        "replacePatterns": ["/logo.webp", "logo.webp", "./assets/images/logo/logo.webp", "assets/images/logo/logo.webp", "/assets/images/logo/logo.webp"]
+      },
+      "banner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "banner{index}.webp",
+        "replacePatterns": ["banner1.webp", "/banner1.webp", "banner.webp", "/banner.webp", "./assets/images/banner/banner.webp", "./assets/images/banner/banner1.webp", "assets/images/banner/banner.webp", "assets/images/banner/banner1.webp", "/assets/images/banner/banner.webp", "/assets/images/banner/banner1.webp"]
+      },
+      "mobBanner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "mobBanner{index}.webp",
+        "replacePatterns": ["mobBanner1.webp", "/mobBanner1.webp", "banner-480.webp", "/banner-480.webp", "./assets/images/banner/banner-480.webp", "./assets/images/banner/mobBanner1.webp", "assets/images/banner/banner-480.webp", "assets/images/banner/mobBanner1.webp", "/assets/images/banner/banner-480.webp", "/assets/images/banner/mobBanner1.webp"]
+      },
+      "amenities": {
+        "paths": ["assets/images/amenities/"],
+        "replacePatterns": ["/amenities/", "./assets/images/amenities/", "assets/images/amenities/", "/assets/images/amenities/"],
+        "multiple": true,
+        "pattern": "a{index}.webp"
+      },
+      "gallery": {
+        "paths": ["assets/images/gallery/"],
+        "replacePatterns": ["/gallery/", "./assets/images/gallery/", "assets/images/gallery/", "/assets/images/gallery/"],
+        "multiple": true,
+        "pattern": "g{index}.webp"
+      },
+      "vtour": {
+        "paths": ["assets/images/vtour/"],
+        "replacePatterns": ["/vtour/", "./assets/images/vtour/", "assets/images/vtour/", "/assets/images/vtour/", "tour1.webp", "./assets/images/banner/tour1.webp"]
+      },
+      "qr": {
+        "paths": ["assets/images/qr/"],
+        "replacePatterns": ["/qr.webp", "/qr", "./assets/images/qr/", "assets/images/qr/", "/assets/images/qr/", "qr.webp", "qr1.webp"],
+        "multiple": true,
+        "pattern": "qr{index}.webp"
+      },
+      "favicon": {
+        "paths": ["assets/images/logo/favicon.webp"],
+        "replacePatterns": ["./assets/images/logo/favicon.webp", "assets/images/logo/favicon.webp", "/assets/images/logo/favicon.webp"]
+      },
+      "floorplan": {
+        "paths": ["assets/images/floorPlan/"],
+        "replacePatterns": ["/floorPlan/", "./assets/images/floorPlan/", "assets/images/floorPlan/", "/assets/images/floorPlan/", "floorplan", "floorPlan"],
+        "multiple": true,
+        "pattern": "floorplan{index}.webp"
+      }
+    }
+  },
+  "template-4": {
+    "name": "Template 4",
+    "description": "Elegant Real Estate Template",
+    "thumbnail": "template-4/template-4.webp",
+    "htmlPath": "template-4/index.html",
+    "cssPath": "template-4/assets/css/style.css",
+    "jsPath": "template-4/assets/js/script.js",
+    "assetBase": "template-4/assets",
+    "bannerRootFiles": ["banner1.webp", "mobBanner1.webp"],
+    "imageMapping": {
+      "logo": {
+        "paths": ["assets/images/logo/logo.webp"],
+        "replacePatterns": ["/logo.webp", "logo.webp", "assets/images/logo/logo.webp", "./assets/images/logo/logo.webp", "/assets/images/logo/logo.webp"]
+      },
+      "banner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "banner{index}.webp",
+        "replacePatterns": ["banner1.webp", "/banner1.webp", "banner.webp", "/banner.webp", "assets/images/banner/banner.webp", "assets/images/banner/banner1.webp", "./assets/images/banner/banner.webp", "./assets/images/banner/banner1.webp", "/assets/images/banner/banner.webp", "/assets/images/banner/banner1.webp"]
+      },
+      "mobBanner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "mobBanner{index}.webp",
+        "replacePatterns": ["mobBanner1.webp", "/mobBanner1.webp", "banner-480.webp", "/banner-480.webp", "assets/images/banner/banner-480.webp", "assets/images/banner/mobBanner1.webp", "./assets/images/banner/banner-480.webp", "./assets/images/banner/mobBanner1.webp", "/assets/images/banner/banner-480.webp", "/assets/images/banner/mobBanner1.webp"]
+      },
+      "amenities": {
+        "paths": ["assets/images/amenities/"],
+        "replacePatterns": ["/amenities/", "assets/images/amenities/", "./assets/images/amenities/", "/assets/images/amenities/"],
+        "multiple": true,
+        "pattern": "a{index}.webp"
+      },
+      "gallery": {
+        "paths": ["assets/images/gallery/"],
+        "replacePatterns": ["/gallery/", "assets/images/gallery/", "./assets/images/gallery/", "/assets/images/gallery/"],
+        "multiple": true,
+        "pattern": "g{index}.webp"
+      },
+      "vtour": {
+        "paths": ["assets/images/vtour/"],
+        "pattern": "tour{index}.webp",
+        "replacePatterns": ["/vtour/", "assets/images/vtour/", "./assets/images/vtour/", "/assets/images/vtour/", "banner.webp", "/banner/banner.webp", "assets/images/banner/banner.webp", "./assets/images/banner/banner.webp", "/assets/images/banner/banner.webp", "tour1.webp", "tour.webp"]
+      },
+      "qr": {
+        "paths": ["assets/images/qr/"],
+        "replacePatterns": ["/qr.webp", "/qr", "assets/images/qr/", "./assets/images/qr/", "/assets/images/qr/", "qr.webp", "qr1.webp"],
+        "multiple": true,
+        "pattern": "qr{index}.webp"
+      },
+      "favicon": {
+        "paths": ["assets/images/logo/favicon.webp"],
+        "replacePatterns": ["assets/images/logo/favicon.webp", "./assets/images/logo/favicon.webp", "/assets/images/logo/favicon.webp"]
+      },
+      "floorplan": {
+        "paths": ["assets/images/floorplan/"],
+        "replacePatterns": ["/floorplan/", "assets/images/floorplan/", "./assets/images/floorplan/", "/assets/images/floorplan/", "floorplan", "floorPlan"],
+        "multiple": true,
+        "pattern": "floorplan{index}.webp"
+      }
+    }
+  },
+  "template-5": {
+    "name": "Template 5",
+    "description": "Premium Real Estate Template",
+    "thumbnail": "template-5/template-5.webp",
+    "htmlPath": "template-5/index.html",
+    "cssPath": "template-5/assets/css/style.css",
+    "jsPath": "template-5/assets/js/script.js",
+    "assetBase": "template-5/assets",
+    "bannerRootFiles": ["banner1.webp", "mobBanner1.webp"],
+    "imageMapping": {
+      "logo": {
+        "paths": ["assets/images/logo/logo.webp"],
+        "replacePatterns": ["/logo.webp", "logo.webp", "assets/images/logo/logo.webp", "/assets/images/logo/logo.webp", "./assets/images/logo/logo.webp"]
+      },
+      "banner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "banner{index}.webp",
+        "replacePatterns": ["banner1.webp", "/banner1.webp", "banner.webp", "/banner.webp", "assets/images/banner/banner.webp", "/assets/images/banner/banner.webp", "assets/images/banner/banner1.webp", "/assets/images/banner/banner1.webp", "./assets/images/banner/banner.webp", "./assets/images/banner/banner1.webp"]
+      },
+      "mobBanner": {
+        "paths": ["assets/images/banner/"],
+        "pattern": "mobBanner{index}.webp",
+        "replacePatterns": ["mobBanner1.webp", "/mobBanner1.webp", "banner-480.webp", "/banner-480.webp", "assets/images/banner/banner-480.webp", "/assets/images/banner/banner-480.webp", "assets/images/banner/mobBanner1.webp", "/assets/images/banner/mobBanner1.webp", "./assets/images/banner/banner-480.webp", "./assets/images/banner/mobBanner1.webp"]
+      },
+      "amenities": {
+        "paths": ["assets/images/amenities/"],
+        "replacePatterns": ["/amenities/", "assets/images/amenities/", "/assets/images/amenities/", "./assets/images/amenities/"],
+        "multiple": true,
+        "pattern": "a{index}.webp"
+      },
+      "gallery": {
+        "paths": ["assets/images/gallery/"],
+        "replacePatterns": ["/gallery/", "assets/images/gallery/", "/assets/images/gallery/", "./assets/images/gallery/"],
+        "multiple": true,
+        "pattern": "g{index}.webp"
+      },
+      "vtour": {
+        "paths": ["assets/images/vtour/"],
+        "replacePatterns": ["/vtour/", "assets/images/vtour/", "/assets/images/vtour/", "./assets/images/vtour/"]
+      },
+      "qr": {
+        "paths": ["assets/images/qr/"],
+        "replacePatterns": ["/qr.webp", "/qr", "assets/images/qr/", "/assets/images/qr/", "./assets/images/qr/", "qr.webp", "qr1.webp"],
+        "multiple": true,
+        "pattern": "qr{index}.webp"
+      },
+      "favicon": {
+        "paths": ["assets/images/logo/favicon.webp"],
+        "replacePatterns": ["assets/images/logo/favicon.webp", "/assets/images/logo/favicon.webp", "./assets/images/logo/favicon.webp"]
+      },
+      "floorplan": {
+        "paths": ["assets/images/floorplan/"],
+        "replacePatterns": ["/floorplan/", "assets/images/floorplan/", "/assets/images/floorplan/", "./assets/images/floorplan/", "floorplan", "floorPlan"],
+        "multiple": true,
+        "pattern": "floorplan{index}.webp"
+      }
+    }
+  }
+}
