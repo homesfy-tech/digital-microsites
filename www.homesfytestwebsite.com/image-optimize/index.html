@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Optimizer - WebP Converter & Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📸 Image Optimizer</h1>
+            <p class="subtitle">Convert, resize, and optimize images to WebP format</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <p class="upload-text">Drag & drop your images here</p>
+                <p class="upload-subtext">or</p>
+                <button class="btn btn-primary" id="browseBtn">Browse Files</button>
+                <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                <p class="supported-formats">Supports: JPG, PNG, GIF, BMP, TIFF</p>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section class="settings-section" id="settingsSection" style="display: none;">
+            <div class="card">
+                <h2 class="card-title">Conversion Settings</h2>
+                
+                <div class="setting-group">
+                    <label for="targetSize">Target File Size</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="targetSize" min="50" max="200" value="110" step="10">
+                        <span class="slider-value" id="targetSizeValue">110 KB</span>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label for="quality">Quality</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="quality" min="60" max="100" value="85" step="5">
+                        <span class="slider-value" id="qualityValue">85%</span>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="autoReduce" checked>
+                        <label for="autoReduce">Auto-reduce large images to target size</label>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label>Resize Options</label>
+                    <div class="mode-tabs">
+                        <button class="tab-btn active" id="ratioModeBtn" data-mode="ratio">Aspect Ratio</button>
+                        <button class="tab-btn" id="dimensionsModeBtn" data-mode="dimensions">Dimensions</button>
+                    </div>
+                </div>
+
+                <div class="setting-group" id="ratioSettings">
+                    <label for="aspectRatio">Aspect Ratio</label>
+                    <select id="aspectRatio" class="select-input">
+                        <option value="original">Original</option>
+                        <option value="16:9">16:9 (Landscape)</option>
+                        <option value="9:16">9:16 (Portrait)</option>
+                        <option value="1:1">1:1 (Square)</option>
+                        <option value="4:5">4:5 (Portrait)</option>
+                        <option value="5:4">5:4 (Landscape)</option>
+                        <option value="4:3">4:3 (Landscape)</option>
+                        <option value="3:4">3:4 (Portrait)</option>
+                        <option value="3:2">3:2 (Landscape)</option>
+                        <option value="2:3">2:3 (Portrait)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group" id="dimensionsSettings" style="display: none;">
+                    <label>Custom Dimensions</label>
+                    <div class="dimensions-row">
+                        <div class="dimension-field">
+                            <input type="number" id="customWidth" min="1" value="800" placeholder="Width">
+                            <span class="dimension-label">px</span>
+                        </div>
+                        <span class="dimension-separator">×</span>
+                        <div class="dimension-field">
+                            <input type="number" id="customHeight" min="1" value="600" placeholder="Height">
+                            <span class="dimension-label">px</span>
+                        </div>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="maintainAspectRatio" checked>
+                        <label for="maintainAspectRatio">Maintain aspect ratio</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview Section -->
+        <section class="preview-section" id="previewSection" style="display: none;">
+            <div class="card stats-card">
+                <h2 class="card-title">Converted Images <span class="count-badge" id="imageCount">0</span></h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Original Size</span>
+                        <span class="stat-value" id="totalOriginalSize">0 KB</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">WebP Size</span>
+                        <span class="stat-value" id="totalWebPSize">0 KB</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Saved</span>
+                        <span class="stat-value success" id="totalSaved">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="images-grid" id="imagesGrid"></div>
+
+            <div class="action-bar">
+                <button class="btn btn-primary" id="downloadZipBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download ZIP
+                </button>
+                <button class="btn btn-secondary" id="downloadAllBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Download All
+                </button>
+                <button class="btn btn-outline" id="convertNewBtn">New Conversion</button>
+            </div>
+        </section>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+            <div class="spinner"></div>
+            <p id="loadingText">Converting images...</p>
+            <p id="loadingProgress" class="loading-progress"></p>
+        </div>
+    </div>
+
+    <!-- Image Editor Modal -->
+    <div class="modal" id="imageModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Image Editor</h3>
+                <button class="modal-close" id="modalClose" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-images">
+                    <div class="modal-image-panel">
+                        <h4>Original</h4>
+                        <div class="image-container" id="modalOriginalWrapper">
+                            <img id="modalOriginalImage" alt="Original" />
+                            <div id="modalCropOverlay" class="crop-overlay" style="display: none;">
+                                <div id="modalCropBox" class="crop-box"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-small" id="modalResetCropBtn" style="display: none; margin-top: 10px;">Reset Crop</button>
+                    </div>
+                    <div class="modal-image-panel">
+                        <h4>WebP Preview</h4>
+                        <div class="image-container">
+                            <img id="modalWebPImage" alt="WebP" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-controls">
+                    <div class="control-group">
+                        <label for="modalQualitySlider">Quality</label>
+                        <div class="slider-wrapper">
+                            <input type="range" id="modalQualitySlider" min="10" max="100" value="85" step="5">
+                            <span class="slider-value" id="modalQualityValue">85%</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Resize Mode</label>
+                        <div class="mode-tabs">
+                            <button class="tab-btn active" id="modalRatioModeBtn">Ratio</button>
+                            <button class="tab-btn" id="modalDimensionsModeBtn">Dimensions</button>
+                            <button class="tab-btn" id="modalCropModeBtn">Crop</button>
+                        </div>
+                    </div>
+
+                    <div id="modalRatioSettings" class="control-group">
+                        <label for="modalAspectRatio">Aspect Ratio</label>
+                        <select id="modalAspectRatio" class="select-input">
+                            <option value="original">Original</option>
+                            <option value="16:9">16:9</option>
+                            <option value="9:16">9:16</option>
+                            <option value="1:1">1:1</option>
+                            <option value="4:5">4:5</option>
+                            <option value="5:4">5:4</option>
+                            <option value="4:3">4:3</option>
+                            <option value="3:4">3:4</option>
+                            <option value="3:2">3:2</option>
+                            <option value="2:3">2:3</option>
+                        </select>
+                    </div>
+
+                    <div id="modalDimensionsSettings" class="control-group" style="display: none;">
+                        <label>Dimensions</label>
+                        <div class="dimensions-row">
+                            <div class="dimension-field">
+                                <input type="number" id="modalCustomWidth" min="1" placeholder="Width">
+                                <span class="dimension-label">px</span>
+                            </div>
+                            <span class="dimension-separator">×</span>
+                            <div class="dimension-field">
+                                <input type="number" id="modalCustomHeight" min="1" placeholder="Height">
+                                <span class="dimension-label">px</span>
+                            </div>
+                        </div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="modalMaintainAspectRatio" checked>
+                            <label for="modalMaintainAspectRatio">Maintain aspect ratio</label>
+                        </div>
+                    </div>
+
+                    <div id="modalCropSettings" class="control-group" style="display: none;">
+                        <label for="modalCropRatio">Crop Ratio</label>
+                        <select id="modalCropRatio" class="select-input">
+                            <option value="1:1">1:1</option>
+                            <option value="4:5">4:5</option>
+                            <option value="5:4">5:4</option>
+                            <option value="16:9">16:9</option>
+                            <option value="9:16">9:16</option>
+                            <option value="4:3">4:3</option>
+                            <option value="3:4">3:4</option>
+                            <option value="3:2">3:2</option>
+                            <option value="2:3">2:3</option>
+                        </select>
+                        <p class="help-text">Drag the crop box to position it on the image</p>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-primary" id="modalReconvertBtn">Apply Changes</button>
+                    <button class="btn btn-secondary" id="modalDownloadBtn">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

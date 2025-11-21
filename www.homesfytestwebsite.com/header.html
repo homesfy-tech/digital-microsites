@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lodha Preferred Partner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .header-sidebar {
+            width: 280px;
+            background-color: #f0f0f0;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-logo {
+            margin-bottom: 60px;
+        }
+
+        .header-logo-icon {
+            width: 20px;
+            height: 20px;
+            background-color: #b8860b;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .header-logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #b8860b;
+            top: 4px;
+        }
+
+        .header-logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #b8860b;
+            top: 8px;
+        }
+
+        .header-brand-name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #b8860b;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .header-tagline {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.1;
+        }
+
+        .header-divider {
+            width: 60px;
+            height: 4px;
+            background-color: #b8860b;
+            margin: 80px 0 60px 0;
+        }
+
+        .header-nav {
+            list-style: none;
+        }
+
+        .header-nav-item {
+            margin-bottom: 40px;
+        }
+
+        .header-nav-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .header-nav-link:hover {
+            color: #b8860b;
+        }
+
+        .header-nav-link.active {
+            color: #b8860b;
+        }
+
+        .header-content-area {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            background-color: white;
+        }
+
+        .header-mobile-toggle {
+            display: none;
+        }
+
+        .header-mobile-header {
+            display: none;
+        }
+
+        .header-mobile-nav {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-sidebar {
+                display: none;
+            }
+
+            .header-content-area {
+                margin-left: 0;
+                padding: 0;
+            }
+
+            .header-mobile-header {
+                display: block;
+                background-color: #f0f0f0;
+                padding: 20px;
+                position: relative;
+            }
+
+            .header-mobile-toggle {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 5px;
+            }
+
+            .header-hamburger {
+                width: 25px;
+                height: 3px;
+                background-color: #333;
+                margin: 3px 0;
+                transition: 0.3s;
+            }
+
+            .header-mobile-logo {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .header-mobile-logo-icon {
+                width: 15px;
+                height: 15px;
+                background-color: #b8860b;
+                position: relative;
+            }
+
+            .header-mobile-logo-icon::before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background-color: #b8860b;
+                top: 3px;
+            }
+
+            .header-mobile-logo-icon::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                background-color: #b8860b;
+                top: 6px;
+            }
+
+            .header-mobile-brand {
+                font-size: 18px;
+                font-weight: bold;
+                color: #b8860b;
+                letter-spacing: 1px;
+            }
+
+            .header-mobile-tagline {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+                margin-left: 5px;
+            }
+
+            .header-mobile-nav {
+                display: none;
+                background-color: white;
+                padding: 0;
+            }
+
+            .header-mobile-nav.open {
+                display: block;
+            }
+
+            .header-mobile-nav-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header-mobile-nav-item {
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .header-mobile-nav-item:last-child {
+                border-bottom: none;
+            }
+
+            .header-mobile-nav-link {
+                display: block;
+                padding: 20px;
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+                font-weight: bold;
+                letter-spacing: 0.5px;
+                transition: background-color 0.3s ease;
+            }
+
+            .header-mobile-nav-link:hover,
+            .header-mobile-nav-link.active {
+                background-color: #f9f9f9;
+                color: #b8860b;
+            }
+
+            .header-mobile-content {
+                padding: 20px;
+                background-color: white;
+            }
+        }
+
+        /* Content styling */
+        .header-main-content {
+            max-width: 800px;
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .header-section.active {
+            display: block;
+        }
+
+        .header-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .header-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header-section {
+                margin-bottom: 20px;
+                padding: 20px;
+                border-radius: 5px;
+            }
+
+            .header-section h2 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <!-- Desktop Sidebar -->
+        <div class="header-sidebar">
+            <div class="header-logo">
+                <div class="header-logo-icon"></div>
+                <div class="header-brand-name">LODHA</div>
+                <div class="header-tagline">PREFERRED<br>PARTNER</div>
+            </div>
+
+            <div class="header-divider"></div>
+
+            <nav>
+                <ul class="header-nav">
+                    <li class="header-nav-item">
+                        <a href="#overview" class="header-nav-link active" onclick="showSection('overview', this)">OVERVIEW</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="#highlights" class="header-nav-link" onclick="showSection('highlights', this)">HIGHLIGHTS</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="#pricelist" class="header-nav-link" onclick="showSection('pricelist', this)">PRICELIST</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="#location" class="header-nav-link" onclick="showSection('location', this)">LOCATION</a>
+                    </li>
+                    <li class="header-nav-item">
+                        <a href="#gallery" class="header-nav-link" onclick="showSection('gallery', this)">GALLERY</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Content Area -->
+        <div class="header-content-area">
+            <!-- Mobile Header -->
+            <div class="header-mobile-header">
+                <button class="header-mobile-toggle" onclick="toggleMobileNav()">
+                    <div class="header-hamburger"></div>
+                    <div class="header-hamburger"></div>
+                    <div class="header-hamburger"></div>
+                </button>
+                
+                <div class="header-mobile-logo">
+                    <div class="header-mobile-logo-icon"></div>
+                    <div class="header-mobile-brand">LODHA</div>
+                    <div class="header-mobile-tagline">PREFERRED PARTNER</div>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <nav class="header-mobile-nav" id="mobileNav">
+                <ul class="header-mobile-nav-list">
+                    <li class="header-mobile-nav-item">
+                        <a href="#overview" class="header-mobile-nav-link active" onclick="showMobileSection('overview', this)">OVERVIEW</a>
+                    </li>
+                    <li class="header-mobile-nav-item">
+                        <a href="#highlights" class="header-mobile-nav-link" onclick="showMobileSection('highlights', this)">HIGHLIGHTS</a>
+                    </li>
+                    <li class="header-mobile-nav-item">
+                        <a href="#pricelist" class="header-mobile-nav-link" onclick="showMobileSection('pricelist', this)">PRICELIST</a>
+                    </li>
+                    <li class="header-mobile-nav-item">
+                        <a href="#location" class="header-mobile-nav-link" onclick="showMobileSection('location', this)">LOCATION</a>
+                    </li>
+                    <li class="header-mobile-nav-item">
+                        <a href="#gallery" class="header-mobile-nav-link" onclick="showMobileSection('gallery', this)">GALLERY</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <div class="header-mobile-content">
+                <div class="header-main-content">
+                    <div id="overview" class="header-section active">
+                        <h2>Overview</h2>
+                        <p>Welcome to Lodha Preferred Partner program. This section provides a comprehensive overview of our partnership opportunities and benefits.</p>
+                        <p>Our preferred partner program is designed to create mutually beneficial relationships with industry leaders and professionals.</p>
+                    </div>
+
+                    <div id="highlights" class="header-section">
+                        <h2>Highlights</h2>
+                        <p>Discover the key highlights and features of our preferred partner program.</p>
+                        <p>We offer exclusive benefits, priority access to new projects, and comprehensive support for our partners.</p>
+                    </div>
+
+                    <div id="pricelist" class="header-section">
+                        <h2>Pricelist</h2>
+                        <p>Access detailed pricing information and commission structures for our preferred partners.</p>
+                        <p>Transparent pricing with competitive rates and flexible payment terms.</p>
+                    </div>
+
+                    <div id="location" class="header-section">
+                        <h2>Location</h2>
+                        <p>Find information about our project locations and regional presence.</p>
+                        <p>Strategic locations across prime areas with excellent connectivity and infrastructure.</p>
+                    </div>
+
+                    <div id="gallery" class="header-section">
+                        <h2>Gallery</h2>
+                        <p>Explore our project gallery showcasing completed and upcoming developments.</p>
+                        <p>High-quality images and virtual tours of our premium properties.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('open');
+        }
+
+        function showSection(sectionId, linkElement) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.header-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.header-nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked link
+            linkElement.classList.add('active');
+        }
+
+        function showMobileSection(sectionId, linkElement) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.header-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all mobile nav links
+            const mobileNavLinks = document.querySelectorAll('.header-mobile-nav-link');
+            mobileNavLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked link
+            linkElement.classList.add('active');
+
+            // Close mobile nav
+            document.getElementById('mobileNav').classList.remove('open');
+        }
+
+        // Close mobile nav when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileNav = document.getElementById('mobileNav');
+            const toggle = document.querySelector('.header-mobile-toggle');
+            const header = document.querySelector('.header-mobile-header');
+            
+            if (window.innerWidth <= 768 && 
+                !mobileNav.contains(event.target) && 
+                !toggle.contains(event.target) && 
+                !header.contains(event.target) && 
+                mobileNav.classList.contains('open')) {
+                mobileNav.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

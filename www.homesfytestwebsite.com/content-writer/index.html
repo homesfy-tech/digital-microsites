@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Writer Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables for a consistent and professional theme */
+        :root {
+            --primary: #667eea;
+            --primary-dark: #764ba2;
+            --primary-gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --preview-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --success: #198754;
+            --danger: #dc3545;
+            --body-bg: #f4f7fc;
+            --container-bg: #ffffff;
+            --panel-bg: #f8f9fa;
+            --border-color: #dee2e6;
+            --text-dark: #212529;
+            --text-light: #6c757d;
+            --primary-shadow: rgba(102, 126, 234, 0.2);
+            --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-strong: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--body-bg); /* Softer background */
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            border-radius: 12px; /* Slightly softer radius */
+            box-shadow: var(--shadow-strong);
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+
+        .header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Professional-looking 'ghost' button */
+        .header button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .header label {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .header button:hover, .header label:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .content-wrapper {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .left-panel {
+            width: 40%;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border-color); /* Thinner border */
+            padding: 30px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .right-panel {
+            width: 60%;
+            padding: 30px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .field-group {
+            margin-bottom: 20px;
+        }
+
+        .field-label {
+            display: block;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da; /* Softer border */
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-family: inherit;
+            background: #ffffff;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-shadow);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .dynamic-items {
+            margin-top: 10px;
+        }
+
+        .dynamic-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: var(--container-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .dynamic-item input {
+            flex: 1;
+        }
+
+        .btn-add {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        .btn-add:hover {
+            background: #157347;
+            transform: translateY(-2px);
+        }
+
+        /* More subtle remove button */
+        .btn-remove {
+            background: #f8f9fa;
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .btn-remove:hover {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .plus-icon {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            position: sticky;
+            bottom: 0;
+            background: var(--container-bg);
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .btn-primary, .btn-secondary, .btn-preview {
+            padding: 14px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--primary-shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-gradient);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
+        }
+
+        /* Cleaner card style for project name */
+        .project-name-display {
+            background: var(--container-bg);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .project-name-display strong {
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+        
+        #projectNameDisplay {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            display: block;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 968px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .left-panel, .right-panel {
+                width: 100%;
+            }
+
+            .left-panel {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+        }
+
+        .info-box p {
+            color: #0d47a1;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* New Quick Stats styling */
+        .stats-container {
+            margin-top: 30px;
+        }
+        .stats-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .stat-card {
+            background: var(--container-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+        }
+        .stat-icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Preview Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Slightly lighter */
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .preview-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .preview-section:last-child {
+            border-bottom: none;
+        }
+
+        .preview-section h3 {
+            color: var(--primary);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .preview-section p, .preview-section ul, .preview-section li {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .preview-section ul {
+            margin-left: 20px;
+        }
+
+        .preview-section li {
+            margin-bottom: 5px;
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .preview-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .preview-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .preview-table tr:hover {
+            background-color: var(--panel-bg);
+        }
+
+        .btn-preview {
+            background: var(--preview-gradient);
+            color: white;
+        }
+
+        .btn-preview:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(56, 239, 125, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Content Writer Dashboard</h1>
+            <p>Generate Excel CSV & Word Documents Easily</p>
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                <button onclick="loadSampleData()">📥 Load Sample Data</button>
+                <label for="uploadFile">
+                    📤 Upload Document (CSV/Word/HTML)
+                </label>
+                <input type="file" id="uploadFile" accept=".csv,.doc,.docx,.html,.htm,.txt,.xlsx" style="display: none;" onchange="handleFileUpload(event)">
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="left-panel">
+                <div class="info-box">
+                    <p><strong>📌 Instructions:</strong> Enter your content in the fields on the right. Use the <strong>+</strong> button to add more items to highlights, offers, prices, and location connectivity sections.</p>
+                </div>
+
+                <div class="project-name-display">
+                    <strong>Project Name:</strong> 
+                    <span id="projectNameDisplay">Enter project name to display here</span>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Filename for Export:</label>
+                    <input type="text" id="exportFilename" placeholder="e.g., Kolte-Patil-Springshire">
+                    <small style="color: var(--text-light); font-size: 0.85em; margin-top: 5px; display: block;">Leave empty to auto-generate from project name</small>
+                </div>
+
+                <div class="stats-container">
+                    <h3 class="stats-title">Quick Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-icon">✅</span>
+                            <span class="stat-value" id="totalFields">0</span>
+                            <span class="stat-label">Fields Filled</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-icon">📊</span>
+                            <span class="stat-value" id="totalSections">0</span>
+                            <span class="stat-label">Total Sections</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <form id="contentForm">
+                    <div class="section">
+                        <div class="section-title">📋 Basic Information</div>
+                        <div class="field-group">
+                            <label class="field-label">Project Name *</label>
+                            <input type="text" name="project_name" required>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Developer Name *</label>
+                            <input type="text" name="developer_name" required>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">🔍 SEO & Meta Information</div>
+                        <div class="field-group">
+                            <label class="field-label">Meta Title</label>
+                            <input type="text" name="meta_title">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Meta Description</label>
+                            <textarea name="meta_description"></textarea>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Meta Keywords</label>
+                            <textarea name="meta_keywords"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">🎨 Banner Information</div>
+                        <div class="field-group">
+                            <label class="field-label">Banner Title</label>
+                            <input type="text" name="banner_title">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Banner Subtitle</label>
+                            <input type="text" name="banner_subtitle">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Banner Location</label>
+                            <input type="text" name="banner_location">
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Banner Price Description</label>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="text" name="banner_price_description" style="flex: 1;" placeholder="Banner Price Description">
+                                <input type="text" name="starting_price" placeholder="Starting Price" style="width: 200px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">🎁 Special Offers</div>
+                        <div id="offersContainer" class="dynamic-items">
+                            <div class="dynamic-item">
+                                <input type="text" name="offer_1" placeholder="Enter offer">
+                                <button type="button" class="btn-remove" onclick="removeItem(this, 'offers')">&times;</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addDynamicItem('offers')">
+                            <span class="plus-icon">+</span> Add Offer
+                        </button>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">📄 Overview</div>
+                        <div class="field-group">
+                            <label class="field-label">Overview Description</label>
+                            <textarea name="overview_description" style="min-height: 150px;"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">⭐ Key Highlights</div>
+                        <div id="highlightsContainer" class="dynamic-items">
+                            <div class="dynamic-item">
+                                <input type="text" name="highlight_1" placeholder="Enter highlight">
+                                <button type="button" class="btn-remove" onclick="removeItem(this, 'highlights')">&times;</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addDynamicItem('highlights')">
+                            <span class="plus-icon">+</span> Add Highlight
+                        </button>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">💰 Pricing Information</div>
+                        <div id="pricesContainer" class="dynamic-items">
+                            <div class="dynamic-item" style="flex-direction: column; align-items: stretch;">
+                                <input type="text" name="price_1_type" placeholder="Type (e.g., 2 BHK)" style="margin-bottom: 8px;">
+                                <input type="text" name="price_1_area" placeholder="Area (e.g., 500 - 600 sqft)">
+                                <input type="text" name="price_1_price" placeholder="Price" style="margin-top: 8px;">
+                                <button type="button" class="btn-remove" onclick="removeItem(this, 'prices')" style="margin-top: 10px;">&times; Remove</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addDynamicItem('prices')">
+                            <span class="plus-icon">+</span> Add Price
+                        </button>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">🏊 Amenities</div>
+                        <div id="amenitiesContainer" class="dynamic-items">
+                            <div class="dynamic-item">
+                                <input type="text" name="amenities_name1" placeholder="Enter amenity name">
+                                <button type="button" class="btn-remove" onclick="removeItem(this, 'amenities')">&times;</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addDynamicItem('amenities')">
+                            <span class="plus-icon">+</span> Add Amenity
+                        </button>
+                    </div>
+
+<div class="section">
+    <div class="section-title">📍 Location & Connectivity</div>
+    <div id="locationContainer" class="dynamic-items">
+        <div class="location-category-group" style="margin-bottom: 25px; padding: 20px; background: var(--container-bg); border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--shadow-soft);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <input type="text" name="location_connectivity_1" placeholder="Category (e.g., Schools, Hospitals, Metro)" style="flex: 1; font-weight: 600; font-size: 1rem;">
+                <button type="button" class="btn-remove" onclick="removeLocationCategory(this)">&times; Remove Category</button>
+            </div>
+            <div class="location-details-group" data-category-index="1">
+                <div class="location-detail-item" style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" name="location_connectivity_1_value_1" placeholder="Location Placeholder Time" style="flex: 1;">
+                    <input type="text" name="location_connectivity_1_distance_1" placeholder="Distance" style="width: 150px;">
+                    <button type="button" class="btn-remove" onclick="removeLocationDetail(this)" style="padding: 8px 12px;">&times;</button>
+                </div>
+            </div>
+            <button type="button" class="btn-add" onclick="addLocationDetail(1)" style="margin-top: 10px;">
+                <span class="plus-icon">+</span> Add Detail
+            </button>
+        </div>
+    </div>
+    <button type="button" class="btn-add" onclick="addLocationCategory()">
+        <span class="plus-icon">+</span> Add Category
+    </button>
+</div>
+
+                    <div class="section">
+                        <div class="section-title">🏢 Developer Information</div>
+                        <div class="field-group">
+                            <label class="field-label">Developer Description</label>
+                            <textarea name="about_developer" style="min-height: 150px;"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">📜 RERA Information</div>
+                        <div class="field-group">
+                            <label class="field-label">RERA Website</label>
+                            <textarea name="rera_website"></textarea>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Homesfy RERA</label>
+                            <textarea name="homesfy_rera"></textarea>
+                        </div>
+                        <div class="field-group">
+                            <label class="field-label">Project RERA</label>
+                            <input type="text" name="project_rera">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button type="button" class="btn-primary btn-preview" onclick="showPreview()">
+                👁️ Preview Content
+            </button>
+            <button type="button" class="btn-primary" onclick="generateCSV()">
+                📊 Download CSV/Excel
+            </button>
+            <button type="button" class="btn-secondary" onclick="showFormatModal()">
+                📄 Download Document
+            </button>
+        </div>
+    </div>
+
+    <div id="previewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 Content Preview</h2>
+                <span class="close" onclick="closePreview()">&times;</span>
+            </div>
+            <div class="modal-body" id="previewBody">
+                </div>
+        </div>
+    </div>
+
+    <div id="formatModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>📥 Choose Download Format</h2>
+                <span class="close" onclick="closeFormatModal()">&times;</span>
+            </div>
+            <div class="modal-body" style="padding: 30px;">
+                <p style="margin-bottom: 20px; color: var(--text-light);">Select the format you want to download:</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <button type="button" class="btn-primary" onclick="downloadFormat('html')" style="width: 100%; justify-content: center;">
+                        🌐 HTML Document
+                    </button>
+                    <button type="button" class="btn-primary" onclick="downloadFormat('word')" style="width: 100%; justify-content: center;">
+                        📄 Microsoft Word (.doc)
+                    </button>
+                    <button type="button" class="btn-primary" onclick="downloadFormat('docx')" style="width: 100%; justify-content: center;">
+                        📄 Microsoft Word (.docx)
+                    </button>
+                    <button type="button" class="btn-primary" onclick="downloadFormat('google')" style="width: 100%; justify-content: center;">
+                        📝 Google Docs Compatible (Download)
+                    </button>
+                    <button type="button" class="btn-primary" onclick="openInGoogleDocsDirect()" style="width: 100%; justify-content: center; background: #34a853;">
+                        📧 Open in Google Docs (Auto Copy)
+                    </button>
+                    <button type="button" class="btn-secondary" onclick="closeFormatModal()" style="width: 100%; justify-content: center; margin-top: 10px;">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -16,17 +16,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Discover Nivasa Enchante at Dhanori-Lohegaon, Pune. Luxurious 2 & 3 BHK apartments starting from ₹ 79.80 Lakhs. Request a virtual tour today.">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#041725">
     <meta name="format-detection" content="telephone=no">
     <title>Nivasa Enchante - Dhanori Lohegaon</title>
     <meta name=description content="Nivasa Enchante, Dhanori, Pune- Residential Project by Nivasa Group   Offering Beautiful 2 & 3 BHK  Homes with world-class amenities and seamless connectivity for residents.">
 <meta name=keywords content="Nivasa Enchante Dhanori, Nivasa Enchante Pune, Nivasa Enchante New Launch, Nivasa Enchante Price, Nivasa Enchante Floor Plan, Nivasa Enchante 2 BHK Dhanori, Nivasa Enchante 3 BHK Dhanori">
 
-    <link rel="preload" fetchpriority="high" as="image" href="banner.webp" media="(min-width: 769px)">
-    <link rel="preload" fetchpriority="high" as="image" href="banner-480.webp" media="(max-width: 768px)">
+    <!-- Preload critical resources -->
+    <!-- <link rel="preload" href="style.css" as="style"> -->
+    <link rel="preload" href="assets/fonts/futura_book_bt.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" fetchpriority="high" as="image" href="assets/images/banner/banner.webp" media="(min-width: 769px)">
+    <link rel="preload" fetchpriority="high" as="image" href="assets/images/banner/banner-480.webp" media="(max-width: 768px)">
     <link rel="preload" as="image" href="https://www.nivasaenchantedhanori.com/assets/images/logo/logo.webp">
-    <!-- <link rel="preload" as="image" href="assets/images/amenities/clubzone.webp">
-    <link rel="preload" as="image" href="assets/images/gallery/g1.webp"> -->
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
     <meta property=og:type content=website>
 <meta property=og:title content="Nivasa Enchante, Dhanori, Pune| Price, Floor Plans, Amenities | Download Brochure">
@@ -37,57 +41,71 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name=twitter:title content="Nivasa Enchante, Dhanori, Pune| Price, Floor Plans, Amenities | Download Brochure">
 <meta name=twitter:description content="Nivasa Enchante, Dhanori, Pune- Residential Project by Nivasa Group   Offering Beautiful 2 & 3 BHK  Homes with world-class amenities and seamless connectivity for residents.">
 <meta name=twitter:image content=https://www.nivasaenchantedhanori.com/assests/images/banner/banner.webp>
+    <!-- CSS loaded asynchronously (non-blocking) -->
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+    <script>
+    /* Fallback for browsers that don't support onload on link tags */
+    (function() {
+        var links = document.querySelectorAll('link[rel="preload"][as="style"]');
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].onload === null) {
+                links[i].rel = 'stylesheet';
+            }
+        }
+    })();
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #ffffff; color: #1a1a1a; }
-        .mainHeader { background: #ffffff; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; border-bottom: 1px solid rgba(0, 0, 0, 0.08); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
-        .headerContainer { max-width: 100%; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 80px; }
+        html { width: 100%; overflow-x: hidden; max-width: 100vw; }
+        body { font-family: "Futura BooK BT", sans-serif; background-color: #000; color: white; width: 100%; overflow-x: hidden; max-width: 100vw; position: relative; }
+        .mainHeader { background: #041725; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .headerContainer {border-bottom:1px solid #b5945f; max-width: 100%; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 80px; }
         .headerLogo { display: flex; align-items: center; }
         .headerLogo img { height: 60px; width: auto; }
         .burgerMenu { display: none; flex-direction: column; cursor: pointer; z-index: 1001; }
-        .burgerMenu span { width: 28px; height: 3px; background-color: #1a1a1a; margin: 4px 0; transition: 0.3s; border-radius: 2px; }
+        .burgerMenu span { width: 28px; height: 3px; background-color: white; margin: 4px 0; transition: 0.3s; border-radius: 2px; }
         .burgerMenu.active span:nth-child(1) { transform: rotate(-45deg) translate(-6px, 7px); }
         .burgerMenu.active span:nth-child(2) { opacity: 0; }
         .burgerMenu.active span:nth-child(3) { transform: rotate(45deg) translate(-6px, -7px); }
         .headerNav { display: flex; align-items: center; gap: 35px; flex: 1; justify-content: center; margin: 0 50px; }
-        .headerLink { color: #333333; text-decoration: none; font-weight: 500; font-size: 16px; padding: 8px 0; position: relative; transition: color 0.3s ease; white-space: nowrap; }
-        .headerLink:hover { color: #e5b973; }
+        .headerLink { color: white; text-decoration: none; font-weight: 500; font-size: 16px; padding: 8px 0; position: relative; transition: color 0.3s ease; white-space: nowrap; }
+        .headerLink:hover { color: #4dd4ac; }
         .headerContactSection { display: flex; align-items: center; gap: 15px; }
-        .headerContact { background-color: rgba(0, 0, 0, 0.05); color: #333333; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 6px; font-weight: 600; transition: all 0.3s ease; font-size: 15px; border: 1px solid rgba(0, 0, 0, 0.1); }
-        .headerWhatsapp { background: linear-gradient(135deg, #25D366 0%, #1ebe57 100%); color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 6px; font-weight: 600; transition: all 0.3s ease; font-size: 15px; }
-        .headerContact:hover { background-color: rgba(0, 0, 0, 0.08); transform: translateY(-2px); }
+        .headerContact { background-color: rgba(255, 255, 255, 0.15); color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 6px; font-weight: 600; transition: all 0.3s ease; font-size: 15px; }
+        .headerWhatsapp { background: linear-gradient(135deg, #25D366 0%, #1ebe57 100%); color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 5px; font-weight: 600; transition: all 0.3s ease; font-size: 15px; }
+        .headerContact:hover { background-color: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
         .headerWhatsapp:hover { background: linear-gradient(135deg, #1ebe57 0%, #25D366 100%); transform: translateY(-2px); }
         /* .overviewRequestBrochureButton { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 28px !important; border-radius: 6px; color: white !important; font-weight: 700; } */
         /* .overviewRequestBrochureButton:hover { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4); } */
-        .bannerSectionMain { width: 100%; background: #ffffff; display: flex; align-items: center; padding-top: 80px; padding-bottom: 0px; }
-        .bannerCarouselContainer { display: flex; width: 100%; max-width: 100%; margin: 0; height: auto; align-items: stretch; }
-        .bannerImageSection { flex: 0 0 75%; position: relative; overflow: hidden; background: #f5f5f5; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
+        .bannerSectionMain { width: 100%; max-width: 100vw; background: #041725; display: flex; align-items: center; justify-content: center; padding-top: 80px; padding-bottom: 0px; overflow-x: hidden; position: relative; }
+        .bannerCarouselContainer {border-bottom: 1px solid #b5945f; display: flex; width: 100%; max-width: 100%; margin: 0 auto; height: auto; align-items: stretch; overflow-x: hidden; }
+        .bannerImageSection { flex: 0 0 70%; position: relative; overflow: hidden; background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; max-width: 70%; }
         .bannerImageContainer { width: 100%; height: 100%; position: relative; display: flex; justify-content: center; }
         .bannerPropertyImage { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .bannerContentSection { flex: 0 0 25%; padding: 50px 35px; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); color: #1a1a1a; min-height: 100%; align-self: stretch; border-left: 3px solid #e5b973; box-shadow: -8px 0 30px rgba(0, 0, 0, 0.06); position: relative; overflow: hidden; }
-        .bannerContentSection::after { content: ''; position: absolute; bottom: 0; left: 0; width: 150px; height: 150px; background: radial-gradient(circle, rgba(229, 185, 115, 0.06) 0%, transparent 70%); border-radius: 50%; transform: translate(-30%, 30%); pointer-events: none; }
-        .bannerIntroSection { margin-bottom: 2px; text-align: center; position: relative; z-index: 1; }
-        .bannerIntroText { font-size: 12px; color: #e5b973; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 1px; position: relative; display: inline-block; }
-        /* .bannerIntroText::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); width: 40px; height: 2px; background: linear-gradient(90deg, transparent, #e5b973, transparent); } */
-        .bannerMainTitle { font-size: 42px; font-weight: 800; margin: 15px 0; background: linear-gradient(135deg, #e5b973 0%, #d4a762 50%, #c49651 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.15; letter-spacing: -0.5px; position: relative; z-index: 1; }
-        .bannerSubtitleText { font-size: 16px; margin: 8px 0; color: #666666; font-weight: 500; letter-spacing: 0.3px; position: relative; z-index: 1; }
-        .bannerDescriptionSection { margin-bottom: 0px; text-align: center; position: relative; z-index: 1; padding: 20px 0; border-top: 1px solid rgba(229, 185, 115, 0.2); border-bottom: 1px solid rgba(229, 185, 115, 0.2); }
-        .bannerPropertyDescription { font-size: 18px; margin: 0; color: #333333; line-height: 1.6; font-weight: 500; }
-        .bannerPrice { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #e5b973 0%, #d4a762 50%, #c49651 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; margin-top: 12px; line-height: 1.2; letter-spacing: -0.5px; }
-        .quoteForm { background: #ffffff; padding: 32px 28px; border-radius: 16px; border: 2px solid rgba(229, 185, 115, 0.2); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(229, 185, 115, 0.1); position: relative; z-index: 1; margin-top: 10px; }
-        .quoteTitle { font-size: 18px; font-weight: 600; margin-bottom: 4px; background: linear-gradient(135deg, #e5b973 0%, #d4a762 50%, #c49651 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-align: center; }
-        .quoteSubTitle { font-size: 13px; margin-bottom: 15px; color: #666666; text-align: center; font-weight: 400; }
-        .quoteInput, .quotePhoneInput, .quoteSelect { width: 100%; padding: 10px 12px; margin: 8px 0; border: 2px solid rgba(0, 0, 0, 0.1); border-radius: 8px; background: #ffffff; color: #333; font-size: 13px; transition: all 0.3s ease; font-family: inherit; }
+        .bannerContentSection { flex: 0 0 30%; max-width: 30%; padding: 30px 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #041725; color: white; min-height: 100%; align-self: stretch; box-sizing: border-box; width: 100%; }
+        .bannerIntroSection { margin-bottom: 0px; text-align: center; width: 100%; max-width: 100%; }
+        .bannerIntroText { font-size: 1rem; color: #fff; letter-spacing: 1px; text-transform: capitalize; font-weight: 400; margin-bottom: 12px; word-wrap: break-word; }
+        .bannerMainTitle { font-size: 36px; font-weight: 700; margin: 8px 0; background: #b5945f; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; text-align: center; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; white-space: normal; }
+        .bannerSubtitleText { font-size: 16px; margin: 6px 0; color: #fff; font-weight: 400; text-align: center; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; white-space: normal; }
+        .bannerDescriptionSection {  text-align: center; width: 100%; max-width: 100%; }
+        .bannerPropertyDescription { font-size: 17px; margin: 0; color: #fff; line-height: 1.5; font-weight: 400; letter-spacing: 1px; word-wrap: break-word; max-width: 100%;}
+        .bannerPrice { font-size: 28px; font-weight: 700; background: #b5945f; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; margin-top: 8px; line-height: 1.2; word-wrap: break-word; }
+        .quoteForm {  padding: 20px 18px; border-radius: 12px; width: 100%; max-width: 100%; box-sizing: border-box; }
+        .quoteTitle { font-size: 1rem; font-weight: 600; margin-bottom: 4px; background: #b5945f; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-align: center; letter-spacing: 1px; white-space: normal; word-wrap: break-word; max-width: 100%; }
+        .quoteSubTitle { font-size: 14px; margin-bottom: 15px; color: #b5945f; text-align: center; font-weight: 600; letter-spacing: 1px; word-wrap: break-word; max-width: 100%;}
+        .quoteInput, .quotePhoneInput, .quoteSelect { width: 100%; padding: 10px 12px; margin: 8px 0; border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 5px; background: rgba(255, 255, 255, 0.95); color: #333; font-size: 13px; transition: all 0.3s ease; font-family: inherit; box-sizing: border-box; max-width: 100%; }
+        
         .quoteInput:focus, .quotePhoneInput:focus, .quoteSelect:focus { border-color: #e5b973; outline: none; box-shadow: 0 0 0 4px rgba(229, 185, 115, 0.15); background: white; }
-        .quotePhoneWrapper { display: flex; gap: 12px; }
-        .quoteSelect { flex: 0 0 140px; cursor: pointer; }
+        .quotePhoneWrapper { display: flex; gap: 12px; width: 100%; max-width: 100%; box-sizing: border-box; }
+        .quoteSelect { flex: 0 0 140px; cursor: pointer; max-width: 40%; }
         .quotePhoneInput { flex: 1; }
-        .quoteCheckboxWrapper { color: #666666; display: flex; align-items: flex-start; gap: 12px; margin: 18px 0; font-size: 14px; line-height: 1.6; }
-        .quoteCheckboxWrapper input[type="checkbox"] { margin-top: 4px; width: 18px; height: 18px; cursor: pointer; }
-        .quoteCheckboxWrapper a { color: #e5b973; text-decoration: none; }
+        .quoteCheckboxWrapper { color: #b8c5d0; display: flex; align-items: flex-start; gap: 12px; margin: 18px 0; font-size: 9px; line-height: 1.6; }
+        .quoteCheckboxWrapper input[type="checkbox"] { margin-top: -4px; width: 12px; height: 18px; cursor: pointer; }
+        .quoteCheckboxWrapper a { color: #4dd4ac; text-decoration: none; }
         .quoteCheckboxWrapper a:hover { text-decoration: underline; }
-        .quoteSubmit { width: 100%; padding: 12px; background: linear-gradient(135deg, #e5b973 0%, #d4a762 50%, #c49651 100%); color: #ffffff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; margin-top: 6px; box-shadow: 0 4px 15px rgba(229, 185, 115, 0.3); }
-        .quoteSubmit:hover { background: linear-gradient(135deg, #d4a762 0%, #e5b973 50%, #f0c881 100%); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(229, 185, 115, 0.5); }
+        .quoteSubmit { width: 100%; padding: 12px; background: #b5945f; color: #fff; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; font-weight: 700; transition: all 0.3s ease; margin-top: 6px; box-shadow: 0 4px 15px rgba(229, 185, 115, 0.3); }
+        .quoteSubmit:hover { background: #b5945f; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(229, 185, 115, 0.5); }
         .quoteSubmit:active { transform: translateY(-1px); }
         .quoteIcon { margin-right: 10px; font-size: 20px; }
         
@@ -96,17 +114,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             .headerContainer { height: 70px; padding: 0 20px; } 
             .headerLogo img { height: 45px; } 
             .burgerMenu { display: flex; } 
-            .headerNav { position: fixed; top: 70px; left: 0; right: 0; background: #ffffff; flex-direction: column; padding: 30px 20px; gap: 25px; transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); max-height: calc(100vh - 70px); overflow-y: auto; margin: 0; border-bottom: 1px solid rgba(0, 0, 0, 0.08); } 
+            .headerNav { position: fixed; top: 70px; left: 0; right: 0; background: #041725; flex-direction: column; padding: 30px 20px; gap: 25px; transform: translateY(-100%); opacity: 0; visibility: hidden; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); max-height: calc(100vh - 70px); overflow-y: auto; margin: 0; } 
             .headerNav.active { transform: translateY(0); opacity: 1; visibility: visible; }
-            .headerLink { font-size: 18px; padding: 12px 0; text-align: center; width: 100%; color: #333333; }
+            .headerLink { font-size: 18px; padding: 12px 0; text-align: center; width: 100%; }
             .headerContactSection { display: none; }
             .overviewRequestBrochureButton { margin-top: 15px; }
             .bannerSectionMain { padding-top: 70px; padding-bottom: 20px; }
-            .bannerCarouselContainer { flex-direction: column; align-items: stretch; }
-            .bannerImageSection { flex: none; order: 1; width: 100%; aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; }
-            .bannerContentSection { flex: none; order: 2; padding: 40px 25px; min-height: auto; border-left: none; border-top: 3px solid #e5b973; box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.06); }
-            .bannerMainTitle { font-size: 40px; text-align: center; }
-            .bannerSubtitleText { font-size: 16px; text-align: center; }
+            .bannerCarouselContainer { flex-direction: column; align-items: stretch; overflow-x: hidden; max-width: 100vw; }
+            .bannerImageSection { flex: none; order: 1; width: 100%; max-width: 100vw; aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+            .bannerImageContainer { width: 100%; max-width: 100%; height: 100%; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+            .bannerPropertyImage { width: 100%; height: 100%; max-width: 100%; object-fit: cover; display: block; object-position: center; }
+            .bannerContentSection { flex: none; order: 2; padding: 40px 25px; min-height: auto; width: 100%; max-width: 100%; box-sizing: border-box; overflow-x: hidden; }
+            .bannerMainTitle { font-size: 40px; text-align: center; white-space: normal; word-wrap: break-word; overflow-wrap: break-word; }
+            .bannerSubtitleText { font-size: 16px; text-align: center; display: inline-block; width: auto; max-width: 100%; padding: 0 40px; white-space: normal; word-wrap: break-word; overflow-wrap: break-word; box-sizing: border-box; position: relative; }
+            .bannerSubtitleText::before { content: ""; position: absolute; top: 50%; left: 0; width: 30px; height: 1px; background-color: #6D6E70; transform: translateY(-50%); }
+            .bannerSubtitleText::after { content: ""; position: absolute; top: 50%; right: 0; width: 30px; height: 1px; background-color: #6D6E70; transform: translateY(-50%); }
             .bannerIntroText { text-align: center; }
             .bannerPropertyDescription { text-align: center; font-size: 17px; }
             .bannerPrice { font-size: 32px; }
@@ -116,17 +138,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         @media (max-width: 480px) {
             .headerContainer { height: 65px; padding: 0 15px; }
             .headerLogo img { height: 40px; }
-            .headerNav { top: 65px; padding: 25px 15px; background: #ffffff; }
+            .headerNav { top: 65px; padding: 25px 15px; }
             .bannerSectionMain { padding-top: 65px; padding-bottom: 15px; }
-            .bannerContentSection { padding: 35px 20px; }
-            .bannerMainTitle { font-size: 36px; }
+            .bannerContentSection { padding: 35px 10px; width: 100%; max-width: 100%; box-sizing: border-box; overflow-x: hidden; }
+            .bannerMainTitle { font-size: 36px; white-space: normal; word-wrap: break-word; overflow-wrap: break-word; }
+            .bannerSubtitleText { display: inline-block; width: auto; max-width: 100%; padding: 0 35px; white-space: normal; word-wrap: break-word; overflow-wrap: break-word; box-sizing: border-box; position: relative; }
+            .bannerSubtitleText::before { content: ""; position: absolute; top: 50%; left: 0; width: 25px; height: 1px; background-color: #6D6E70; transform: translateY(-50%); }
+            .bannerSubtitleText::after { content: ""; position: absolute; top: 50%; right: 0; width: 25px; height: 1px; background-color: #6D6E70; transform: translateY(-50%); }
             .quoteForm { padding: 25px 20px; }
             .quoteSubmit { padding: 10px 25px; font-size: 15px; }
         }
     </style>
-
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
 
     <link rel="shortcut icon" href="assets/images/logo/favicon.webp" type="image/x-icon">
     
@@ -197,7 +219,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             <div class="headerContactSection">
                 <a href="#" class="headerContact IVR_Phone_No_Url">
-                    <img src="assets/images/icons/phoneblack.gif" alt="Instant" width="20" height="20" loading="lazy" /> Contact
+                    <img src="assets/images/icons/phoneIcoon.gif" alt="Instant" width="20" height="20" loading="lazy" /> Contact
                 </a>
                 <a href="#" target="_blank" class="headerWhatsapp whatsapp_url">
                     <img src="assets/images/icons/whatsappIcon.gif" alt="Chat on" width="20" height="20" loading="lazy" /> WhatsApp
@@ -211,16 +233,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="bannerImageSection">
                 <div class="bannerImageContainer">
                     <picture>
-                        <source srcset="banner.webp" media="(min-width: 769px)">
-                        <source srcset="banner-480.webp" media="(max-width: 768px)">
+                        <source srcset="assets/images/banner/banner.webp" media="(min-width: 769px)">
+                        <source srcset="assets/images/banner/banner-480.webp" media="(max-width: 768px)">
                         <img 
-                            src="banner.webp" 
+                            src="assets/images/banner/banner.webp" 
                             alt="Nivasa Enchante - Luxury Apartments" 
                             class="bannerPropertyImage"
-                            fetchpriority="high"
+                            fetchpriority="high" decoding="async"
                             loading="eager"
-                            width="412" 
-                            height="515"
+                            width="900" 
+                            height="1125"
                             sizes="(max-width: 768px) 100vw, 75vw" />
                     </picture>
                 </div>
@@ -229,9 +251,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="bannerContentSection">
                 <div class="bannerIntroSection">
                     <p class="bannerIntroText">Introducing</p>
-                    <h1 class="bannerMainTitle">Nivasa Enchante</h1>
-                    <p class="bannerSubtitleText">By Nivasa Group</p>
-                    <p class="bannerIntroText">At Dhanori - Lohegaon, Pune</p>
+                    <h1 class="bannerMainTitle">Raheja Antares</h1>
+                    <p class="bannerSubtitleText">By K Raheja Corp Homes</p>
+                    <p class="bannerIntroText">At JVLR–LBS Intersect, Kanjurmarg</p>
                 </div>
                 
                 <div class="bannerOfferSection">
@@ -272,7 +294,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <label class="quoteCheckboxWrapper">
                         <input type="checkbox" required checked>
                         <span>I consent to the use of provided data in accordance with the 
-                            <a href="#privacy">privacy policy</a>
+                            <a href="https://www.homesfy.co.in/privacy.html">privacy policy</a>
                         </span>
                     </label>
                     
@@ -893,7 +915,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="mobileBottomBar">
     <a href="#" class="callButton phone_url IVR_Phone_No_Url">
-        <img src="/assets/images/icons/phoneblack.gif" alt="Instant" width="20" height="20">
+        <img src="/assets/images/icons/phoneIcoon.gif" alt="Instant" width="20" height="20">
         Call
     </a>
 <!-- <a href="#" class="pdfButton popup-trigger overviewRequestBrochureButton" id="overviewRequestBtn" data-heading="Download Brochure!">
@@ -901,7 +923,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     Brochure
 </a> -->
     <a href="#" class="whatsappButton whatsapp_url">
-                <img src="assets/images/icons/whatsappblack.gif" alt="Chat on" width="20" height="20">
+                <img src="assets/images/icons/whatsappIcon.gif" alt="Chat on" width="20" height="20">
         WhatsApp
     </a>
 </div>
@@ -918,15 +940,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Reusable Quote Popup Form -->
     <div class="quotePopup" id="quotePopup">
-        <div class="quotePopupOverlay" id="quotePopupOverlay"></div>
+        <div class="quotePopupOverlay" onclick="closeQuotePopup()"></div>
         <div class="quotePopupContent">
-            <button class="quotePopupClose" id="quotePopupClose" aria-label="Close Form">
+            <div class="quotePopupHeading">
+            <button class="quotePopupClose" onclick="closeQuotePopup()" aria-label="Close Form">
                 <i class="ri-close-line" aria-hidden="true"></i>
             </button>
+            <img src="assets/images/logo/logo.webp" alt="Logo" width="105" height="40" loading="lazy" />
+            </div>
             
             <form class="quoteForm" id=ModalFormSlug2 data-tracking-id=form_2>
                 <div style="text-align: center;margin: 0 0 15px;">
-                <img src="assets/images/logo/logo.webp" alt="Logo" width="150" height="auto" loading="lazy" />
+                
                 </div>
                 <h2 class="quoteTitle" id="quoteTitle">Get Luxury Walkthrough</h2>
                 <!-- <h3 class="quoteSubTitle" id="quoteSubTitle">Tailored For You</h3> -->
@@ -952,7 +977,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <label class="quoteCheckboxWrapper">
                     <input type="checkbox" required checked>
                     <span>I consent to the use of provided data in accordance with the 
-                        <a href="#privacy">privacy policy</a>
+                        <a href="https://www.homesfy.co.in/privacy.html">privacy policy</a>
                     </span>
                 </label>
                 
@@ -992,19 +1017,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         // Reusable Quote Popup System
         function openQuotePopup() {
-            const popup = document.getElementById('quotePopup');
-            if (popup) {
-                popup.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
+            document.getElementById('quotePopup').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
         function closeQuotePopup() {
-            const popup = document.getElementById('quotePopup');
-            if (popup) {
-                popup.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
+            document.getElementById('quotePopup').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
         // Auto-attach popup functionality to buttons with 'popup-trigger' class
@@ -1013,49 +1032,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             popupTriggers.forEach(trigger => {
                 trigger.addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
                     openQuotePopup();
                 });
             });
-
-            // Close button event handler
-            const closeBtn = document.getElementById('quotePopupClose');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    closeQuotePopup();
-                });
-            }
-
-            // Overlay click handler
-            const overlay = document.getElementById('quotePopupOverlay');
-            if (overlay) {
-                overlay.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    closeQuotePopup();
-                });
-            }
-
-            // Prevent content clicks from closing popup
-            const popupContent = document.querySelector('.quotePopupContent');
-            if (popupContent) {
-                popupContent.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-            }
-
-            // Close popup when clicking on the popup container (outside content)
-            const popup = document.getElementById('quotePopup');
-            if (popup) {
-                popup.addEventListener('click', function(e) {
-                    // Only close if clicking directly on the popup container, not on content
-                    if (e.target === popup || e.target === overlay) {
-                        closeQuotePopup();
-                    }
-                });
-            }
         });
 
         // Close popup on Escape key
@@ -1065,14 +1044,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
         });
     </script>
-<script
-  src="https://widget-eight-ebon-chi.vercel.app/widget.js"
-  data-project="5796"
-  data-api-base-url="https://api-alpha-ten-43.vercel.app"
-  data-microsite="lodha-park"
-  async
-  onload="window.HomesfyChat && window.HomesfyChat.init && window.HomesfyChat.init({ element: this });"
-></script>
+
  <script src="script.js" defer></script>
  <script src="assets/js/api.js" defer></script>
  <script src="assets/js/custom.js" defer></script>
