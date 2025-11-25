@@ -988,3 +988,95 @@ class GalleryCarousel {
         }
     }
 }
+
+
+function repositionWidget() {
+    let e = document.querySelector("#launcher");
+    if (e) {
+        e.style.setProperty("bottom", "50px", "important"),
+            e.style.setProperty("left", "5px", "important"),
+            e.style.setProperty("right", "auto", "important"),
+            e.style.setProperty("transform", "none", "important");
+        let t = document.querySelector("iframe[title*='Chat']");
+        t &&
+            t.parentElement &&
+            (t.parentElement.style.setProperty("bottom", "50px", "important"),
+            t.parentElement.style.setProperty("left", "5px", "important"),
+            t.parentElement.style.setProperty("right", "auto", "important"));
+    }
+}
+function forceRepositioning() {
+    ["#launcher", "[data-testid='launcher']", ".zEWidget-launcher", "iframe[title*='Chat']"].forEach((e) => {
+        let t = document.querySelector(e);
+        if (t) {
+            let i = t.parentElement || t;
+            i.style.setProperty("bottom", "50px", "important"),
+                i.style.setProperty("left", "5px", "important"),
+                i.style.setProperty("right", "auto", "important"),
+                i.style.setProperty("transform", "none", "important");
+        }
+    });
+}
+function loadZeSnippet() {
+    setTimeout(function () {
+        var e = document.createElement("script");
+        (e.id = "ze-snippet"),
+            (e.src = "https://static.zdassets.com/ekr/snippet.js?key=94b386d0-0e8f-40fe-b5ff-a939cb332fbc"),
+            document.head.appendChild(e),
+            (e.onload = function () {
+                var e = setInterval(function () {
+                    if (
+                        "undefined" != typeof zE &&
+                        document.querySelector("#launcher") &&
+                        (clearInterval(e),
+                        repositionWidget(),
+                        zE("webWidget:on", "open", function () {
+                            setTimeout(repositionWidget, 100);
+                        }),
+                        zE("webWidget:on", "close", function () {
+                            setTimeout(repositionWidget, 100), setTimeout(forceRepositioning, 500);
+                        }),
+                        zE("webWidget:on", "minimize", function () {
+                            setTimeout(repositionWidget, 100), setTimeout(forceRepositioning, 500);
+                        }),
+                        zE("webWidget:on", "maximize", function () {
+                            setTimeout(repositionWidget, 100);
+                        }),
+                        zE("webWidget:on", "launcherClick", function () {
+                            setTimeout(repositionWidget, 100);
+                        }),
+                        setInterval(forceRepositioning, 2e3),
+                        window.MutationObserver)
+                    ) {
+                        let t = new MutationObserver(function (e) {
+                            e.forEach(function (e) {
+                                "attributes" !== e.type ||
+                                    ("style" !== e.attributeName && "class" !== e.attributeName) ||
+                                    setTimeout(repositionWidget, 50);
+                            });
+                        });
+                        setTimeout(function () {
+                            let e = document.querySelector("#launcher");
+                            e &&
+                                (t.observe(e, { attributes: !0, subtree: !0 }),
+                                e.parentElement && t.observe(e.parentElement, { attributes: !0, subtree: !0 }));
+                        }, 1e3);
+                    }
+                }, 100);
+            });
+    }, 4e3);
+}
+function toggleTab(e) {
+    document.querySelectorAll('.tab input[type="checkbox"]').forEach(function (t) {
+        t.id !== e && (t.checked = !1);
+    });
+}
+function addPersistentCSS() {
+    let e = document.createElement("style");
+    (e.textContent =
+        "\n        #launcher,\n        [data-testid='launcher'],\n        .zEWidget-launcher {\n            bottom: 50px !important;\n            left: 5px !important;\n            right: auto !important;\n            transform: none !important;\n        }\n        \n        /* Target the iframe container as well */\n        iframe[title*=\"Chat\"] {\n            position: fixed !important;\n            bottom: 50px !important;\n            left: 5px !important;\n            right: auto !important;\n        }\n    "),
+        document.head.appendChild(e);
+}
+
+addPersistentCSS(),
+    loadZeSnippet();
