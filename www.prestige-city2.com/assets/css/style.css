@@ -3277,7 +3277,8 @@ body {
     align-items: center;
     padding: 6px 0;
     border-bottom: 1px solid var(--bgColorSecondary);
-    line-height: 2
+    line-height: 1.5;
+    gap: 10px;
   }
 
   .price-row:last-child {
