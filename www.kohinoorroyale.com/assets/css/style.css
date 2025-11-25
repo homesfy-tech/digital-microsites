@@ -2299,17 +2299,17 @@ body {
   .amenitiesLightboxTitle,
   .galleryLightboxTitle {
     font-size: 20px;
-    bottom: -50px
+    /* bottom: -50px */
   }
 
   .amenitiesLightboxCounter {
     font-size: 14px;
-    top: auto;
+    /* top: auto;
     bottom: -70px;
     background-color: transparent;
     color: #856d47;
     left: 50%;
-    transform: translateX(-50%)
+    transform: translateX(-50%) */
   }
 
   .price-container {
@@ -2396,12 +2396,12 @@ body {
 
   .galleryLightboxCounter {
     font-size: 14px;
-    top: auto;
+    /* top: auto;
     bottom: -60px;
     left: 50%;
     transform: translateX(-50%);
     background: 0 0;
-    color: #856d47
+    color: #856d47 */
   }
 
   .floorPlanCarousel {
@@ -2837,7 +2837,7 @@ body {
     padding: 0 15px;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    display: flex ;
+    /* display: flex ; */
     justify-content: center;
   }
 

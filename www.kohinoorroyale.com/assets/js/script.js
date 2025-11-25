@@ -282,7 +282,7 @@ class FloorPlanCarousel {
         }
     }
     handleResize() {
-        (this.isMobile = window.innerWidth <= 768),
+        (this.isMobile = window.innerWidth <= 1024),
             this.isMobile
                 ? (this.createIndicators(), this.updateSlidePosition(), this.startAutoSlide())
                 : this.stopAutoSlide();
