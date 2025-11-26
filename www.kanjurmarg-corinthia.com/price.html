@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobha Neopolis Bangalore - Price Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .price-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .price-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .price-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: #ffa500;
+            line-height: 1;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .price-title {
+            font-size: 32px;
+            color: #333;
+            font-weight: 400;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .price-subtitle {
+            color: #ffa500;
+            font-size: 18px;
+            font-weight: 500;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .price-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .price-table-header {
+            background: #fff8e7;
+            border-bottom: 2px solid #fad156;
+        }
+
+        .price-table-header th {
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            border-right: 1px solid #e9ecef;
+        }
+
+        .price-table-header th:last-child {
+            border-right: none;
+        }
+
+        .price-table-row {
+            border-bottom: 1px solid #fad156;
+            transition: background-color 0.3s ease;
+        }
+
+        .price-table-row:hover {
+            background-color: #f8f9fa;
+        }
+
+        .price-table-cell {
+            padding: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            border-right: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+
+        .price-table-cell:last-child {
+            border-right: none;
+        }
+
+        .price-unit-type {
+            font-weight: 600;
+        }
+
+        .price-area {
+            color: #666;
+        }
+
+        .price-amount {
+            font-weight: 700;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .price-view-btn {
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .price-view-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(135deg, #ffa500 0%, #ffb84d 100%);
+            clip-path: polygon(30% 0%, 100% 0%, 70% 100%, 0% 100%);
+        }
+
+        .price-view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .price-view-btn:active {
+            transform: translateY(0);
+        }
+
+        .price-card-layout {
+            display: none;
+            padding: 30px;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .price-card {
+            background: white;
+            border: 1px solid #ffa500;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .price-card-type {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #fff8e7;
+            border-radius: 6px;
+        }
+
+        .price-card-area {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .price-card-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .price-card-btn {
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .price-card-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(135deg, #ffa500 0%, #ffb84d 100%);
+            clip-path: polygon(30% 0%, 100% 0%, 70% 100%, 0% 100%);
+        }
+
+        .price-card-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .price-header {
+                padding: 20px;
+                text-align: center;
+            }
+
+            .price-number {
+                font-size: 36px;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .price-title {
+                font-size: 24px;
+                display: block;
+                margin-left: 0;
+                margin-bottom: 5px;
+            }
+
+            .price-subtitle {
+                display: block;
+                margin-left: 0;
+            }
+
+            .price-table {
+                display: none;
+            }
+
+            .price-card-layout {
+                display: grid;
+                padding: 20px;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .price-card {
+                padding: 18px;
+            }
+
+            .price-card-type {
+                font-size: 16px;
+                margin-bottom: 12px;
+                padding: 8px;
+            }
+
+            .price-card-area {
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+
+            .price-card-amount {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+
+            .price-card-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .price-card-layout {
+                grid-template-columns: 1fr 1fr;
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .price-card {
+                padding: 15px;
+            }
+
+            .price-card-type {
+                font-size: 14px;
+                margin-bottom: 10px;
+                padding: 6px;
+            }
+
+            .price-card-area {
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+
+            .price-card-amount {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+
+            .price-card-btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+
+            .price-number {
+                font-size: 28px;
+            }
+
+            .price-title {
+                font-size: 20px;
+            }
+
+            .price-subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="price-container">
+        <div class="price-header">
+            <span class="price-number">05</span>
+            <span class="price-title">Sobha Neopolis Bangalore</span>
+            <span class="price-subtitle">Price Plan</span>
+        </div>
+
+        <!-- Desktop Table Layout -->
+        <div class="price-table-wrapper">
+            <table class="price-table">
+                <thead class="price-table-header">
+                    <tr>
+                        <th>UNIT TOPOLOGY</th>
+                        <th>SUPER BUILT UP AREA</th>
+                        <th>PRICE</th>
+                        <th>PRICE SHEET</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="price-table-row">
+                        <td class="price-table-cell price-unit-type">3 BHK + 2T</td>
+                        <td class="price-table-cell price-area">1611 Sq.Ft.</td>
+                        <td class="price-table-cell price-amount">₹ 2.35 Cr*</td>
+                        <td class="price-table-cell">
+                            <button class="price-view-btn" onclick="handleViewClick('3BHK+2T')">view</button>
+                        </td>
+                    </tr>
+                    <tr class="price-table-row">
+                        <td class="price-table-cell price-unit-type">3 BHK</td>
+                        <td class="price-table-cell price-area">1705 Sq.ft</td>
+                        <td class="price-table-cell price-amount">₹ 2.49 Cr*</td>
+                        <td class="price-table-cell">
+                            <button class="price-view-btn" onclick="handleViewClick('3BHK')">view</button>
+                        </td>
+                    </tr>
+                    <tr class="price-table-row">
+                        <td class="price-table-cell price-unit-type">3 BHK + 3T</td>
+                        <td class="price-table-cell price-area">1915 Sq.Ft.</td>
+                        <td class="price-table-cell price-amount">₹ 2.70 Cr*</td>
+                        <td class="price-table-cell">
+                            <button class="price-view-btn" onclick="handleViewClick('3BHK+3T')">view</button>
+                        </td>
+                    </tr>
+                    <tr class="price-table-row">
+                        <td class="price-table-cell price-unit-type">4 BHK</td>
+                        <td class="price-table-cell price-area">2481 Sq.Ft.</td>
+                        <td class="price-table-cell price-amount">₹ 3.60 Cr*</td>
+                        <td class="price-table-cell">
+                            <button class="price-view-btn" onclick="handleViewClick('4BHK')">view</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mobile Card Layout -->
+        <div class="price-card-layout">
+            <div class="price-card">
+                <div class="price-card-type">3 BHK + 2T</div>
+                <div class="price-card-area">1611 Sq.Ft.</div>
+                <div class="price-card-amount">₹ 2.35 Cr*</div>
+                <button class="price-card-btn" onclick="handleViewClick('3BHK+2T')">view</button>
+            </div>
+            
+            <div class="price-card">
+                <div class="price-card-type">3 BHK</div>
+                <div class="price-card-area">1705 Sq.ft</div>
+                <div class="price-card-amount">₹ 2.49 Cr*</div>
+                <button class="price-card-btn" onclick="handleViewClick('3BHK')">view</button>
+            </div>
+            
+            <div class="price-card">
+                <div class="price-card-type">3 BHK + 3T</div>
+                <div class="price-card-area">1915 Sq.Ft.</div>
+                <div class="price-card-amount">₹ 2.70 Cr*</div>
+                <button class="price-card-btn" onclick="handleViewClick('3BHK+3T')">view</button>
+            </div>
+            
+            <div class="price-card">
+                <div class="price-card-type">4 BHK</div>
+                <div class="price-card-area">2481 Sq.Ft.</div>
+                <div class="price-card-amount">₹ 3.60 Cr*</div>
+                <button class="price-card-btn" onclick="handleViewClick('4BHK')">view</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleViewClick(unitType) {
+            // Add click animation
+            event.target.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.target.style.transform = '';
+            }, 150);
+
+            // Handle the view action
+            alert(`Viewing details for ${unitType} unit`);
+            
+            // You can replace this with actual functionality like:
+            // window.open('price-sheet.pdf', '_blank');
+            // or navigate to a detailed page
+            // window.location.href = `/unit-details/${unitType}`;
+        }
+
+        // Add smooth hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.price-view-btn, .price-card-btn');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add table row hover effects
+            const rows = document.querySelectorAll('.price-table-row');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#f8f9fa';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+        });
+
+        // Handle window resize for responsive behavior
+        window.addEventListener('resize', function() {
+            // Any additional responsive logic can go here
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                document.querySelector('.price-table').style.display = 'none';
+                document.querySelector('.price-card-layout').style.display = 'grid';
+            } else {
+                document.querySelector('.price-table').style.display = 'table';
+                document.querySelector('.price-card-layout').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

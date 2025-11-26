@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adobe Style PDF Download Buttons</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Desktop Horizontal Button (Right Bottom) */
+        .pdf-download-btn-desktop {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            z-index: 1000;
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            padding: 0;
+            cursor: pointer;
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.12),
+                0 4px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            overflow: hidden;
+            animation: desktopFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes desktopFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-8px) scale(1.02);
+            }
+        }
+
+        .pdf-download-btn-desktop:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.2),
+                0 8px 16px rgba(0, 0, 0, 0.12);
+            border-color: #ff4444;
+            animation-play-state: paused;
+        }
+
+        .pdf-download-btn-desktop:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        /* Desktop Text Section */
+        .desktop-text {
+            padding: 15px 25px;
+            color: #333;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.2;
+        }
+
+        .desktop-title {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 2px;
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        .desktop-subtitle {
+            display: block;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% {
+                color: #333;
+            }
+            50% {
+                color: #ff4444;
+            }
+        }
+
+        /* Desktop PDF Icon */
+        .desktop-pdf-icon {
+            background: #ff4444;
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0;
+            position: relative;
+            overflow: hidden;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                background: #ff4444;
+                box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4);
+            }
+            50% {
+                background: #ff6666;
+                box-shadow: 0 0 0 8px rgba(255, 68, 68, 0);
+            }
+        }
+
+        .desktop-pdf-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: desktopShine 2.5s ease-in-out infinite;
+        }
+
+        @keyframes desktopShine {
+            0% {
+                transform: rotate(45deg) translate(-100%, -100%);
+            }
+            50% {
+                transform: rotate(45deg) translate(100%, 100%);
+            }
+            100% {
+                transform: rotate(45deg) translate(-100%, -100%);
+            }
+        }
+
+        .desktop-pdf-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Mobile Vertical Button (Left Center) */
+        .pdf-download-btn-mobile {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            padding: 0;
+            cursor: pointer;
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.12),
+                0 4px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            overflow: hidden;
+            animation: mobileFloat 3.5s ease-in-out infinite;
+        }
+
+        @keyframes mobileFloat {
+            0%, 100% {
+                transform: translateY(-50%) translateX(0);
+            }
+            50% {
+                transform: translateY(-50%) translateX(10px);
+            }
+        }
+
+        .pdf-download-btn-mobile:hover {
+            transform: translateY(-50%) scale(1.08) rotate(-2deg);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.2),
+                0 8px 16px rgba(0, 0, 0, 0.12);
+            border-color: #ff4444;
+            animation-play-state: paused;
+        }
+
+        .pdf-download-btn-mobile:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        /* Mobile PDF Icon */
+        .mobile-pdf-icon {
+            background: #ff4444;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+            animation: mobileIconSpin 4s linear infinite;
+        }
+
+        @keyframes mobileIconSpin {
+            0% {
+                transform: rotate(0deg);
+                background: #ff4444;
+            }
+            25% {
+                background: #ff6666;
+            }
+            50% {
+                transform: rotate(180deg);
+                background: #ff4444;
+            }
+            75% {
+                background: #ff6666;
+            }
+            100% {
+                transform: rotate(360deg);
+                background: #ff4444;
+            }
+        }
+
+        .mobile-pdf-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: mobileRipple 2s ease-out infinite;
+        }
+
+        @keyframes mobileRipple {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 80px;
+                height: 80px;
+                opacity: 0;
+            }
+        }
+
+        .mobile-pdf-icon svg {
+            width: 26px;
+            height: 26px;
+            fill: white;
+            z-index: 2;
+            position: relative;
+            animation: iconBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Mobile Text Section */
+        .mobile-text {
+            padding: 20px 12px;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.3;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .mobile-title {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            animation: mobileTextGlow 2.5s ease-in-out infinite alternate;
+        }
+
+        .mobile-subtitle {
+            display: block;
+            font-size: 12px;
+            color: #666;
+        }
+
+        @keyframes mobileTextGlow {
+            0% {
+                color: #333;
+                text-shadow: none;
+            }
+            100% {
+                color: #ff4444;
+                text-shadow: 0 0 8px rgba(255, 68, 68, 0.3);
+            }
+        }
+
+        /* Adobe PDF Logo SVG */
+        .adobe-pdf-logo {
+            animation: logoBreath 3s ease-in-out infinite;
+        }
+
+        @keyframes logoBreath {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Sparkle Effects */
+        .sparkle-effect {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .desktop-sparkle-1 {
+            top: 10px;
+            right: 80px;
+            animation-delay: 0s;
+        }
+
+        .desktop-sparkle-2 {
+            bottom: 10px;
+            right: 120px;
+            animation-delay: 0.7s;
+        }
+
+        .desktop-sparkle-3 {
+            top: 30px;
+            right: 140px;
+            animation-delay: 1.4s;
+        }
+
+        .mobile-sparkle-1 {
+            top: 15px;
+            left: 60px;
+            animation-delay: 0.3s;
+        }
+
+        .mobile-sparkle-2 {
+            bottom: 80px;
+            right: 15px;
+            animation-delay: 1s;
+        }
+
+        .mobile-sparkle-3 {
+            top: 80px;
+            right: 60px;
+            animation-delay: 1.7s;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1) rotate(180deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 769px) {
+            .pdf-download-btn-desktop {
+                display: flex;
+            }
+            .pdf-download-btn-mobile {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pdf-download-btn-desktop {
+                display: none;
+            }
+            .pdf-download-btn-mobile {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-download-btn-mobile {
+                left: 15px;
+            }
+            
+            .mobile-pdf-icon {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .mobile-pdf-icon svg {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .mobile-text {
+                padding: 18px 10px;
+            }
+            
+            .mobile-title {
+                font-size: 13px;
+            }
+            
+            .mobile-subtitle {
+                font-size: 11px;
+            }
+        }
+
+        /* Click ripple effect */
+        .click-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 68, 68, 0.3);
+            transform: scale(0);
+            animation: clickRippleAnim 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes clickRippleAnim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop Horizontal Button (Right Bottom) -->
+    <a href="#" class="pdf-download-btn-desktop" id="desktopBtn">
+        <div class="sparkle-effect desktop-sparkle-1"></div>
+        <div class="sparkle-effect desktop-sparkle-2"></div>
+        <div class="sparkle-effect desktop-sparkle-3"></div>
+        
+        <div class="desktop-text">
+            <span class="desktop-title">Download</span>
+            <span class="desktop-subtitle">Brochure</span>
+        </div>
+        <div class="desktop-pdf-icon">
+            <svg class="adobe-pdf-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Adobe-style PDF icon -->
+                <path d="M5 4C5 3.44772 5.44772 3 6 3H14V7C14 7.55228 14.4477 8 15 8H19V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V4Z" fill="#FF2A00"/>
+                <path d="M19 7L15 3V7H19Z" fill="#FF2A00" fill-opacity="0.7"/>
+                <path d="M8.5 15H7V10H8.5C9.05228 10 9.5 10.4477 9.5 11V14C9.5 14.5523 9.05228 15 8.5 15Z" fill="white"/>
+                <path d="M13.5 15H12V10H13.5C14.0523 10 14.5 10.4477 14.5 11V14C14.5 14.5523 14.0523 15 13.5 15Z" fill="white"/>
+                <path d="M17.5 15H16V10H17.5C18.0523 10 18.5 10.4477 18.5 11V14C18.5 14.5523 18.0523 15 17.5 15Z" fill="white"/>
+                <path d="M9.5 11H8.5V14H9.5V11Z" fill="white"/>
+                <path d="M14.5 11H13.5V14H14.5V11Z" fill="white"/>
+                <path d="M18.5 11H17.5V14H18.5V11Z" fill="white"/>
+                <path d="M10.5 11H9.5V10H10.5C11.0523 10 11.5 10.4477 11.5 11V11.5C11.5 12.0523 11.0523 12.5 10.5 12.5H10V11H10.5Z" fill="white"/>
+            </svg>
+        </div>
+    </a>
+
+    <!-- Mobile Vertical Button (Left Center) -->
+    <a href="#" class="pdf-download-btn-mobile" id="mobileBtn">
+        <div class="sparkle-effect mobile-sparkle-1"></div>
+        <div class="sparkle-effect mobile-sparkle-2"></div>
+        <div class="sparkle-effect mobile-sparkle-3"></div>
+        
+        <div class="mobile-pdf-icon">
+            <svg class="adobe-pdf-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Adobe-style PDF icon -->
+                <path d="M5 4C5 3.44772 5.44772 3 6 3H14V7C14 7.55228 14.4477 8 15 8H19V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V4Z" fill="#FF2A00"/>
+                <path d="M19 7L15 3V7H19Z" fill="#FF2A00" fill-opacity="0.7"/>
+                <path d="M8.5 15H7V10H8.5C9.05228 10 9.5 10.4477 9.5 11V14C9.5 14.5523 9.05228 15 8.5 15Z" fill="white"/>
+                <path d="M13.5 15H12V10H13.5C14.0523 10 14.5 10.4477 14.5 11V14C14.5 14.5523 14.0523 15 13.5 15Z" fill="white"/>
+                <path d="M17.5 15H16V10H17.5C18.0523 10 18.5 10.4477 18.5 11V14C18.5 14.5523 18.0523 15 17.5 15Z" fill="white"/>
+                <path d="M9.5 11H8.5V14H9.5V11Z" fill="white"/>
+                <path d="M14.5 11H13.5V14H14.5V11Z" fill="white"/>
+                <path d="M18.5 11H17.5V14H18.5V11Z" fill="white"/>
+                <path d="M10.5 11H9.5V10H10.5C11.0523 10 11.5 10.4477 11.5 11V11.5C11.5 12.0523 11.0523 12.5 10.5 12.5H10V11H10.5Z" fill="white"/>
+            </svg>
+        </div>
+        <div class="mobile-text">
+            <span class="mobile-title">Download</span>
+            <span class="mobile-subtitle">Brochure</span>
+        </div>
+    </a>
+
+    <script>
+        // Enhanced click functionality with ripple effect
+        function addClickEffect(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const rect = this.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.className = 'click-ripple';
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                this.appendChild(ripple);
+                
+                // Enhanced click animation
+                this.style.transform = this.classList.contains('pdf-download-btn-desktop') 
+                    ? 'translateY(-2px) scale(0.95) rotate(2deg)' 
+                    : 'translateY(-50%) scale(0.9) rotate(-5deg)';
+                
+                setTimeout(() => {
+                    this.style.transform = this.classList.contains('pdf-download-btn-desktop')
+                        ? 'translateY(-5px) scale(1.05)'
+                        : 'translateY(-50%) scale(1.08) rotate(-2deg)';
+                }, 100);
+                
+                setTimeout(() => {
+                    this.style.transform = '';
+                    ripple.remove();
+                }, 300);
+                
+                // Create burst particles
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        createBurstParticle(this, e.clientX, e.clientY);
+                    }, i * 30);
+                }
+                
+                // Simulate download
+                setTimeout(() => {
+                    alert('PDF Brochure download would start here!\n\nReplace this with your actual download logic.');
+                }, 400);
+            });
+        }
+
+        // Create burst particle effect
+        function createBurstParticle(button, clickX, clickY) {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: linear-gradient(45deg, #ff4444, #ff6666);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1001;
+                box-shadow: 0 0 6px rgba(255, 68, 68, 0.6);
+            `;
+            
+            particle.style.left = clickX + 'px';
+            particle.style.top = clickY + 'px';
+            
+            document.body.appendChild(particle);
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 60 + Math.random() * 80;
+            const endX = clickX + Math.cos(angle) * distance;
+            const endY = clickY + Math.sin(angle) * distance;
+            
+            particle.animate([
+                { 
+                    transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', 
+                    opacity: 1 
+                },
+                { 
+                    transform: `translate(${endX - clickX}px, ${endY - clickY}px) scale(0) rotate(360deg)`, 
+                    opacity: 0 
+                }
+            ], {
+                duration: 1000,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }).onfinish = () => {
+                document.body.removeChild(particle);
+            };
+        }
+
+        // Add click effects to both buttons
+        addClickEffect(document.getElementById('desktopBtn'));
+        addClickEffect(document.getElementById('mobileBtn'));
+
+        // Add entrance animation
+        window.addEventListener('load', function() {
+            const desktopBtn = document.getElementById('desktopBtn');
+            const mobileBtn = document.getElementById('mobileBtn');
+            
+            // Desktop entrance from right
+            desktopBtn.style.transform = 'translateX(200px)';
+            desktopBtn.style.opacity = '0';
+            
+            setTimeout(() => {
+                desktopBtn.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                desktopBtn.style.transform = 'translateX(0)';
+                desktopBtn.style.opacity = '1';
+            }, 500);
+            
+            // Mobile entrance from left
+            mobileBtn.style.transform = 'translateY(-50%) translateX(-200px)';
+            mobileBtn.style.opacity = '0';
+            
+            setTimeout(() => {
+                mobileBtn.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                mobileBtn.style.transform = 'translateY(-50%) translateX(0)';
+                mobileBtn.style.opacity = '1';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
