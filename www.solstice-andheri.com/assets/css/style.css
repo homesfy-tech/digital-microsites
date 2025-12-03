@@ -3566,7 +3566,8 @@ body {
   }
 
   .aboutSectionQr img {
-    height: 80px !important
+    height: 80px !important;
+    width: auto;
   }
 
   .amenitiesLightboxCounter {
