@@ -1,0 +1,154 @@
+
+
+
+/* Colour theme for Godrej Green */
+
+.Godrej-Green{
+    --Primary-color: #6b8d14;
+    --tab-color: #84af1d;
+    --Secondary-color: #b1175a;
+    --button-color: #6b8d14;
+    --button-hover-color: #485f0d;
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter:  invert(54%) sepia(55%) saturate(618%) hue-rotate(48deg) brightness(118%) contrast(91%);
+    --amenities-filter:invert(54%) sepia(55%) saturate(618%) hue-rotate(37deg) brightness(118%) contrast(91%);
+    --font-family:"Outfit";
+}
+
+/* Colour theme for Godrej Blue */
+
+.Godrej-blue{
+    --Primary-color: #29759f;
+    --tab-color: #3b96c9;
+    --Secondary-color: #b11b5c;
+    --button-color: #29759f;
+    --button-hover-color: #125072;
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter: invert(0.5) sepia(1) saturate(5) hue-rotate(161deg);
+    --amenities-filter:invert(0.5) sepia(1) saturate(5) hue-rotate(161deg);
+    --font-family:"Outfit";
+}
+
+/* color theme for Lodha yellow*/
+
+.lodha-yellow{
+    --Primary-color: #a68d2b;
+    --tab-color: #c7aa3a;
+    --Secondary-color: #5e4e0f;
+    --button-color: #a68d2b;
+    --button-hover-color: #786517;
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter: invert(89%) sepia(14%) saturate(4867%) hue-rotate(234deg) brightness(102%) contrast(105%);
+    --amenities-filter:invert(89%) sepia(14%) saturate(4867%) hue-rotate(357deg) brightness(102%) contrast(105%);
+    --font-family:"Outfit";
+}
+
+/* Colour theme for L&T  */
+
+.lnt-blue{
+    --Primary-color: #07518c;
+    --tab-color: #247dc5;
+    --Secondary-color: #ffcf3c;
+    --button-color: #1468ab;
+    --button-hover-color: #b58d14;
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter: invert(89%) sepia(14%) saturate(4867%) hue-rotate(37deg) brightness(102%) contrast(105%);
+    --amenities-filter:invert(81%) sepia(14%) saturate(4867%) hue-rotate(174deg) brightness(96%) contrast(105%);
+    --globle-font:  Outfit;
+    --font-family:"Outfit";
+}
+
+/* Colour theme for TVS green */
+
+.tvs-green{
+    --Primary-color: #568232;
+    --tab-color: #80bd4f;
+    --Secondary-color: #173c7c;
+    --button-color: #568232;
+    --button-hover-color: #3c5c50;
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter:  invert(89%) sepia(14%) saturate(4867%) hue-rotate(260deg) brightness(102%) contrast(105%);
+    --amenities-filter:invert(89%) sepia(14%) saturate(4867%) hue-rotate(21deg) brightness(102%) contrast(105%);
+    --font-family:"Outfit";
+
+}
+
+/* Colour theme for Arihant Orange */
+
+.Arihant-Orange{
+    --Primary-color: #d7722a;
+    --tab-color: #eb8943;
+    --Secondary-color: #5c4994;
+    --button-color: #d7722a;
+    --button-hover-color: #b35d20;
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter:  invert(89%) sepia(14%) saturate(4867%) hue-rotate(199deg) brightness(87%) contrast(105%);
+    --amenities-filter:invert(89%) sepia(14%) saturate(4867%) hue-rotate(327deg) brightness(98%) contrast(105%);
+    --font-family:"Outfit";
+}
+
+/* color theme for Blue*/
+
+.Blue-theme{
+    --Primary-color: #29a9d7;
+    --tab-color: #29a9d7;
+    --Secondary-color: #0d6b8d;
+    --button-color: #29a9d7;
+    --button-hover-color: #0d6b8d;
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter: invert(54%) sepia(55%) saturate(618%) hue-rotate(150deg) brightness(95%) contrast(91%);
+    --amenities-filter:invert(54%) sepia(55%) saturate(618%) hue-rotate(150deg) brightness(95%) contrast(91%)
+    --font-family:"Outfit";
+}
+
+/* color theme for Green*/
+
+.Green-theme{
+    --Primary-color: #04793d;
+    --tab-color: #1fb567;
+    --Secondary-color:  #21b96b;
+    --button-color: #04793d;
+    --button-hover-color: #094e2b;
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter:brightness(0) saturate(100%) invert(54%) sepia(55%) saturate(618%) hue-rotate(87deg) brightness(95%) contrast(91%);
+    --amenities-filter:brightness(0) saturate(100%) invert(54%) sepia(55%) saturate(618%) hue-rotate(77deg) brightness(95%) contrast(91%);
+    --font-family:"Outfit";
+}
+
+/* color theme for Purple*/
+
+.Purple-theme{
+    --Primary-color: rgb(166 85 142);
+    --tab-color: rgb(211 126 186);
+    --Secondary-color:  rgb(120 35 135);
+    --button-color: rgb(166 85 142);
+    --button-hover-color: rgb(118 30 93);
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter:invert(89%) sepia(14%) saturate(4867%) hue-rotate(137deg) brightness(102%) contrast(105%);
+    --amenities-filter:invert(89%) sepia(14%) saturate(4867%) hue-rotate(232deg) brightness(102%) contrast(105%);
+    --font-family:"Outfit";
+}
+
+/* color theme for Orange*/
+
+.Orange-theme{
+    --Primary-color: #d7722a;
+    --tab-color: #eb8943;
+    --Secondary-color: #ad5618;
+    --button-color: #d7722a;
+    --button-hover-color: #b35d20;
+    --button-text-color:#fff;
+    --button-text-hover-color:#fff;
+    --pricing-filter:  invert(89%) sepia(14%) saturate(4867%) hue-rotate(199deg) brightness(87%) contrast(105%);
+    --amenities-filter:invert(89%) sepia(14%) saturate(4867%) hue-rotate(327deg) brightness(98%) contrast(105%);
+    --font-family:"Outfit";
+}
